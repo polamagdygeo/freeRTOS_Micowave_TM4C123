@@ -1,0 +1,260 @@
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../driverlib/epi_workaround_ccs.s                                    PAGE    1
+
+       1                    ;*****************************************************************************
+       2                    ;
+       3                    ; epi_workaround_ccs.s - EPI memory access functions.
+       4                    ;
+       5                    ; Copyright (c) 2013-2020 Texas Instruments Incorporated.  All rights reserved.
+       6                    ; Software License Agreement
+       7                    ; 
+       8                    ;   Redistribution and use in source and binary forms, with or without
+       9                    ;   modification, are permitted provided that the following conditions
+      10                    ;   are met:
+      11                    ; 
+      12                    ;   Redistributions of source code must retain the above copyright
+      13                    ;   notice, this list of conditions and the following disclaimer.
+      14                    ; 
+      15                    ;   Redistributions in binary form must reproduce the above copyright
+      16                    ;   notice, this list of conditions and the following disclaimer in the
+      17                    ;   documentation and/or other materials provided with the  
+      18                    ;   distribution.
+      19                    ; 
+      20                    ;   Neither the name of Texas Instruments Incorporated nor the names of
+      21                    ;   its contributors may be used to endorse or promote products derived
+      22                    ;   from this software without specific prior written permission.
+      23                    ; 
+      24                    ; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+      25                    ; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+      26                    ; LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+      27                    ; A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+      28                    ; OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+      29                    ; SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+      30                    ; LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+      31                    ; DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+      32                    ; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+      33                    ; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      34                    ; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      35                    ; 
+      36                    ; This is part of revision 2.2.0.295 of the Tiva Peripheral Driver Library.
+      37                    ;
+      38                    ;*****************************************************************************
+      39                    
+      40                    ;*****************************************************************************
+      41                    ;
+      42                    ; void EPIWorkaroundWordWrite(uint32_t *pui32Addr, uint32_t ui32Value)
+      43                    ;
+      44                    ;*****************************************************************************
+      45 00000000               .sect ".text:EPIWorkaroundWordWrite"
+      46                        .global EPIWorkaroundWordWrite
+      47 00000000           EPIWorkaroundWordWrite:
+      48                        ;
+      49                        ; Include a no-op to ensure that we don't have a flash data access
+      50                        ; immediately before the EPI access.
+      51                        ;
+      52 00000000 BF00          nop ; [ORIG 16-BIT INS]
+      53                    
+      54                        ;
+      55                        ; Store the word in EPI memory.
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../driverlib/epi_workaround_ccs.s                                    PAGE    2
+
+      56                        ;
+      57 00000002 6001          str r1, [r0] ; [ORIG 16-BIT INS]
+      58                    
+      59                        ;
+      60                        ; Make a dummy read from the stack to ensure that we don't have a flash
+      61                        ; data access immediately after the EPI access.
+      62                        ;
+      63 00000004 9900          ldr r1, [sp] ; [ORIG 16-BIT INS]
+      64                    
+      65                        ;
+      66                        ; Return to the caller.
+      67                        ;
+      68 00000006 4770          bx lr ; [ORIG 16-BIT INS]
+      69                    
+      70                        .align 4
+      71                    
+      72                    ;*****************************************************************************
+      73                    ;
+      74                    ; uint32_t EPIWorkaroundWordRead(uint32_t *pui32Addr)
+      75                    ;
+      76                    ;*****************************************************************************
+      77 00000000               .sect ".text:EPIWorkaroundWordRead"
+      78                        .global EPIWorkaroundWordRead
+      79 00000000           EPIWorkaroundWordRead:
+      80                        ;
+      81                        ; Include a no-op to ensure that we don't have a flash data access
+      82                        ; immediately before the EPI access.
+      83                        ;
+      84 00000000 BF00          nop ; [ORIG 16-BIT INS]
+      85                    
+      86                        ;
+      87                        ; Read the word from EPI memory.
+      88                        ;
+      89 00000002 6800          ldr r0, [r0] ; [ORIG 16-BIT INS]
+      90                    
+      91                        ;
+      92                        ; Make a dummy read from the stack to ensure that we don't have a flash
+      93                        ; data access immediately after the EPI access.
+      94                        ;
+      95 00000004 9900          ldr r1, [r13] ; [ORIG 16-BIT INS]
+      96                    
+      97                        ;
+      98                        ; Return to the caller.
+      99                        ;
+     100 00000006 4770          bx lr ; [ORIG 16-BIT INS]
+     101                    
+     102                        .align 4
+     103                    
+     104                    
+     105                    ;*****************************************************************************
+     106                    ;
+     107                    ; void EPIWorkaroundHWordWrite(uint16_t *pui16Addr, uint16_t ui16Value)
+     108                    ;
+     109                    ;*****************************************************************************
+     110 00000000               .sect ".text:EPIWorkaroundHWordWrite"
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../driverlib/epi_workaround_ccs.s                                    PAGE    3
+
+     111                        .global EPIWorkaroundHWordWrite
+     112 00000000           EPIWorkaroundHWordWrite:
+     113                        ;
+     114                        ; Include a no-op to ensure that we don't have a flash data access
+     115                        ; immediately before the EPI access.
+     116                        ;
+     117 00000000 BF00          nop ; [ORIG 16-BIT INS]
+     118                    
+     119                        ;
+     120                        ; Store the word in EPI memory.
+     121                        ;
+     122 00000002 8001          strh r1, [r0] ; [ORIG 16-BIT INS]
+     123                    
+     124                        ;
+     125                        ; Make a dummy read from the stack to ensure that we don't have a flash
+     126                        ; data access immediately after the EPI access.
+     127                        ;
+     128 00000004 9900          ldr r1, [sp] ; [ORIG 16-BIT INS]
+     129                    
+     130                        ;
+     131                        ; Return to the caller.
+     132                        ;
+     133 00000006 4770          bx lr ; [ORIG 16-BIT INS]
+     134                    
+     135                        .align 4
+     136                    
+     137                    ;*****************************************************************************
+     138                    ;
+     139                    ; uint16_t EPIWorkaroundHWordRead(uint16_t *pui16Addr)
+     140                    ;
+     141                    ;*****************************************************************************
+     142 00000000               .sect ".text:EPIWorkaroundHWordRead"
+     143                        .global EPIWorkaroundHWordRead
+     144 00000000           EPIWorkaroundHWordRead:
+     145                        ;
+     146                        ; Include a no-op to ensure that we don't have a flash data access
+     147                        ; immediately before the EPI access.
+     148                        ;
+     149 00000000 BF00          nop ; [ORIG 16-BIT INS]
+     150                    
+     151                        ;
+     152                        ; Read the half word from EPI memory.
+     153                        ;
+     154 00000002 8800          ldrh r0, [r0] ; [ORIG 16-BIT INS]
+     155                    
+     156                        ;
+     157                        ; Make a dummy read from the stack to ensure that we don't have a flash
+     158                        ; data access immediately after the EPI access.
+     159                        ;
+     160 00000004 9900          ldr r1, [r13] ; [ORIG 16-BIT INS]
+     161                    
+     162                        ;
+     163                        ; Return to the caller.
+     164                        ;
+     165 00000006 4770          bx lr ; [ORIG 16-BIT INS]
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../driverlib/epi_workaround_ccs.s                                    PAGE    4
+
+     166                    
+     167                        .align 4
+     168                    
+     169                    ;*****************************************************************************
+     170                    ;
+     171                    ; void EPIWorkaroundByteWrite(uint8_t *pui8Addr, uint8_t ui8Value)
+     172                    ;
+     173                    ;*****************************************************************************
+     174 00000000               .sect ".text:EPIWorkaroundByteWrite"
+     175                        .global EPIWorkaroundByteWrite
+     176 00000000           EPIWorkaroundByteWrite:
+     177                        ;
+     178                        ; Include a no-op to ensure that we don't have a flash data access
+     179                        ; immediately before the EPI access.
+     180                        ;
+     181 00000000 BF00          nop ; [ORIG 16-BIT INS]
+     182                    
+     183                        ;
+     184                        ; Store the byte in EPI memory.
+     185                        ;
+     186 00000002 7001          strb r1, [r0] ; [ORIG 16-BIT INS]
+     187                    
+     188                        ;
+     189                        ; Make a dummy read from the stack to ensure that we don't have a flash
+     190                        ; data access immediately after the EPI access.
+     191                        ;
+     192 00000004 9900          ldr r1, [sp] ; [ORIG 16-BIT INS]
+     193                    
+     194                        ;
+     195                        ; Return to the caller.
+     196                        ;
+     197 00000006 4770          bx lr ; [ORIG 16-BIT INS]
+     198                    
+     199                        .align 4
+     200                    
+     201                    ;*****************************************************************************
+     202                    ;
+     203                    ; uint8_t EPIWorkaroundByteRead(uint8_t *pui8Addr)
+     204                    ;
+     205                    ;*****************************************************************************
+     206 00000000               .sect ".text:EPIWorkaroundByteRead"
+     207                        .global EPIWorkaroundByteRead
+     208 00000000           EPIWorkaroundByteRead:
+     209                        ;
+     210                        ; Include a no-op to ensure that we don't have a flash data access
+     211                        ; immediately before the EPI access.
+     212                        ;
+     213 00000000 BF00          nop ; [ORIG 16-BIT INS]
+     214                    
+     215                        ;
+     216                        ; Read the byte from EPI memory.
+     217                        ;
+     218 00000002 7800          ldrb r0, [r0] ; [ORIG 16-BIT INS]
+     219                    
+     220                        ;
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../driverlib/epi_workaround_ccs.s                                    PAGE    5
+
+     221                        ; Make a dummy read from the stack to ensure that we don't have a flash
+     222                        ; data access immediately after the EPI access.
+     223                        ;
+     224 00000004 9900          ldr r1, [r13] ; [ORIG 16-BIT INS]
+     225                    
+     226                        ;
+     227                        ; Return to the caller.
+     228                        ;
+     229 00000006 4770          bx lr ; [ORIG 16-BIT INS]
+     230                    
+     231                        .align 4
+     232                    
+     233 00000008           .end
+
+No Assembly Errors, No Assembly Warnings

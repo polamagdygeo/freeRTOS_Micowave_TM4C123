@@ -1,0 +1,199 @@
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:22 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../OS/portasm.asm                                                    PAGE    1
+
+       1                    ;/*
+       2                    ; * FreeRTOS Kernel V10.1.1
+       3                    ; * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+       4                    ; *
+       5                    ; * Permission is hereby granted, free of charge, to any person obtaining a copy of
+       6                    ; * this software and associated documentation files (the "Software"), to deal in
+       7                    ; * the Software without restriction, including without limitation the rights to
+       8                    ; * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+       9                    ; * the Software, and to permit persons to whom the Software is furnished to do so,
+      10                    ; * subject to the following conditions:
+      11                    ; *
+      12                    ; * The above copyright notice and this permission notice shall be included in all
+      13                    ; * copies or substantial portions of the Software.
+      14                    ; *
+      15                    ; * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      16                    ; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+      17                    ; * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+      18                    ; * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+      19                    ; * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+      20                    ; * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+      21                    ; *
+      22                    ; * http://www.FreeRTOS.org
+      23                    ; * http://aws.amazon.com/freertos
+      24                    ; *
+      25                    ; * 1 tab == 4 spaces!
+      26                    ; */
+      27                    
+      28 00000000                   .thumb
+      29                    
+      30                            .ref pxCurrentTCB
+      31                            .ref vTaskSwitchContext
+      32                            .ref ulMaxSyscallInterruptPriority
+      33                    
+      34                            .def xPortPendSVHandler
+      35                            .def ulPortGetIPSR
+      36                            .def vPortSVCHandler
+      37                            .def vPortStartFirstTask
+      38                            .def vPortEnableVFP
+      39                    
+      40 00000000 E000ED08  NVICOffsetConst:                                        .word   0xE000ED08
+      41 00000004 E000ED88  CPACRConst:                                                     .word   0xE000ED88
+      42 00000008 00000000! pxCurrentTCBConst:                                      .word   pxCurrentTCB
+      43 0000000c 00000000! ulMaxSyscallInterruptPriorityConst: .word ulMaxSyscallInterruptPriority
+      44                    
+      45                    ; -----------------------------------------------------------
+      46                    
+      47                            .align 4
+      48                    ulPortGetIPSR: .asmfunc
+      49 00000010 8005F3EF          mrs r0, ipsr ; [KEEP 32-BIT INS]
+      50 00000014 4770              bx r14 ; [ORIG 16-BIT INS]
+      51                            .endasmfunc
+      52                     ; -----------------------------------------------------------
+      53                    
+      54                            .align 4
+      55                    vPortSetInterruptMask: .asmfunc
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:22 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../OS/portasm.asm                                                    PAGE    2
+
+      56 00000018 B401              push {r0} ; [ORIG 16-BIT INS]
+      57 0000001a 0010F85F          ldr r0, ulMaxSyscallInterruptPriorityConst ; [KEEP 32-BIT INS]
+      58 0000001e 8811F380          msr basepri, r0 ; [KEEP 32-BIT INS]
+      59 00000022 BC01              pop {r0} ; [ORIG 16-BIT INS]
+      60 00000024 4770              bx r14 ; [ORIG 16-BIT INS]
+      61                            .endasmfunc
+      62                    ; -----------------------------------------------------------
+      63                    
+      64                            .align 4
+      65                    xPortPendSVHandler: .asmfunc
+      66 00000028 8009F3EF          mrs r0, psp ; [KEEP 32-BIT INS]
+      67 0000002c 8F6FF3BF          isb ; [KEEP 32-BIT INS]
+      68                    
+      69                            ;/* Get the location of the current TCB. */
+      70 00000030 302CF85F          ldr     r3, pxCurrentTCBConst ; [KEEP 32-BIT INS]
+      71 00000034 681A              ldr     r2, [r3] ; [ORIG 16-BIT INS]
+      72                    
+      73                            ;/* Is the task using the FPU context?  If so, push high vfp registers. */
+      74 00000036 0F10F01E          tst r14, #0x10 ; [KEEP 32-BIT INS]
+      75 0000003a BF08              it eq ; [ORIG 16-BIT INS]
+      76 0000003c 8A10ED20          vstmdbeq r0!, {s16-s31} ; [KEEP 32-BIT INS]
+      77                    
+      78                            ;/* Save the core registers. */
+      79 00000040 4FF0E920          stmdb r0!, {r4-r11, r14} ; [KEEP 32-BIT INS]
+      80                    
+      81                            ;/* Save the new top of stack into the first member of the TCB. */
+      82 00000044 6010              str r0, [r2] ; [ORIG 16-BIT INS]
+      83                    
+      84 00000046 0009E92D          stmdb sp!, {r0, r3} ; [KEEP 32-BIT INS]
+      85 0000004a 0040F85F          ldr r0, ulMaxSyscallInterruptPriorityConst ; [KEEP 32-BIT INS]
+      86 0000004e 6801              ldr r1, [r0] ; [ORIG 16-BIT INS]
+      87 00000050 8811F381          msr basepri, r1 ; [KEEP 32-BIT INS]
+      88 00000054 8F4FF3BF          dsb ; [KEEP 32-BIT INS]
+      89 00000058 8F6FF3BF          isb ; [KEEP 32-BIT INS]
+      90 0000005c FFFEF7FF!         bl vTaskSwitchContext ; [KEEP 32-BIT INS]
+      91 00000060 0000F04F          mov r0, #0 ; [KEEP 32-BIT INS]
+      92 00000064 8811F380          msr basepri, r0 ; [KEEP 32-BIT INS]
+      93 00000068 0009E8BD          ldmia sp!, {r0, r3} ; [KEEP 32-BIT INS]
+      94                    
+      95                            ;/* The first item in pxCurrentTCB is the task top of stack. */
+      96 0000006c 6819              ldr r1, [r3] ; [ORIG 16-BIT INS]
+      97 0000006e 6808              ldr r0, [r1] ; [ORIG 16-BIT INS]
+      98                    
+      99                            ;/* Pop the core registers. */
+     100 00000070 4FF0E8B0          ldmia r0!, {r4-r11, r14} ; [KEEP 32-BIT INS]
+     101                    
+     102                            ;/* Is the task using the FPU context?  If so, pop the high vfp registers
+     103                            ;too. */
+     104 00000074 0F10F01E          tst r14, #0x10 ; [KEEP 32-BIT INS]
+     105 00000078 BF08              it eq ; [ORIG 16-BIT INS]
+     106 0000007a 8A10ECB0          vldmiaeq r0!, {s16-s31} ; [KEEP 32-BIT INS]
+     107                    
+     108 0000007e 8809F380          msr psp, r0 ; [KEEP 32-BIT INS]
+     109 00000082 8F6FF3BF          isb ; [KEEP 32-BIT INS]
+     110 00000086 4770              bx r14 ; [ORIG 16-BIT INS]
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:22 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../OS/portasm.asm                                                    PAGE    3
+
+     111                            .endasmfunc
+     112                    
+     113                    ; -----------------------------------------------------------
+     114                    
+     115                            .align 4
+     116                    vPortSVCHandler: .asmfunc
+     117                            ;/* Get the location of the current TCB. */
+     118 00000088 3084F85F          ldr     r3, pxCurrentTCBConst ; [KEEP 32-BIT INS]
+     119 0000008c 6819              ldr r1, [r3] ; [ORIG 16-BIT INS]
+     120 0000008e 6808              ldr r0, [r1] ; [ORIG 16-BIT INS]
+     121                            ;/* Pop the core registers. */
+     122 00000090 4FF0E8B0          ldmia r0!, {r4-r11, r14} ; [KEEP 32-BIT INS]
+     123 00000094 8809F380          msr psp, r0 ; [KEEP 32-BIT INS]
+     124 00000098 8F6FF3BF          isb ; [KEEP 32-BIT INS]
+     125 0000009c 0000F04F          mov r0, #0 ; [KEEP 32-BIT INS]
+     126 000000a0 8811F380          msr     basepri, r0 ; [KEEP 32-BIT INS]
+     127 000000a4 4770              bx r14 ; [ORIG 16-BIT INS]
+     128                            .endasmfunc
+     129                    
+     130                    ; -----------------------------------------------------------
+     131                    
+     132                            .align 4
+     133                    vPortStartFirstTask: .asmfunc
+     134                            ;/* Use the NVIC offset register to locate the stack. */
+     135 000000a8 00ACF85F          ldr r0, NVICOffsetConst ; [KEEP 32-BIT INS]
+     136 000000ac 6800              ldr r0, [r0] ; [ORIG 16-BIT INS]
+     137 000000ae 6800              ldr r0, [r0] ; [ORIG 16-BIT INS]
+     138                            ;/* Set the msp back to the start of the stack. */
+     139 000000b0 8808F380          msr msp, r0 ; [KEEP 32-BIT INS]
+     140                            ;/* Clear the bit that indicates the FPU is in use in case the FPU was used
+     141                            ;before the scheduler was started - which would otherwise result in the
+     142                            ;unnecessary leaving of space in the SVC stack for lazy saving of FPU
+     143                            ;registers. */
+     144 000000b4 0000F04F          mov r0, #0 ; [KEEP 32-BIT INS]
+     145 000000b8 8814F380          msr control, r0 ; [KEEP 32-BIT INS]
+     146                            ;/* Call SVC to start the first task. */
+     147 000000bc B662              cpsie i ; [ORIG 16-BIT INS]
+     148 000000be B661              cpsie f ; [ORIG 16-BIT INS]
+     149 000000c0 8F4FF3BF          dsb ; [KEEP 32-BIT INS]
+     150 000000c4 8F6FF3BF          isb ; [KEEP 32-BIT INS]
+     151 000000c8 DF00              svc #0 ; [ORIG 16-BIT INS]
+     152                            .endasmfunc
+     153                    
+     154                    ; -----------------------------------------------------------
+     155                    
+     156                            .align 4
+     157                    vPortEnableVFP: .asmfunc
+     158                            ;/* The FPU enable bits are in the CPACR. */
+     159 000000cc 00CCF85F          ldr.w r0, CPACRConst ; [KEEP 32-BIT INS]
+     160 000000d0 6801              ldr     r1, [r0] ; [ORIG 16-BIT INS]
+     161                    
+     162                            ;/* Enable CP10 and CP11 coprocessors, then save back. */
+     163 000000d2 0170F441          orr     r1, r1, #( 0xf << 20 ) ; [KEEP 32-BIT INS]
+     164 000000d6 6001              str r1, [r0] ; [ORIG 16-BIT INS]
+     165 000000d8 4770              bx      r14 ; [ORIG 16-BIT INS]
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:22 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+../OS/portasm.asm                                                    PAGE    4
+
+     166                            .endasmfunc
+     167                    
+     168                            .end
+
+--------------------------
+Thumb2 Statistics
+--------------------------
+Number of Thumb2 ins converted to Thumb = 0 (0%)
+Number of Thumb ins in input = 28 (43%)
+Number of Thumb2 ins encoded as Thumb2 = 37 (100%)
+Number of Thumb2 ins converted to 2 OPND Thumb = 0
+
+
+No Assembly Errors, No Assembly Warnings

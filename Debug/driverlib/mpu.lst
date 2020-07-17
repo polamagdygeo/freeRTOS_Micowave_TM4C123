@@ -1,0 +1,2526 @@
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* TI ARM C/C++ Codegen                                      Unix v18.1.1.LTS *
+       3                    ;* Date/Time created: Fri Jul  3 20:08:24 2020                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --arm_vmrs_si_workaround=off --code_state=16 --diag_wrap=off --embed
+       6 00000000                   .thumb
+       7                    
+       8                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+       9                            .dwattr $C$DW$CU, DW_AT_name("../driverlib/mpu.c")
+      10                            .dwattr $C$DW$CU, DW_AT_producer("TI TI ARM C/C++ Codegen Unix v18.1.1.LTS Copyright (c) 1996-
+      11                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      12                            .dwattr $C$DW$CU, DW_AT_comp_dir("/home/pola/workspace_v8/Microwave/Debug")
+      13                    
+      14                    $C$DW$1 .dwtag  DW_TAG_subprogram
+      15                            .dwattr $C$DW$1, DW_AT_name("IntRegister")
+      16                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("IntRegister")
+      17                            .dwattr $C$DW$1, DW_AT_declaration
+      18                            .dwattr $C$DW$1, DW_AT_external
+      19                            .dwattr $C$DW$1, DW_AT_decl_file("/home/pola/workspace_v8/Microwave/driverlib/interrupt.h")
+      20                            .dwattr $C$DW$1, DW_AT_decl_line(0x45)
+      21                            .dwattr $C$DW$1, DW_AT_decl_column(0x0d)
+      22                    $C$DW$2 .dwtag  DW_TAG_formal_parameter
+      23                            .dwattr $C$DW$2, DW_AT_type(*$C$DW$T$27)
+      24                    
+      25                    $C$DW$3 .dwtag  DW_TAG_formal_parameter
+      26                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$25)
+      27                    
+      28                            .dwendtag $C$DW$1
+      29                    
+      30                    
+      31                    $C$DW$4 .dwtag  DW_TAG_subprogram
+      32                            .dwattr $C$DW$4, DW_AT_name("IntEnable")
+      33                            .dwattr $C$DW$4, DW_AT_TI_symbol_name("IntEnable")
+      34                            .dwattr $C$DW$4, DW_AT_declaration
+      35                            .dwattr $C$DW$4, DW_AT_external
+      36                            .dwattr $C$DW$4, DW_AT_decl_file("/home/pola/workspace_v8/Microwave/driverlib/interrupt.h")
+      37                            .dwattr $C$DW$4, DW_AT_decl_line(0x4c)
+      38                            .dwattr $C$DW$4, DW_AT_decl_column(0x0d)
+      39                    $C$DW$5 .dwtag  DW_TAG_formal_parameter
+      40                            .dwattr $C$DW$5, DW_AT_type(*$C$DW$T$27)
+      41                    
+      42                            .dwendtag $C$DW$4
+      43                    
+      44                    
+      45                    $C$DW$6 .dwtag  DW_TAG_subprogram
+      46                            .dwattr $C$DW$6, DW_AT_name("IntDisable")
+      47                            .dwattr $C$DW$6, DW_AT_TI_symbol_name("IntDisable")
+      48                            .dwattr $C$DW$6, DW_AT_declaration
+      49                            .dwattr $C$DW$6, DW_AT_external
+      50                            .dwattr $C$DW$6, DW_AT_decl_file("/home/pola/workspace_v8/Microwave/driverlib/interrupt.h")
+      51                            .dwattr $C$DW$6, DW_AT_decl_line(0x4d)
+      52                            .dwattr $C$DW$6, DW_AT_decl_column(0x0d)
+      53                    $C$DW$7 .dwtag  DW_TAG_formal_parameter
+      54                            .dwattr $C$DW$7, DW_AT_type(*$C$DW$T$27)
+      55                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    2
+
+      56                            .dwendtag $C$DW$6
+      57                    
+      58                    
+      59                    $C$DW$8 .dwtag  DW_TAG_subprogram
+      60                            .dwattr $C$DW$8, DW_AT_name("IntUnregister")
+      61                            .dwattr $C$DW$8, DW_AT_TI_symbol_name("IntUnregister")
+      62                            .dwattr $C$DW$8, DW_AT_declaration
+      63                            .dwattr $C$DW$8, DW_AT_external
+      64                            .dwattr $C$DW$8, DW_AT_decl_file("/home/pola/workspace_v8/Microwave/driverlib/interrupt.h")
+      65                            .dwattr $C$DW$8, DW_AT_decl_line(0x46)
+      66                            .dwattr $C$DW$8, DW_AT_decl_column(0x0d)
+      67                    $C$DW$9 .dwtag  DW_TAG_formal_parameter
+      68                            .dwattr $C$DW$9, DW_AT_type(*$C$DW$T$27)
+      69                    
+      70                            .dwendtag $C$DW$8
+      71                    
+      72                    ;       /home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armacpia -@/tmp/TI3QIiMzskj 
+      73 00000000                   .sect   ".text"
+      74                            .clink
+      75                            .thumbfunc MPUEnable
+      76 00000000                   .thumb
+      77                            .global MPUEnable
+      78                    
+      79                    $C$DW$10        .dwtag  DW_TAG_subprogram
+      80                            .dwattr $C$DW$10, DW_AT_name("MPUEnable")
+      81                            .dwattr $C$DW$10, DW_AT_low_pc(MPUEnable)
+      82                            .dwattr $C$DW$10, DW_AT_high_pc(0x00)
+      83                            .dwattr $C$DW$10, DW_AT_TI_symbol_name("MPUEnable")
+      84                            .dwattr $C$DW$10, DW_AT_external
+      85                            .dwattr $C$DW$10, DW_AT_TI_begin_file("../driverlib/mpu.c")
+      86                            .dwattr $C$DW$10, DW_AT_TI_begin_line(0x59)
+      87                            .dwattr $C$DW$10, DW_AT_TI_begin_column(0x01)
+      88                            .dwattr $C$DW$10, DW_AT_decl_file("../driverlib/mpu.c")
+      89                            .dwattr $C$DW$10, DW_AT_decl_line(0x59)
+      90                            .dwattr $C$DW$10, DW_AT_decl_column(0x01)
+      91                            .dwattr $C$DW$10, DW_AT_TI_max_frame_size(0x08)
+      92                            .dwpsn  file "../driverlib/mpu.c",line 90,column 1,is_stmt,address MPUEnable,isa 1
+      93                    
+      94                            .dwfde $C$DW$CIE, MPUEnable
+      95                    $C$DW$11        .dwtag  DW_TAG_formal_parameter
+      96                            .dwattr $C$DW$11, DW_AT_name("ui32MPUConfig")
+      97                            .dwattr $C$DW$11, DW_AT_TI_symbol_name("ui32MPUConfig")
+      98                            .dwattr $C$DW$11, DW_AT_type(*$C$DW$T$27)
+      99                            .dwattr $C$DW$11, DW_AT_location[DW_OP_reg0]
+     100                    
+     101                    ;----------------------------------------------------------------------
+     102                    ;  89 | MPUEnable(uint32_t ui32MPUConfig)                                      
+     103                    ;----------------------------------------------------------------------
+     104                    
+     105                    ;*****************************************************************************
+     106                    ;* FUNCTION NAME: MPUEnable                                                  *
+     107                    ;*                                                                           *
+     108                    ;*   Regs Modified     : A1,A2,SP                                            *
+     109                    ;*   Regs Used         : A1,A2,SP,LR                                         *
+     110                    ;*   Local Frame Size  : 0 Args + 4 Auto + 0 Save = 4 byte                   *
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    3
+
+     111                    ;*****************************************************************************
+     112 00000000           MPUEnable:
+     113                    ;* --------------------------------------------------------------------------*
+     114                            .dwcfi  cfa_offset, 0
+     115 00000000 0D08F1AD          SUB       SP, SP, #8            ; [DPU_V7M3_PIPE]  ; [KEEP 32-BIT INS]
+     116                            .dwcfi  cfa_offset, 8
+     117                    $C$DW$12        .dwtag  DW_TAG_variable
+     118                            .dwattr $C$DW$12, DW_AT_name("ui32MPUConfig")
+     119                            .dwattr $C$DW$12, DW_AT_TI_symbol_name("ui32MPUConfig")
+     120                            .dwattr $C$DW$12, DW_AT_type(*$C$DW$T$27)
+     121                            .dwattr $C$DW$12, DW_AT_location[DW_OP_breg13 0]
+     122                    
+     123                    ;----------------------------------------------------------------------
+     124                    ;  91 | //                                                                     
+     125                    ;  92 | // Check the arguments.                                                
+     126                    ;  93 | //                                                                     
+     127                    ;  94 | ASSERT(!(ui32MPUConfig & ~(MPU_CONFIG_PRIV_DEFAULT |                   
+     128                    ;  95 |                            MPU_CONFIG_HARDFLT_NMI)));                  
+     129                    ;  97 | //                                                                     
+     130                    ;  98 | // Set the MPU control bits according to the flags passed by the user, 
+     131                    ;  99 | // and also set the enable bit.                                        
+     132                    ; 100 | //                                                                     
+     133                    ;----------------------------------------------------------------------
+     134 00000004 9000              STR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |90|  ; [ORIG 16-BIT INS]
+     135                            .dwpsn  file "../driverlib/mpu.c",line 101,column 5,is_stmt,isa 1
+     136                    ;----------------------------------------------------------------------
+     137                    ; 101 | HWREG(NVIC_MPU_CTRL) = ui32MPUConfig | NVIC_MPU_CTRL_ENABLE;           
+     138                    ;----------------------------------------------------------------------
+     139 00000006 4934              LDR       A2, $C$CON1           ; [DPU_V7M3_PIPE] |101|  ; [ORIG 16-BIT INS]
+     140 00000008 9800              LDR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |101|  ; [ORIG 16-BIT INS]
+     141 0000000a 0001F040          ORR       A1, A1, #1            ; [DPU_V7M3_PIPE] |101|  ; [KEEP 32-BIT INS]
+     142 0000000e 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |101|  ; [ORIG 16-BIT INS]
+     143                            .dwpsn  file "../driverlib/mpu.c",line 102,column 1,is_stmt,isa 1
+     144 00000010 B002              ADD       SP, SP, #8            ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     145                            .dwcfi  cfa_offset, 0
+     146                    $C$DW$13        .dwtag  DW_TAG_TI_branch
+     147                            .dwattr $C$DW$13, DW_AT_low_pc(0x00)
+     148                            .dwattr $C$DW$13, DW_AT_TI_return
+     149                    
+     150 00000012 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     151                            ; BRANCH OCCURS                  ; [] 
+     152                            .dwattr $C$DW$10, DW_AT_TI_end_file("../driverlib/mpu.c")
+     153                            .dwattr $C$DW$10, DW_AT_TI_end_line(0x66)
+     154                            .dwattr $C$DW$10, DW_AT_TI_end_column(0x01)
+     155                            .dwendentry
+     156                            .dwendtag $C$DW$10
+     157                    
+     158 00000014                   .sect   ".text"
+     159                            .clink
+     160                            .thumbfunc MPUDisable
+     161 00000014                   .thumb
+     162                            .global MPUDisable
+     163                    
+     164                    $C$DW$14        .dwtag  DW_TAG_subprogram
+     165                            .dwattr $C$DW$14, DW_AT_name("MPUDisable")
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    4
+
+     166                            .dwattr $C$DW$14, DW_AT_low_pc(MPUDisable)
+     167                            .dwattr $C$DW$14, DW_AT_high_pc(0x00)
+     168                            .dwattr $C$DW$14, DW_AT_TI_symbol_name("MPUDisable")
+     169                            .dwattr $C$DW$14, DW_AT_external
+     170                            .dwattr $C$DW$14, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     171                            .dwattr $C$DW$14, DW_AT_TI_begin_line(0x74)
+     172                            .dwattr $C$DW$14, DW_AT_TI_begin_column(0x01)
+     173                            .dwattr $C$DW$14, DW_AT_decl_file("../driverlib/mpu.c")
+     174                            .dwattr $C$DW$14, DW_AT_decl_line(0x74)
+     175                            .dwattr $C$DW$14, DW_AT_decl_column(0x01)
+     176                            .dwattr $C$DW$14, DW_AT_TI_max_frame_size(0x00)
+     177                            .dwpsn  file "../driverlib/mpu.c",line 117,column 1,is_stmt,address MPUDisable,isa 1
+     178                    
+     179                            .dwfde $C$DW$CIE, MPUDisable
+     180                    ;----------------------------------------------------------------------
+     181                    ; 116 | MPUDisable(void)                                                       
+     182                    ; 118 | //                                                                     
+     183                    ; 119 | // Turn off the MPU enable bit.                                        
+     184                    ; 120 | //                                                                     
+     185                    ;----------------------------------------------------------------------
+     186                    
+     187                    ;*****************************************************************************
+     188                    ;* FUNCTION NAME: MPUDisable                                                 *
+     189                    ;*                                                                           *
+     190                    ;*   Regs Modified     : A1,A2                                               *
+     191                    ;*   Regs Used         : A1,A2,LR                                            *
+     192                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     193                    ;*****************************************************************************
+     194 00000014           MPUDisable:
+     195                    ;* --------------------------------------------------------------------------*
+     196                            .dwcfi  cfa_offset, 0
+     197                            .dwpsn  file "../driverlib/mpu.c",line 121,column 5,is_stmt,isa 1
+     198                    ;----------------------------------------------------------------------
+     199                    ; 121 | HWREG(NVIC_MPU_CTRL) &= ~NVIC_MPU_CTRL_ENABLE;                         
+     200                    ;----------------------------------------------------------------------
+     201 00000014 4930              LDR       A2, $C$CON1           ; [DPU_V7M3_PIPE] |121|  ; [ORIG 16-BIT INS]
+     202 00000016 6808              LDR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |121|  ; [ORIG 16-BIT INS]
+     203 00000018 0001F020          BIC       A1, A1, #1            ; [DPU_V7M3_PIPE] |121|  ; [KEEP 32-BIT INS]
+     204 0000001c 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |121|  ; [ORIG 16-BIT INS]
+     205                            .dwpsn  file "../driverlib/mpu.c",line 122,column 1,is_stmt,isa 1
+     206                    $C$DW$15        .dwtag  DW_TAG_TI_branch
+     207                            .dwattr $C$DW$15, DW_AT_low_pc(0x00)
+     208                            .dwattr $C$DW$15, DW_AT_TI_return
+     209                    
+     210 0000001e 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     211                            ; BRANCH OCCURS                  ; [] 
+     212                            .dwattr $C$DW$14, DW_AT_TI_end_file("../driverlib/mpu.c")
+     213                            .dwattr $C$DW$14, DW_AT_TI_end_line(0x7a)
+     214                            .dwattr $C$DW$14, DW_AT_TI_end_column(0x01)
+     215                            .dwendentry
+     216                            .dwendtag $C$DW$14
+     217                    
+     218 00000020                   .sect   ".text"
+     219                            .clink
+     220                            .thumbfunc MPURegionCountGet
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    5
+
+     221 00000020                   .thumb
+     222                            .global MPURegionCountGet
+     223                    
+     224                    $C$DW$16        .dwtag  DW_TAG_subprogram
+     225                            .dwattr $C$DW$16, DW_AT_name("MPURegionCountGet")
+     226                            .dwattr $C$DW$16, DW_AT_low_pc(MPURegionCountGet)
+     227                            .dwattr $C$DW$16, DW_AT_high_pc(0x00)
+     228                            .dwattr $C$DW$16, DW_AT_TI_symbol_name("MPURegionCountGet")
+     229                            .dwattr $C$DW$16, DW_AT_external
+     230                            .dwattr $C$DW$16, DW_AT_type(*$C$DW$T$27)
+     231                            .dwattr $C$DW$16, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     232                            .dwattr $C$DW$16, DW_AT_TI_begin_line(0x88)
+     233                            .dwattr $C$DW$16, DW_AT_TI_begin_column(0x01)
+     234                            .dwattr $C$DW$16, DW_AT_decl_file("../driverlib/mpu.c")
+     235                            .dwattr $C$DW$16, DW_AT_decl_line(0x88)
+     236                            .dwattr $C$DW$16, DW_AT_decl_column(0x01)
+     237                            .dwattr $C$DW$16, DW_AT_TI_max_frame_size(0x00)
+     238                            .dwpsn  file "../driverlib/mpu.c",line 137,column 1,is_stmt,address MPURegionCountGet,isa 1
+     239                    
+     240                            .dwfde $C$DW$CIE, MPURegionCountGet
+     241                    ;----------------------------------------------------------------------
+     242                    ; 136 | MPURegionCountGet(void)                                                
+     243                    ; 138 | //                                                                     
+     244                    ; 139 | // Read the DREGION field of the MPU type register and mask off        
+     245                    ; 140 | // the bits of interest to get the count of regions.                   
+     246                    ; 141 | //                                                                     
+     247                    ;----------------------------------------------------------------------
+     248                    
+     249                    ;*****************************************************************************
+     250                    ;* FUNCTION NAME: MPURegionCountGet                                          *
+     251                    ;*                                                                           *
+     252                    ;*   Regs Modified     : A1,SR                                               *
+     253                    ;*   Regs Used         : A1,LR,SR                                            *
+     254                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+     255                    ;*****************************************************************************
+     256 00000020           MPURegionCountGet:
+     257                    ;* --------------------------------------------------------------------------*
+     258                            .dwcfi  cfa_offset, 0
+     259                            .dwpsn  file "../driverlib/mpu.c",line 142,column 5,is_stmt,isa 1
+     260                    ;----------------------------------------------------------------------
+     261                    ; 142 | return((HWREG(NVIC_MPU_TYPE) & NVIC_MPU_TYPE_DREGION_M) >>             
+     262                    ; 143 |        NVIC_MPU_TYPE_DREGION_S);                                       
+     263                    ;----------------------------------------------------------------------
+     264 00000020 482E              LDR       A1, $C$CON2           ; [DPU_V7M3_PIPE] |142|  ; [ORIG 16-BIT INS]
+     265 00000022 6800              LDR       A1, [A1, #0]          ; [DPU_V7M3_PIPE] |142|  ; [ORIG 16-BIT INS]
+     266 00000024 407FF400          AND       A1, A1, #65280        ; [DPU_V7M3_PIPE] |142|  ; [KEEP 32-BIT INS]
+     267 00000028 0A00              LSRS      A1, A1, #8            ; [DPU_V7M3_PIPE] |142|  ; [ORIG 16-BIT INS]
+     268                            .dwpsn  file "../driverlib/mpu.c",line 144,column 1,is_stmt,isa 1
+     269                    $C$DW$17        .dwtag  DW_TAG_TI_branch
+     270                            .dwattr $C$DW$17, DW_AT_low_pc(0x00)
+     271                            .dwattr $C$DW$17, DW_AT_TI_return
+     272                    
+     273 0000002a 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     274                            ; BRANCH OCCURS                  ; [] 
+     275                            .dwattr $C$DW$16, DW_AT_TI_end_file("../driverlib/mpu.c")
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    6
+
+     276                            .dwattr $C$DW$16, DW_AT_TI_end_line(0x90)
+     277                            .dwattr $C$DW$16, DW_AT_TI_end_column(0x01)
+     278                            .dwendentry
+     279                            .dwendtag $C$DW$16
+     280                    
+     281 0000002c                   .sect   ".text"
+     282                            .clink
+     283                            .thumbfunc MPURegionEnable
+     284 0000002c                   .thumb
+     285                            .global MPURegionEnable
+     286                    
+     287                    $C$DW$18        .dwtag  DW_TAG_subprogram
+     288                            .dwattr $C$DW$18, DW_AT_name("MPURegionEnable")
+     289                            .dwattr $C$DW$18, DW_AT_low_pc(MPURegionEnable)
+     290                            .dwattr $C$DW$18, DW_AT_high_pc(0x00)
+     291                            .dwattr $C$DW$18, DW_AT_TI_symbol_name("MPURegionEnable")
+     292                            .dwattr $C$DW$18, DW_AT_external
+     293                            .dwattr $C$DW$18, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     294                            .dwattr $C$DW$18, DW_AT_TI_begin_line(0xa1)
+     295                            .dwattr $C$DW$18, DW_AT_TI_begin_column(0x01)
+     296                            .dwattr $C$DW$18, DW_AT_decl_file("../driverlib/mpu.c")
+     297                            .dwattr $C$DW$18, DW_AT_decl_line(0xa1)
+     298                            .dwattr $C$DW$18, DW_AT_decl_column(0x01)
+     299                            .dwattr $C$DW$18, DW_AT_TI_max_frame_size(0x08)
+     300                            .dwpsn  file "../driverlib/mpu.c",line 162,column 1,is_stmt,address MPURegionEnable,isa 1
+     301                    
+     302                            .dwfde $C$DW$CIE, MPURegionEnable
+     303                    $C$DW$19        .dwtag  DW_TAG_formal_parameter
+     304                            .dwattr $C$DW$19, DW_AT_name("ui32Region")
+     305                            .dwattr $C$DW$19, DW_AT_TI_symbol_name("ui32Region")
+     306                            .dwattr $C$DW$19, DW_AT_type(*$C$DW$T$27)
+     307                            .dwattr $C$DW$19, DW_AT_location[DW_OP_reg0]
+     308                    
+     309                    ;----------------------------------------------------------------------
+     310                    ; 161 | MPURegionEnable(uint32_t ui32Region)                                   
+     311                    ;----------------------------------------------------------------------
+     312                    
+     313                    ;*****************************************************************************
+     314                    ;* FUNCTION NAME: MPURegionEnable                                            *
+     315                    ;*                                                                           *
+     316                    ;*   Regs Modified     : A1,A2,SP                                            *
+     317                    ;*   Regs Used         : A1,A2,SP,LR                                         *
+     318                    ;*   Local Frame Size  : 0 Args + 4 Auto + 0 Save = 4 byte                   *
+     319                    ;*****************************************************************************
+     320 0000002c           MPURegionEnable:
+     321                    ;* --------------------------------------------------------------------------*
+     322                            .dwcfi  cfa_offset, 0
+     323 0000002c 0D08F1AD          SUB       SP, SP, #8            ; [DPU_V7M3_PIPE]  ; [KEEP 32-BIT INS]
+     324                            .dwcfi  cfa_offset, 8
+     325                    $C$DW$20        .dwtag  DW_TAG_variable
+     326                            .dwattr $C$DW$20, DW_AT_name("ui32Region")
+     327                            .dwattr $C$DW$20, DW_AT_TI_symbol_name("ui32Region")
+     328                            .dwattr $C$DW$20, DW_AT_type(*$C$DW$T$27)
+     329                            .dwattr $C$DW$20, DW_AT_location[DW_OP_breg13 0]
+     330                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    7
+
+     331                    ;----------------------------------------------------------------------
+     332                    ; 163 | //                                                                     
+     333                    ; 164 | // Check the arguments.                                                
+     334                    ; 165 | //                                                                     
+     335                    ; 166 | ASSERT(ui32Region < 8);                                                
+     336                    ; 168 | //                                                                     
+     337                    ; 169 | // Select the region to modify.                                        
+     338                    ; 170 | //                                                                     
+     339                    ;----------------------------------------------------------------------
+     340 00000030 9000              STR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |162|  ; [ORIG 16-BIT INS]
+     341                            .dwpsn  file "../driverlib/mpu.c",line 171,column 5,is_stmt,isa 1
+     342                    ;----------------------------------------------------------------------
+     343                    ; 171 | HWREG(NVIC_MPU_NUMBER) = ui32Region;                                   
+     344                    ; 173 | //                                                                     
+     345                    ; 174 | // Modify the enable bit in the region attributes.                     
+     346                    ; 175 | //                                                                     
+     347                    ;----------------------------------------------------------------------
+     348 00000032 492B              LDR       A2, $C$CON3           ; [DPU_V7M3_PIPE] |171|  ; [ORIG 16-BIT INS]
+     349 00000034 9800              LDR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |171|  ; [ORIG 16-BIT INS]
+     350 00000036 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |171|  ; [ORIG 16-BIT INS]
+     351                            .dwpsn  file "../driverlib/mpu.c",line 176,column 5,is_stmt,isa 1
+     352                    ;----------------------------------------------------------------------
+     353                    ; 176 | HWREG(NVIC_MPU_ATTR) |= NVIC_MPU_ATTR_ENABLE;                          
+     354                    ;----------------------------------------------------------------------
+     355 00000038 492A              LDR       A2, $C$CON4           ; [DPU_V7M3_PIPE] |176|  ; [ORIG 16-BIT INS]
+     356 0000003a 6808              LDR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |176|  ; [ORIG 16-BIT INS]
+     357 0000003c 0001F040          ORR       A1, A1, #1            ; [DPU_V7M3_PIPE] |176|  ; [KEEP 32-BIT INS]
+     358 00000040 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |176|  ; [ORIG 16-BIT INS]
+     359                            .dwpsn  file "../driverlib/mpu.c",line 177,column 1,is_stmt,isa 1
+     360 00000042 B002              ADD       SP, SP, #8            ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     361                            .dwcfi  cfa_offset, 0
+     362                    $C$DW$21        .dwtag  DW_TAG_TI_branch
+     363                            .dwattr $C$DW$21, DW_AT_low_pc(0x00)
+     364                            .dwattr $C$DW$21, DW_AT_TI_return
+     365                    
+     366 00000044 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     367                            ; BRANCH OCCURS                  ; [] 
+     368                            .dwattr $C$DW$18, DW_AT_TI_end_file("../driverlib/mpu.c")
+     369                            .dwattr $C$DW$18, DW_AT_TI_end_line(0xb1)
+     370                            .dwattr $C$DW$18, DW_AT_TI_end_column(0x01)
+     371                            .dwendentry
+     372                            .dwendtag $C$DW$18
+     373                    
+     374 00000046                   .sect   ".text"
+     375                            .clink
+     376                            .thumbfunc MPURegionDisable
+     377 00000046                   .thumb
+     378                            .global MPURegionDisable
+     379                    
+     380                    $C$DW$22        .dwtag  DW_TAG_subprogram
+     381                            .dwattr $C$DW$22, DW_AT_name("MPURegionDisable")
+     382                            .dwattr $C$DW$22, DW_AT_low_pc(MPURegionDisable)
+     383                            .dwattr $C$DW$22, DW_AT_high_pc(0x00)
+     384                            .dwattr $C$DW$22, DW_AT_TI_symbol_name("MPURegionDisable")
+     385                            .dwattr $C$DW$22, DW_AT_external
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    8
+
+     386                            .dwattr $C$DW$22, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     387                            .dwattr $C$DW$22, DW_AT_TI_begin_line(0xc2)
+     388                            .dwattr $C$DW$22, DW_AT_TI_begin_column(0x01)
+     389                            .dwattr $C$DW$22, DW_AT_decl_file("../driverlib/mpu.c")
+     390                            .dwattr $C$DW$22, DW_AT_decl_line(0xc2)
+     391                            .dwattr $C$DW$22, DW_AT_decl_column(0x01)
+     392                            .dwattr $C$DW$22, DW_AT_TI_max_frame_size(0x08)
+     393                            .dwpsn  file "../driverlib/mpu.c",line 195,column 1,is_stmt,address MPURegionDisable,isa 1
+     394                    
+     395                            .dwfde $C$DW$CIE, MPURegionDisable
+     396                    $C$DW$23        .dwtag  DW_TAG_formal_parameter
+     397                            .dwattr $C$DW$23, DW_AT_name("ui32Region")
+     398                            .dwattr $C$DW$23, DW_AT_TI_symbol_name("ui32Region")
+     399                            .dwattr $C$DW$23, DW_AT_type(*$C$DW$T$27)
+     400                            .dwattr $C$DW$23, DW_AT_location[DW_OP_reg0]
+     401                    
+     402                    ;----------------------------------------------------------------------
+     403                    ; 194 | MPURegionDisable(uint32_t ui32Region)                                  
+     404                    ;----------------------------------------------------------------------
+     405                    
+     406                    ;*****************************************************************************
+     407                    ;* FUNCTION NAME: MPURegionDisable                                           *
+     408                    ;*                                                                           *
+     409                    ;*   Regs Modified     : A1,A2,SP                                            *
+     410                    ;*   Regs Used         : A1,A2,SP,LR                                         *
+     411                    ;*   Local Frame Size  : 0 Args + 4 Auto + 0 Save = 4 byte                   *
+     412                    ;*****************************************************************************
+     413 00000046           MPURegionDisable:
+     414                    ;* --------------------------------------------------------------------------*
+     415                            .dwcfi  cfa_offset, 0
+     416 00000046 0D08F1AD          SUB       SP, SP, #8            ; [DPU_V7M3_PIPE]  ; [KEEP 32-BIT INS]
+     417                            .dwcfi  cfa_offset, 8
+     418                    $C$DW$24        .dwtag  DW_TAG_variable
+     419                            .dwattr $C$DW$24, DW_AT_name("ui32Region")
+     420                            .dwattr $C$DW$24, DW_AT_TI_symbol_name("ui32Region")
+     421                            .dwattr $C$DW$24, DW_AT_type(*$C$DW$T$27)
+     422                            .dwattr $C$DW$24, DW_AT_location[DW_OP_breg13 0]
+     423                    
+     424                    ;----------------------------------------------------------------------
+     425                    ; 196 | //                                                                     
+     426                    ; 197 | // Check the arguments.                                                
+     427                    ; 198 | //                                                                     
+     428                    ; 199 | ASSERT(ui32Region < 8);                                                
+     429                    ; 201 | //                                                                     
+     430                    ; 202 | // Select the region to modify.                                        
+     431                    ; 203 | //                                                                     
+     432                    ;----------------------------------------------------------------------
+     433 0000004a 9000              STR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |195|  ; [ORIG 16-BIT INS]
+     434                            .dwpsn  file "../driverlib/mpu.c",line 204,column 5,is_stmt,isa 1
+     435                    ;----------------------------------------------------------------------
+     436                    ; 204 | HWREG(NVIC_MPU_NUMBER) = ui32Region;                                   
+     437                    ; 206 | //                                                                     
+     438                    ; 207 | // Modify the enable bit in the region attributes.                     
+     439                    ; 208 | //                                                                     
+     440                    ;----------------------------------------------------------------------
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE    9
+
+     441 0000004c 4924              LDR       A2, $C$CON3           ; [DPU_V7M3_PIPE] |204|  ; [ORIG 16-BIT INS]
+     442 0000004e 9800              LDR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |204|  ; [ORIG 16-BIT INS]
+     443 00000050 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |204|  ; [ORIG 16-BIT INS]
+     444                            .dwpsn  file "../driverlib/mpu.c",line 209,column 5,is_stmt,isa 1
+     445                    ;----------------------------------------------------------------------
+     446                    ; 209 | HWREG(NVIC_MPU_ATTR) &= ~NVIC_MPU_ATTR_ENABLE;                         
+     447                    ;----------------------------------------------------------------------
+     448 00000052 4924              LDR       A2, $C$CON4           ; [DPU_V7M3_PIPE] |209|  ; [ORIG 16-BIT INS]
+     449 00000054 6808              LDR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |209|  ; [ORIG 16-BIT INS]
+     450 00000056 0001F020          BIC       A1, A1, #1            ; [DPU_V7M3_PIPE] |209|  ; [KEEP 32-BIT INS]
+     451 0000005a 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |209|  ; [ORIG 16-BIT INS]
+     452                            .dwpsn  file "../driverlib/mpu.c",line 210,column 1,is_stmt,isa 1
+     453 0000005c B002              ADD       SP, SP, #8            ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     454                            .dwcfi  cfa_offset, 0
+     455                    $C$DW$25        .dwtag  DW_TAG_TI_branch
+     456                            .dwattr $C$DW$25, DW_AT_low_pc(0x00)
+     457                            .dwattr $C$DW$25, DW_AT_TI_return
+     458                    
+     459 0000005e 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     460                            ; BRANCH OCCURS                  ; [] 
+     461                            .dwattr $C$DW$22, DW_AT_TI_end_file("../driverlib/mpu.c")
+     462                            .dwattr $C$DW$22, DW_AT_TI_end_line(0xd2)
+     463                            .dwattr $C$DW$22, DW_AT_TI_end_column(0x01)
+     464                            .dwendentry
+     465                            .dwendtag $C$DW$22
+     466                    
+     467 00000060                   .sect   ".text"
+     468                            .clink
+     469                            .thumbfunc MPURegionSet
+     470 00000060                   .thumb
+     471                            .global MPURegionSet
+     472                    
+     473                    $C$DW$26        .dwtag  DW_TAG_subprogram
+     474                            .dwattr $C$DW$26, DW_AT_name("MPURegionSet")
+     475                            .dwattr $C$DW$26, DW_AT_low_pc(MPURegionSet)
+     476                            .dwattr $C$DW$26, DW_AT_high_pc(0x00)
+     477                            .dwattr $C$DW$26, DW_AT_TI_symbol_name("MPURegionSet")
+     478                            .dwattr $C$DW$26, DW_AT_external
+     479                            .dwattr $C$DW$26, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     480                            .dwattr $C$DW$26, DW_AT_TI_begin_line(0x141)
+     481                            .dwattr $C$DW$26, DW_AT_TI_begin_column(0x01)
+     482                            .dwattr $C$DW$26, DW_AT_decl_file("../driverlib/mpu.c")
+     483                            .dwattr $C$DW$26, DW_AT_decl_line(0x141)
+     484                            .dwattr $C$DW$26, DW_AT_decl_column(0x01)
+     485                            .dwattr $C$DW$26, DW_AT_TI_max_frame_size(0x10)
+     486                            .dwpsn  file "../driverlib/mpu.c",line 322,column 1,is_stmt,address MPURegionSet,isa 1
+     487                    
+     488                            .dwfde $C$DW$CIE, MPURegionSet
+     489                    $C$DW$27        .dwtag  DW_TAG_formal_parameter
+     490                            .dwattr $C$DW$27, DW_AT_name("ui32Region")
+     491                            .dwattr $C$DW$27, DW_AT_TI_symbol_name("ui32Region")
+     492                            .dwattr $C$DW$27, DW_AT_type(*$C$DW$T$27)
+     493                            .dwattr $C$DW$27, DW_AT_location[DW_OP_reg0]
+     494                    
+     495                    $C$DW$28        .dwtag  DW_TAG_formal_parameter
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   10
+
+     496                            .dwattr $C$DW$28, DW_AT_name("ui32Addr")
+     497                            .dwattr $C$DW$28, DW_AT_TI_symbol_name("ui32Addr")
+     498                            .dwattr $C$DW$28, DW_AT_type(*$C$DW$T$27)
+     499                            .dwattr $C$DW$28, DW_AT_location[DW_OP_reg1]
+     500                    
+     501                    $C$DW$29        .dwtag  DW_TAG_formal_parameter
+     502                            .dwattr $C$DW$29, DW_AT_name("ui32Flags")
+     503                            .dwattr $C$DW$29, DW_AT_TI_symbol_name("ui32Flags")
+     504                            .dwattr $C$DW$29, DW_AT_type(*$C$DW$T$27)
+     505                            .dwattr $C$DW$29, DW_AT_location[DW_OP_reg2]
+     506                    
+     507                    ;----------------------------------------------------------------------
+     508                    ; 321 | MPURegionSet(uint32_t ui32Region, uint32_t ui32Addr, uint32_t ui32Flags
+     509                    ;     | )                                                                      
+     510                    ;----------------------------------------------------------------------
+     511                    
+     512                    ;*****************************************************************************
+     513                    ;* FUNCTION NAME: MPURegionSet                                               *
+     514                    ;*                                                                           *
+     515                    ;*   Regs Modified     : A1,A2,A3,SP,SR                                      *
+     516                    ;*   Regs Used         : A1,A2,A3,SP,LR,SR                                   *
+     517                    ;*   Local Frame Size  : 0 Args + 12 Auto + 0 Save = 12 byte                 *
+     518                    ;*****************************************************************************
+     519 00000060           MPURegionSet:
+     520                    ;* --------------------------------------------------------------------------*
+     521                            .dwcfi  cfa_offset, 0
+     522 00000060 0D10F1AD          SUB       SP, SP, #16           ; [DPU_V7M3_PIPE]  ; [KEEP 32-BIT INS]
+     523                            .dwcfi  cfa_offset, 16
+     524                    $C$DW$30        .dwtag  DW_TAG_variable
+     525                            .dwattr $C$DW$30, DW_AT_name("ui32Region")
+     526                            .dwattr $C$DW$30, DW_AT_TI_symbol_name("ui32Region")
+     527                            .dwattr $C$DW$30, DW_AT_type(*$C$DW$T$27)
+     528                            .dwattr $C$DW$30, DW_AT_location[DW_OP_breg13 0]
+     529                    
+     530                    $C$DW$31        .dwtag  DW_TAG_variable
+     531                            .dwattr $C$DW$31, DW_AT_name("ui32Addr")
+     532                            .dwattr $C$DW$31, DW_AT_TI_symbol_name("ui32Addr")
+     533                            .dwattr $C$DW$31, DW_AT_type(*$C$DW$T$27)
+     534                            .dwattr $C$DW$31, DW_AT_location[DW_OP_breg13 4]
+     535                    
+     536                    $C$DW$32        .dwtag  DW_TAG_variable
+     537                            .dwattr $C$DW$32, DW_AT_name("ui32Flags")
+     538                            .dwattr $C$DW$32, DW_AT_TI_symbol_name("ui32Flags")
+     539                            .dwattr $C$DW$32, DW_AT_type(*$C$DW$T$27)
+     540                            .dwattr $C$DW$32, DW_AT_location[DW_OP_breg13 8]
+     541                    
+     542                    ;----------------------------------------------------------------------
+     543                    ; 323 | //                                                                     
+     544                    ; 324 | // Check the arguments.                                                
+     545                    ; 325 | //                                                                     
+     546                    ; 326 | ASSERT(ui32Region < 8);                                                
+     547                    ; 327 | ASSERT(ui32Addr ==                                                     
+     548                    ; 328 |        (ui32Addr & ~0 << (((ui32Flags & NVIC_MPU_ATTR_SIZE_M) >> 1) + 1
+     549                    ;     | )));                                                                   
+     550                    ; 330 | //                                                                     
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   11
+
+     551                    ; 331 | // Program the base address, use the region field to select the        
+     552                    ; 332 | // region at the same time.                                            
+     553                    ; 333 | //                                                                     
+     554                    ;----------------------------------------------------------------------
+     555 00000064 9202              STR       A3, [SP, #8]          ; [DPU_V7M3_PIPE] |322|  ; [ORIG 16-BIT INS]
+     556 00000066 9101              STR       A2, [SP, #4]          ; [DPU_V7M3_PIPE] |322|  ; [ORIG 16-BIT INS]
+     557 00000068 9000              STR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |322|  ; [ORIG 16-BIT INS]
+     558                            .dwpsn  file "../driverlib/mpu.c",line 334,column 5,is_stmt,isa 1
+     559                    ;----------------------------------------------------------------------
+     560                    ; 334 | HWREG(NVIC_MPU_BASE) = ui32Addr | ui32Region | NVIC_MPU_BASE_VALID;    
+     561                    ; 336 | //                                                                     
+     562                    ; 337 | // Program the region attributes.  Set the TEX field and the S, C,     
+     563                    ; 338 | // and B bits to fixed values that are suitable for all Tiva C and     
+     564                    ; 339 | // E Series memory.                                                    
+     565                    ; 340 | //                                                                     
+     566                    ;----------------------------------------------------------------------
+     567 0000006a 491F              LDR       A2, $C$CON5           ; [DPU_V7M3_PIPE] |334|  ; [ORIG 16-BIT INS]
+     568 0000006c 9A01              LDR       A3, [SP, #4]          ; [DPU_V7M3_PIPE] |334|  ; [ORIG 16-BIT INS]
+     569 0000006e 9800              LDR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |334|  ; [ORIG 16-BIT INS]
+     570 00000070 4310              ORRS      A1, A1, A3            ; [DPU_V7M3_PIPE] |334|  ; [ORIG 16-BIT INS]
+     571 00000072 0010F040          ORR       A1, A1, #16           ; [DPU_V7M3_PIPE] |334|  ; [KEEP 32-BIT INS]
+     572 00000076 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |334|  ; [ORIG 16-BIT INS]
+     573                            .dwpsn  file "../driverlib/mpu.c",line 341,column 5,is_stmt,isa 1
+     574                    ;----------------------------------------------------------------------
+     575                    ; 341 | HWREG(NVIC_MPU_ATTR) = ((ui32Flags & ~(NVIC_MPU_ATTR_TEX_M |           
+     576                    ; 342 |                                        NVIC_MPU_ATTR_CACHEABLE)) |     
+     577                    ; 343 |                         NVIC_MPU_ATTR_SHAREABLE | NVIC_MPU_ATTR_BUFFRAB
+     578                    ;     | LE);                                                                   
+     579                    ;----------------------------------------------------------------------
+     580 00000078 491A              LDR       A2, $C$CON4           ; [DPU_V7M3_PIPE] |341|  ; [ORIG 16-BIT INS]
+     581 0000007a 9802              LDR       A1, [SP, #8]          ; [DPU_V7M3_PIPE] |341|  ; [ORIG 16-BIT INS]
+     582 0000007c 1068F420          BIC       A1, A1, #3801088      ; [DPU_V7M3_PIPE] |341|  ; [KEEP 32-BIT INS]
+     583 00000080 20A0F440          ORR       A1, A1, #327680       ; [DPU_V7M3_PIPE] |341|  ; [KEEP 32-BIT INS]
+     584 00000084 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |341|  ; [ORIG 16-BIT INS]
+     585                            .dwpsn  file "../driverlib/mpu.c",line 344,column 1,is_stmt,isa 1
+     586 00000086 B004              ADD       SP, SP, #16           ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     587                            .dwcfi  cfa_offset, 0
+     588                    $C$DW$33        .dwtag  DW_TAG_TI_branch
+     589                            .dwattr $C$DW$33, DW_AT_low_pc(0x00)
+     590                            .dwattr $C$DW$33, DW_AT_TI_return
+     591                    
+     592 00000088 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     593                            ; BRANCH OCCURS                  ; [] 
+     594                            .dwattr $C$DW$26, DW_AT_TI_end_file("../driverlib/mpu.c")
+     595                            .dwattr $C$DW$26, DW_AT_TI_end_line(0x158)
+     596                            .dwattr $C$DW$26, DW_AT_TI_end_column(0x01)
+     597                            .dwendentry
+     598                            .dwendtag $C$DW$26
+     599                    
+     600 0000008a                   .sect   ".text"
+     601                            .clink
+     602                            .thumbfunc MPURegionGet
+     603 0000008a                   .thumb
+     604                            .global MPURegionGet
+     605                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   12
+
+     606                    $C$DW$34        .dwtag  DW_TAG_subprogram
+     607                            .dwattr $C$DW$34, DW_AT_name("MPURegionGet")
+     608                            .dwattr $C$DW$34, DW_AT_low_pc(MPURegionGet)
+     609                            .dwattr $C$DW$34, DW_AT_high_pc(0x00)
+     610                            .dwattr $C$DW$34, DW_AT_TI_symbol_name("MPURegionGet")
+     611                            .dwattr $C$DW$34, DW_AT_external
+     612                            .dwattr $C$DW$34, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     613                            .dwattr $C$DW$34, DW_AT_TI_begin_line(0x16e)
+     614                            .dwattr $C$DW$34, DW_AT_TI_begin_column(0x01)
+     615                            .dwattr $C$DW$34, DW_AT_decl_file("../driverlib/mpu.c")
+     616                            .dwattr $C$DW$34, DW_AT_decl_line(0x16e)
+     617                            .dwattr $C$DW$34, DW_AT_decl_column(0x01)
+     618                            .dwattr $C$DW$34, DW_AT_TI_max_frame_size(0x10)
+     619                            .dwpsn  file "../driverlib/mpu.c",line 367,column 1,is_stmt,address MPURegionGet,isa 1
+     620                    
+     621                            .dwfde $C$DW$CIE, MPURegionGet
+     622                    $C$DW$35        .dwtag  DW_TAG_formal_parameter
+     623                            .dwattr $C$DW$35, DW_AT_name("ui32Region")
+     624                            .dwattr $C$DW$35, DW_AT_TI_symbol_name("ui32Region")
+     625                            .dwattr $C$DW$35, DW_AT_type(*$C$DW$T$27)
+     626                            .dwattr $C$DW$35, DW_AT_location[DW_OP_reg0]
+     627                    
+     628                    $C$DW$36        .dwtag  DW_TAG_formal_parameter
+     629                            .dwattr $C$DW$36, DW_AT_name("pui32Addr")
+     630                            .dwattr $C$DW$36, DW_AT_TI_symbol_name("pui32Addr")
+     631                            .dwattr $C$DW$36, DW_AT_type(*$C$DW$T$33)
+     632                            .dwattr $C$DW$36, DW_AT_location[DW_OP_reg1]
+     633                    
+     634                    $C$DW$37        .dwtag  DW_TAG_formal_parameter
+     635                            .dwattr $C$DW$37, DW_AT_name("pui32Flags")
+     636                            .dwattr $C$DW$37, DW_AT_TI_symbol_name("pui32Flags")
+     637                            .dwattr $C$DW$37, DW_AT_type(*$C$DW$T$33)
+     638                            .dwattr $C$DW$37, DW_AT_location[DW_OP_reg2]
+     639                    
+     640                    ;----------------------------------------------------------------------
+     641                    ; 366 | MPURegionGet(uint32_t ui32Region, uint32_t *pui32Addr, uint32_t *pui32F
+     642                    ;     | lags)                                                                  
+     643                    ;----------------------------------------------------------------------
+     644                    
+     645                    ;*****************************************************************************
+     646                    ;* FUNCTION NAME: MPURegionGet                                               *
+     647                    ;*                                                                           *
+     648                    ;*   Regs Modified     : A1,A2,SP                                            *
+     649                    ;*   Regs Used         : A1,A2,A3,SP,LR                                      *
+     650                    ;*   Local Frame Size  : 0 Args + 12 Auto + 0 Save = 12 byte                 *
+     651                    ;*****************************************************************************
+     652 0000008a           MPURegionGet:
+     653                    ;* --------------------------------------------------------------------------*
+     654                            .dwcfi  cfa_offset, 0
+     655 0000008a 0D10F1AD          SUB       SP, SP, #16           ; [DPU_V7M3_PIPE]  ; [KEEP 32-BIT INS]
+     656                            .dwcfi  cfa_offset, 16
+     657                    $C$DW$38        .dwtag  DW_TAG_variable
+     658                            .dwattr $C$DW$38, DW_AT_name("ui32Region")
+     659                            .dwattr $C$DW$38, DW_AT_TI_symbol_name("ui32Region")
+     660                            .dwattr $C$DW$38, DW_AT_type(*$C$DW$T$27)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   13
+
+     661                            .dwattr $C$DW$38, DW_AT_location[DW_OP_breg13 0]
+     662                    
+     663                    $C$DW$39        .dwtag  DW_TAG_variable
+     664                            .dwattr $C$DW$39, DW_AT_name("pui32Addr")
+     665                            .dwattr $C$DW$39, DW_AT_TI_symbol_name("pui32Addr")
+     666                            .dwattr $C$DW$39, DW_AT_type(*$C$DW$T$33)
+     667                            .dwattr $C$DW$39, DW_AT_location[DW_OP_breg13 4]
+     668                    
+     669                    $C$DW$40        .dwtag  DW_TAG_variable
+     670                            .dwattr $C$DW$40, DW_AT_name("pui32Flags")
+     671                            .dwattr $C$DW$40, DW_AT_TI_symbol_name("pui32Flags")
+     672                            .dwattr $C$DW$40, DW_AT_type(*$C$DW$T$33)
+     673                            .dwattr $C$DW$40, DW_AT_location[DW_OP_breg13 8]
+     674                    
+     675                    ;----------------------------------------------------------------------
+     676                    ; 368 | //                                                                     
+     677                    ; 369 | // Check the arguments.                                                
+     678                    ; 370 | //                                                                     
+     679                    ; 371 | ASSERT(ui32Region < 8);                                                
+     680                    ; 372 | ASSERT(pui32Addr);                                                     
+     681                    ; 373 | ASSERT(pui32Flags);                                                    
+     682                    ; 375 | //                                                                     
+     683                    ; 376 | // Select the region to get.                                           
+     684                    ; 377 | //                                                                     
+     685                    ;----------------------------------------------------------------------
+     686 0000008e 9202              STR       A3, [SP, #8]          ; [DPU_V7M3_PIPE] |367|  ; [ORIG 16-BIT INS]
+     687 00000090 9101              STR       A2, [SP, #4]          ; [DPU_V7M3_PIPE] |367|  ; [ORIG 16-BIT INS]
+     688 00000092 9000              STR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |367|  ; [ORIG 16-BIT INS]
+     689                            .dwpsn  file "../driverlib/mpu.c",line 378,column 5,is_stmt,isa 1
+     690                    ;----------------------------------------------------------------------
+     691                    ; 378 | HWREG(NVIC_MPU_NUMBER) = ui32Region;                                   
+     692                    ; 380 | //                                                                     
+     693                    ; 381 | // Read and store the base address for the region.                     
+     694                    ; 382 | //                                                                     
+     695                    ;----------------------------------------------------------------------
+     696 00000094 4912              LDR       A2, $C$CON3           ; [DPU_V7M3_PIPE] |378|  ; [ORIG 16-BIT INS]
+     697 00000096 9800              LDR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |378|  ; [ORIG 16-BIT INS]
+     698 00000098 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |378|  ; [ORIG 16-BIT INS]
+     699                            .dwpsn  file "../driverlib/mpu.c",line 383,column 5,is_stmt,isa 1
+     700                    ;----------------------------------------------------------------------
+     701                    ; 383 | *pui32Addr = HWREG(NVIC_MPU_BASE) & NVIC_MPU_BASE_ADDR_M;              
+     702                    ; 385 | //                                                                     
+     703                    ; 386 | // Read and store the region attributes.                               
+     704                    ; 387 | //                                                                     
+     705                    ;----------------------------------------------------------------------
+     706 0000009a 4813              LDR       A1, $C$CON5           ; [DPU_V7M3_PIPE] |383|  ; [ORIG 16-BIT INS]
+     707 0000009c 9901              LDR       A2, [SP, #4]          ; [DPU_V7M3_PIPE] |383|  ; [ORIG 16-BIT INS]
+     708 0000009e 6800              LDR       A1, [A1, #0]          ; [DPU_V7M3_PIPE] |383|  ; [ORIG 16-BIT INS]
+     709 000000a0 001FF020          BIC       A1, A1, #31           ; [DPU_V7M3_PIPE] |383|  ; [KEEP 32-BIT INS]
+     710 000000a4 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |383|  ; [ORIG 16-BIT INS]
+     711                            .dwpsn  file "../driverlib/mpu.c",line 388,column 5,is_stmt,isa 1
+     712                    ;----------------------------------------------------------------------
+     713                    ; 388 | *pui32Flags = HWREG(NVIC_MPU_ATTR);                                    
+     714                    ;----------------------------------------------------------------------
+     715 000000a6 480F              LDR       A1, $C$CON4           ; [DPU_V7M3_PIPE] |388|  ; [ORIG 16-BIT INS]
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   14
+
+     716 000000a8 9902              LDR       A2, [SP, #8]          ; [DPU_V7M3_PIPE] |388|  ; [ORIG 16-BIT INS]
+     717 000000aa 6800              LDR       A1, [A1, #0]          ; [DPU_V7M3_PIPE] |388|  ; [ORIG 16-BIT INS]
+     718 000000ac 6008              STR       A1, [A2, #0]          ; [DPU_V7M3_PIPE] |388|  ; [ORIG 16-BIT INS]
+     719                            .dwpsn  file "../driverlib/mpu.c",line 389,column 1,is_stmt,isa 1
+     720 000000ae B004              ADD       SP, SP, #16           ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     721                            .dwcfi  cfa_offset, 0
+     722                    $C$DW$41        .dwtag  DW_TAG_TI_branch
+     723                            .dwattr $C$DW$41, DW_AT_low_pc(0x00)
+     724                            .dwattr $C$DW$41, DW_AT_TI_return
+     725                    
+     726 000000b0 4770              BX        LR                    ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     727                            ; BRANCH OCCURS                  ; [] 
+     728                            .dwattr $C$DW$34, DW_AT_TI_end_file("../driverlib/mpu.c")
+     729                            .dwattr $C$DW$34, DW_AT_TI_end_line(0x185)
+     730                            .dwattr $C$DW$34, DW_AT_TI_end_column(0x01)
+     731                            .dwendentry
+     732                            .dwendtag $C$DW$34
+     733                    
+     734 000000b2                   .sect   ".text"
+     735                            .clink
+     736                            .thumbfunc MPUIntRegister
+     737 000000b2                   .thumb
+     738                            .global MPUIntRegister
+     739                    
+     740                    $C$DW$42        .dwtag  DW_TAG_subprogram
+     741                            .dwattr $C$DW$42, DW_AT_name("MPUIntRegister")
+     742                            .dwattr $C$DW$42, DW_AT_low_pc(MPUIntRegister)
+     743                            .dwattr $C$DW$42, DW_AT_high_pc(0x00)
+     744                            .dwattr $C$DW$42, DW_AT_TI_symbol_name("MPUIntRegister")
+     745                            .dwattr $C$DW$42, DW_AT_external
+     746                            .dwattr $C$DW$42, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     747                            .dwattr $C$DW$42, DW_AT_TI_begin_line(0x199)
+     748                            .dwattr $C$DW$42, DW_AT_TI_begin_column(0x01)
+     749                            .dwattr $C$DW$42, DW_AT_decl_file("../driverlib/mpu.c")
+     750                            .dwattr $C$DW$42, DW_AT_decl_line(0x199)
+     751                            .dwattr $C$DW$42, DW_AT_decl_column(0x01)
+     752                            .dwattr $C$DW$42, DW_AT_TI_max_frame_size(0x08)
+     753                            .dwpsn  file "../driverlib/mpu.c",line 410,column 1,is_stmt,address MPUIntRegister,isa 1
+     754                    
+     755                            .dwfde $C$DW$CIE, MPUIntRegister
+     756                    $C$DW$43        .dwtag  DW_TAG_formal_parameter
+     757                            .dwattr $C$DW$43, DW_AT_name("pfnHandler")
+     758                            .dwattr $C$DW$43, DW_AT_TI_symbol_name("pfnHandler")
+     759                            .dwattr $C$DW$43, DW_AT_type(*$C$DW$T$25)
+     760                            .dwattr $C$DW$43, DW_AT_location[DW_OP_reg0]
+     761                    
+     762                    ;----------------------------------------------------------------------
+     763                    ; 409 | MPUIntRegister(void (*pfnHandler)(void))                               
+     764                    ;----------------------------------------------------------------------
+     765                    
+     766                    ;*****************************************************************************
+     767                    ;* FUNCTION NAME: MPUIntRegister                                             *
+     768                    ;*                                                                           *
+     769                    ;*   Regs Modified     : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+     770                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   15
+
+     771                    ;*                           FPEXC,FPSCR                                     *
+     772                    ;*   Regs Used         : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+     773                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+     774                    ;*                           FPEXC,FPSCR                                     *
+     775                    ;*   Local Frame Size  : 0 Args + 4 Auto + 4 Save = 8 byte                   *
+     776                    ;*****************************************************************************
+     777 000000b2           MPUIntRegister:
+     778                    ;* --------------------------------------------------------------------------*
+     779                            .dwcfi  cfa_offset, 0
+     780 000000b2 B508              PUSH      {A4, LR}              ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     781                            .dwcfi  cfa_offset, 8
+     782                            .dwcfi  save_reg_to_mem, 14, -4
+     783                            .dwcfi  save_reg_to_mem, 3, -8
+     784                    $C$DW$44        .dwtag  DW_TAG_variable
+     785                            .dwattr $C$DW$44, DW_AT_name("pfnHandler")
+     786                            .dwattr $C$DW$44, DW_AT_TI_symbol_name("pfnHandler")
+     787                            .dwattr $C$DW$44, DW_AT_type(*$C$DW$T$25)
+     788                            .dwattr $C$DW$44, DW_AT_location[DW_OP_breg13 0]
+     789                    
+     790                    ;----------------------------------------------------------------------
+     791                    ; 411 | //                                                                     
+     792                    ; 412 | // Check the arguments.                                                
+     793                    ; 413 | //                                                                     
+     794                    ; 414 | ASSERT(pfnHandler);                                                    
+     795                    ; 416 | //                                                                     
+     796                    ; 417 | // Register the interrupt handler.                                     
+     797                    ; 418 | //                                                                     
+     798                    ;----------------------------------------------------------------------
+     799 000000b4 9000              STR       A1, [SP, #0]          ; [DPU_V7M3_PIPE] |410|  ; [ORIG 16-BIT INS]
+     800                            .dwpsn  file "../driverlib/mpu.c",line 419,column 5,is_stmt,isa 1
+     801                    ;----------------------------------------------------------------------
+     802                    ; 419 | IntRegister(FAULT_MPU, pfnHandler);                                    
+     803                    ; 421 | //                                                                     
+     804                    ; 422 | // Enable the memory management fault.                                 
+     805                    ; 423 | //                                                                     
+     806                    ;----------------------------------------------------------------------
+     807 000000b6 9900              LDR       A2, [SP, #0]          ; [DPU_V7M3_PIPE] |419|  ; [ORIG 16-BIT INS]
+     808 000000b8 2004              MOVS      A1, #4                ; [DPU_V7M3_PIPE] |419|  ; [ORIG 16-BIT INS]
+     809                    $C$DW$45        .dwtag  DW_TAG_TI_branch
+     810                            .dwattr $C$DW$45, DW_AT_low_pc(0x00)
+     811                            .dwattr $C$DW$45, DW_AT_name("IntRegister")
+     812                            .dwattr $C$DW$45, DW_AT_TI_call
+     813                    
+     814 000000ba FFFEF7FF!         BL        IntRegister           ; [DPU_V7M3_PIPE] |419|  ; [KEEP 32-BIT INS]
+     815                            ; CALL OCCURS {IntRegister }     ; [] |419| 
+     816                            .dwpsn  file "../driverlib/mpu.c",line 424,column 5,is_stmt,isa 1
+     817                    ;----------------------------------------------------------------------
+     818                    ; 424 | IntEnable(FAULT_MPU);                                                  
+     819                    ;----------------------------------------------------------------------
+     820 000000be 2004              MOVS      A1, #4                ; [DPU_V7M3_PIPE] |424|  ; [ORIG 16-BIT INS]
+     821                    $C$DW$46        .dwtag  DW_TAG_TI_branch
+     822                            .dwattr $C$DW$46, DW_AT_low_pc(0x00)
+     823                            .dwattr $C$DW$46, DW_AT_name("IntEnable")
+     824                            .dwattr $C$DW$46, DW_AT_TI_call
+     825                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   16
+
+     826 000000c0 FFFEF7FF!         BL        IntEnable             ; [DPU_V7M3_PIPE] |424|  ; [KEEP 32-BIT INS]
+     827                            ; CALL OCCURS {IntEnable }       ; [] |424| 
+     828                            .dwpsn  file "../driverlib/mpu.c",line 425,column 1,is_stmt,isa 1
+     829                    $C$DW$47        .dwtag  DW_TAG_TI_branch
+     830                            .dwattr $C$DW$47, DW_AT_low_pc(0x00)
+     831                            .dwattr $C$DW$47, DW_AT_TI_return
+     832                    
+     833 000000c4 BD08              POP       {A4, PC}              ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     834                            .dwcfi  cfa_offset, 0
+     835                            .dwcfi  restore_reg, 3
+     836                            ; BRANCH OCCURS                  ; [] 
+     837                            .dwattr $C$DW$42, DW_AT_TI_end_file("../driverlib/mpu.c")
+     838                            .dwattr $C$DW$42, DW_AT_TI_end_line(0x1a9)
+     839                            .dwattr $C$DW$42, DW_AT_TI_end_column(0x01)
+     840                            .dwendentry
+     841                            .dwendtag $C$DW$42
+     842                    
+     843 000000c6                   .sect   ".text"
+     844                            .clink
+     845                            .thumbfunc MPUIntUnregister
+     846 000000c6                   .thumb
+     847                            .global MPUIntUnregister
+     848                    
+     849                    $C$DW$48        .dwtag  DW_TAG_subprogram
+     850                            .dwattr $C$DW$48, DW_AT_name("MPUIntUnregister")
+     851                            .dwattr $C$DW$48, DW_AT_low_pc(MPUIntUnregister)
+     852                            .dwattr $C$DW$48, DW_AT_high_pc(0x00)
+     853                            .dwattr $C$DW$48, DW_AT_TI_symbol_name("MPUIntUnregister")
+     854                            .dwattr $C$DW$48, DW_AT_external
+     855                            .dwattr $C$DW$48, DW_AT_TI_begin_file("../driverlib/mpu.c")
+     856                            .dwattr $C$DW$48, DW_AT_TI_begin_line(0x1b9)
+     857                            .dwattr $C$DW$48, DW_AT_TI_begin_column(0x01)
+     858                            .dwattr $C$DW$48, DW_AT_decl_file("../driverlib/mpu.c")
+     859                            .dwattr $C$DW$48, DW_AT_decl_line(0x1b9)
+     860                            .dwattr $C$DW$48, DW_AT_decl_column(0x01)
+     861                            .dwattr $C$DW$48, DW_AT_TI_max_frame_size(0x08)
+     862                            .dwpsn  file "../driverlib/mpu.c",line 442,column 1,is_stmt,address MPUIntUnregister,isa 1
+     863                    
+     864                            .dwfde $C$DW$CIE, MPUIntUnregister
+     865                    ;----------------------------------------------------------------------
+     866                    ; 441 | MPUIntUnregister(void)                                                 
+     867                    ; 443 | //                                                                     
+     868                    ; 444 | // Disable the interrupt.                                              
+     869                    ; 445 | //                                                                     
+     870                    ;----------------------------------------------------------------------
+     871                    
+     872                    ;*****************************************************************************
+     873                    ;* FUNCTION NAME: MPUIntUnregister                                           *
+     874                    ;*                                                                           *
+     875                    ;*   Regs Modified     : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+     876                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+     877                    ;*                           FPEXC,FPSCR                                     *
+     878                    ;*   Regs Used         : A1,A2,A3,A4,V9,SP,LR,SR,D0,D0_hi,D1,D1_hi,D2,D2_hi, *
+     879                    ;*                           D3,D3_hi,D4,D4_hi,D5,D5_hi,D6,D6_hi,D7,D7_hi,   *
+     880                    ;*                           FPEXC,FPSCR                                     *
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   17
+
+     881                    ;*   Local Frame Size  : 0 Args + 0 Auto + 4 Save = 4 byte                   *
+     882                    ;*****************************************************************************
+     883 000000c6           MPUIntUnregister:
+     884                    ;* --------------------------------------------------------------------------*
+     885                            .dwcfi  cfa_offset, 0
+     886 000000c6 B508              PUSH      {A4, LR}              ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     887                            .dwcfi  cfa_offset, 8
+     888                            .dwcfi  save_reg_to_mem, 14, -4
+     889                            .dwcfi  save_reg_to_mem, 3, -8
+     890                            .dwpsn  file "../driverlib/mpu.c",line 446,column 5,is_stmt,isa 1
+     891                    ;----------------------------------------------------------------------
+     892                    ; 446 | IntDisable(FAULT_MPU);                                                 
+     893                    ; 448 | //                                                                     
+     894                    ; 449 | // Unregister the interrupt handler.                                   
+     895                    ; 450 | //                                                                     
+     896                    ;----------------------------------------------------------------------
+     897 000000c8 2004              MOVS      A1, #4                ; [DPU_V7M3_PIPE] |446|  ; [ORIG 16-BIT INS]
+     898                    $C$DW$49        .dwtag  DW_TAG_TI_branch
+     899                            .dwattr $C$DW$49, DW_AT_low_pc(0x00)
+     900                            .dwattr $C$DW$49, DW_AT_name("IntDisable")
+     901                            .dwattr $C$DW$49, DW_AT_TI_call
+     902                    
+     903 000000ca FFFEF7FF!         BL        IntDisable            ; [DPU_V7M3_PIPE] |446|  ; [KEEP 32-BIT INS]
+     904                            ; CALL OCCURS {IntDisable }      ; [] |446| 
+     905                            .dwpsn  file "../driverlib/mpu.c",line 451,column 5,is_stmt,isa 1
+     906                    ;----------------------------------------------------------------------
+     907                    ; 451 | IntUnregister(FAULT_MPU);                                              
+     908                    ;----------------------------------------------------------------------
+     909 000000ce 2004              MOVS      A1, #4                ; [DPU_V7M3_PIPE] |451|  ; [ORIG 16-BIT INS]
+     910                    $C$DW$50        .dwtag  DW_TAG_TI_branch
+     911                            .dwattr $C$DW$50, DW_AT_low_pc(0x00)
+     912                            .dwattr $C$DW$50, DW_AT_name("IntUnregister")
+     913                            .dwattr $C$DW$50, DW_AT_TI_call
+     914                    
+     915 000000d0 FFFEF7FF!         BL        IntUnregister         ; [DPU_V7M3_PIPE] |451|  ; [KEEP 32-BIT INS]
+     916                            ; CALL OCCURS {IntUnregister }   ; [] |451| 
+     917                            .dwpsn  file "../driverlib/mpu.c",line 452,column 1,is_stmt,isa 1
+     918                    $C$DW$51        .dwtag  DW_TAG_TI_branch
+     919                            .dwattr $C$DW$51, DW_AT_low_pc(0x00)
+     920                            .dwattr $C$DW$51, DW_AT_TI_return
+     921                    
+     922 000000d4 BD08              POP       {A4, PC}              ; [DPU_V7M3_PIPE]  ; [ORIG 16-BIT INS]
+     923                            .dwcfi  cfa_offset, 0
+     924                            .dwcfi  restore_reg, 3
+     925                            ; BRANCH OCCURS                  ; [] 
+     926                            .dwattr $C$DW$48, DW_AT_TI_end_file("../driverlib/mpu.c")
+     927                            .dwattr $C$DW$48, DW_AT_TI_end_line(0x1c4)
+     928                            .dwattr $C$DW$48, DW_AT_TI_end_column(0x01)
+     929                            .dwendentry
+     930                            .dwendtag $C$DW$48
+     931                    
+     932                    ;******************************************************************************
+     933                    ;* CONSTANT TABLE                                                             *
+     934                    ;******************************************************************************
+     935 000000d6                   .sect   ".text"
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   18
+
+     936                            .align  4
+     937 000000d6 ED9446C0  ||$C$CON1||:    .bits   -536810092,32
+         000000da 0000E000 
+     938                            .align  4
+     939 000000da ED90E000  ||$C$CON2||:    .bits   -536810096,32
+         000000de 0000E000 
+     940                            .align  4
+     941 000000de ED98E000  ||$C$CON3||:    .bits   -536810088,32
+         000000e2 0000E000 
+     942                            .align  4
+     943 000000e2 EDA0E000  ||$C$CON4||:    .bits   -536810080,32
+         000000e6 0000E000 
+     944                            .align  4
+     945 000000e6 ED9CE000  ||$C$CON5||:    .bits   -536810084,32
+         000000ea 0000E000 
+     946                    ;*****************************************************************************
+     947                    ;* UNDEFINED EXTERNAL REFERENCES                                             *
+     948                    ;*****************************************************************************
+     949                            .global IntRegister
+     950                            .global IntEnable
+     951                            .global IntDisable
+     952                            .global IntUnregister
+     953                    
+     954                    ;******************************************************************************
+     955                    ;* BUILD ATTRIBUTES                                                           *
+     956                    ;******************************************************************************
+     957                            .battr "aeabi", Tag_File, 1, Tag_ABI_PCS_wchar_t(2)
+     958                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_rounding(0)
+     959                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_denormal(0)
+     960                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_exceptions(0)
+     961                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_number_model(1)
+     962                            .battr "aeabi", Tag_File, 1, Tag_ABI_enum_size(0)
+     963                            .battr "aeabi", Tag_File, 1, Tag_ABI_optimization_goals(5)
+     964                            .battr "aeabi", Tag_File, 1, Tag_ABI_FP_optimization_goals(0)
+     965                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+     966                            .battr "aeabi", Tag_File, 1, Tag_ABI_VFP_args(3)
+     967                            .battr "TI", Tag_File, 1, Tag_FP_interface(1)
+     968                    
+     969                    ;******************************************************************************
+     970                    ;* TYPE INFORMATION                                                           *
+     971                    ;******************************************************************************
+     972                    
+     973                    $C$DW$T$21      .dwtag  DW_TAG_structure_type
+     974                            .dwattr $C$DW$T$21, DW_AT_byte_size(0x10)
+     975                    $C$DW$52        .dwtag  DW_TAG_member
+     976                            .dwattr $C$DW$52, DW_AT_type(*$C$DW$T$14)
+     977                            .dwattr $C$DW$52, DW_AT_name("__max_align1")
+     978                            .dwattr $C$DW$52, DW_AT_TI_symbol_name("__max_align1")
+     979                            .dwattr $C$DW$52, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     980                            .dwattr $C$DW$52, DW_AT_accessibility(DW_ACCESS_public)
+     981                            .dwattr $C$DW$52, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/in
+     982                            .dwattr $C$DW$52, DW_AT_decl_line(0x70)
+     983                            .dwattr $C$DW$52, DW_AT_decl_column(0x0c)
+     984                    
+     985                    $C$DW$53        .dwtag  DW_TAG_member
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   19
+
+     986                            .dwattr $C$DW$53, DW_AT_type(*$C$DW$T$18)
+     987                            .dwattr $C$DW$53, DW_AT_name("__max_align2")
+     988                            .dwattr $C$DW$53, DW_AT_TI_symbol_name("__max_align2")
+     989                            .dwattr $C$DW$53, DW_AT_data_member_location[DW_OP_plus_uconst 0x8]
+     990                            .dwattr $C$DW$53, DW_AT_accessibility(DW_ACCESS_public)
+     991                            .dwattr $C$DW$53, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/in
+     992                            .dwattr $C$DW$53, DW_AT_decl_line(0x71)
+     993                            .dwattr $C$DW$53, DW_AT_decl_column(0x0e)
+     994                    
+     995                            .dwattr $C$DW$T$21, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+     996                            .dwattr $C$DW$T$21, DW_AT_decl_line(0x6f)
+     997                            .dwattr $C$DW$T$21, DW_AT_decl_column(0x10)
+     998                            .dwendtag $C$DW$T$21
+     999                    
+    1000                    $C$DW$T$23      .dwtag  DW_TAG_typedef
+    1001                            .dwattr $C$DW$T$23, DW_AT_name("__max_align_t")
+    1002                            .dwattr $C$DW$T$23, DW_AT_type(*$C$DW$T$21)
+    1003                            .dwattr $C$DW$T$23, DW_AT_language(DW_LANG_C)
+    1004                            .dwattr $C$DW$T$23, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1005                            .dwattr $C$DW$T$23, DW_AT_decl_line(0x72)
+    1006                            .dwattr $C$DW$T$23, DW_AT_decl_column(0x03)
+    1007                    
+    1008                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+    1009                            .dwattr $C$DW$T$2, DW_AT_name("void")
+    1010                    
+    1011                    $C$DW$T$3       .dwtag  DW_TAG_pointer_type
+    1012                            .dwattr $C$DW$T$3, DW_AT_type(*$C$DW$T$2)
+    1013                            .dwattr $C$DW$T$3, DW_AT_address_class(0x20)
+    1014                    
+    1015                    
+    1016                    $C$DW$T$24      .dwtag  DW_TAG_subroutine_type
+    1017                            .dwattr $C$DW$T$24, DW_AT_language(DW_LANG_C)
+    1018                            .dwendtag $C$DW$T$24
+    1019                    
+    1020                    $C$DW$T$25      .dwtag  DW_TAG_pointer_type
+    1021                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$24)
+    1022                            .dwattr $C$DW$T$25, DW_AT_address_class(0x20)
+    1023                    
+    1024                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+    1025                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+    1026                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+    1027                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+    1028                    
+    1029                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+    1030                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+    1031                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+    1032                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+    1033                    
+    1034                    $C$DW$T$36      .dwtag  DW_TAG_typedef
+    1035                            .dwattr $C$DW$T$36, DW_AT_name("__int8_t")
+    1036                            .dwattr $C$DW$T$36, DW_AT_type(*$C$DW$T$5)
+    1037                            .dwattr $C$DW$T$36, DW_AT_language(DW_LANG_C)
+    1038                            .dwattr $C$DW$T$36, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1039                            .dwattr $C$DW$T$36, DW_AT_decl_line(0x39)
+    1040                            .dwattr $C$DW$T$36, DW_AT_decl_column(0x16)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   20
+
+    1041                    
+    1042                    $C$DW$T$37      .dwtag  DW_TAG_typedef
+    1043                            .dwattr $C$DW$T$37, DW_AT_name("__int_least8_t")
+    1044                            .dwattr $C$DW$T$37, DW_AT_type(*$C$DW$T$36)
+    1045                            .dwattr $C$DW$T$37, DW_AT_language(DW_LANG_C)
+    1046                            .dwattr $C$DW$T$37, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1047                            .dwattr $C$DW$T$37, DW_AT_decl_line(0x58)
+    1048                            .dwattr $C$DW$T$37, DW_AT_decl_column(0x12)
+    1049                    
+    1050                    $C$DW$T$38      .dwtag  DW_TAG_typedef
+    1051                            .dwattr $C$DW$T$38, DW_AT_name("int_least8_t")
+    1052                            .dwattr $C$DW$T$38, DW_AT_type(*$C$DW$T$37)
+    1053                            .dwattr $C$DW$T$38, DW_AT_language(DW_LANG_C)
+    1054                            .dwattr $C$DW$T$38, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1055                            .dwattr $C$DW$T$38, DW_AT_decl_line(0x28)
+    1056                            .dwattr $C$DW$T$38, DW_AT_decl_column(0x19)
+    1057                    
+    1058                    $C$DW$T$39      .dwtag  DW_TAG_typedef
+    1059                            .dwattr $C$DW$T$39, DW_AT_name("int8_t")
+    1060                            .dwattr $C$DW$T$39, DW_AT_type(*$C$DW$T$36)
+    1061                            .dwattr $C$DW$T$39, DW_AT_language(DW_LANG_C)
+    1062                            .dwattr $C$DW$T$39, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1063                            .dwattr $C$DW$T$39, DW_AT_decl_line(0x24)
+    1064                            .dwattr $C$DW$T$39, DW_AT_decl_column(0x13)
+    1065                    
+    1066                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+    1067                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+    1068                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+    1069                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+    1070                    
+    1071                    $C$DW$T$40      .dwtag  DW_TAG_typedef
+    1072                            .dwattr $C$DW$T$40, DW_AT_name("__uint8_t")
+    1073                            .dwattr $C$DW$T$40, DW_AT_type(*$C$DW$T$6)
+    1074                            .dwattr $C$DW$T$40, DW_AT_language(DW_LANG_C)
+    1075                            .dwattr $C$DW$T$40, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1076                            .dwattr $C$DW$T$40, DW_AT_decl_line(0x3a)
+    1077                            .dwattr $C$DW$T$40, DW_AT_decl_column(0x18)
+    1078                    
+    1079                    $C$DW$T$41      .dwtag  DW_TAG_typedef
+    1080                            .dwattr $C$DW$T$41, DW_AT_name("__sa_family_t")
+    1081                            .dwattr $C$DW$T$41, DW_AT_type(*$C$DW$T$40)
+    1082                            .dwattr $C$DW$T$41, DW_AT_language(DW_LANG_C)
+    1083                            .dwattr $C$DW$T$41, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1084                            .dwattr $C$DW$T$41, DW_AT_decl_line(0x43)
+    1085                            .dwattr $C$DW$T$41, DW_AT_decl_column(0x13)
+    1086                    
+    1087                    $C$DW$T$42      .dwtag  DW_TAG_typedef
+    1088                            .dwattr $C$DW$T$42, DW_AT_name("__uint_least8_t")
+    1089                            .dwattr $C$DW$T$42, DW_AT_type(*$C$DW$T$40)
+    1090                            .dwattr $C$DW$T$42, DW_AT_language(DW_LANG_C)
+    1091                            .dwattr $C$DW$T$42, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1092                            .dwattr $C$DW$T$42, DW_AT_decl_line(0x6d)
+    1093                            .dwattr $C$DW$T$42, DW_AT_decl_column(0x13)
+    1094                    
+    1095                    $C$DW$T$43      .dwtag  DW_TAG_typedef
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   21
+
+    1096                            .dwattr $C$DW$T$43, DW_AT_name("uint_least8_t")
+    1097                            .dwattr $C$DW$T$43, DW_AT_type(*$C$DW$T$42)
+    1098                            .dwattr $C$DW$T$43, DW_AT_language(DW_LANG_C)
+    1099                            .dwattr $C$DW$T$43, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1100                            .dwattr $C$DW$T$43, DW_AT_decl_line(0x2d)
+    1101                            .dwattr $C$DW$T$43, DW_AT_decl_column(0x1a)
+    1102                    
+    1103                    $C$DW$T$44      .dwtag  DW_TAG_typedef
+    1104                            .dwattr $C$DW$T$44, DW_AT_name("uint8_t")
+    1105                            .dwattr $C$DW$T$44, DW_AT_type(*$C$DW$T$40)
+    1106                            .dwattr $C$DW$T$44, DW_AT_language(DW_LANG_C)
+    1107                            .dwattr $C$DW$T$44, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1108                            .dwattr $C$DW$T$44, DW_AT_decl_line(0x38)
+    1109                            .dwattr $C$DW$T$44, DW_AT_decl_column(0x14)
+    1110                    
+    1111                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+    1112                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+    1113                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+    1114                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+    1115                    
+    1116                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+    1117                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+    1118                            .dwattr $C$DW$T$8, DW_AT_name("short")
+    1119                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+    1120                    
+    1121                    $C$DW$T$45      .dwtag  DW_TAG_typedef
+    1122                            .dwattr $C$DW$T$45, DW_AT_name("__int16_t")
+    1123                            .dwattr $C$DW$T$45, DW_AT_type(*$C$DW$T$8)
+    1124                            .dwattr $C$DW$T$45, DW_AT_language(DW_LANG_C)
+    1125                            .dwattr $C$DW$T$45, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1126                            .dwattr $C$DW$T$45, DW_AT_decl_line(0x3b)
+    1127                            .dwattr $C$DW$T$45, DW_AT_decl_column(0x11)
+    1128                    
+    1129                    $C$DW$T$46      .dwtag  DW_TAG_typedef
+    1130                            .dwattr $C$DW$T$46, DW_AT_name("__int_least16_t")
+    1131                            .dwattr $C$DW$T$46, DW_AT_type(*$C$DW$T$45)
+    1132                            .dwattr $C$DW$T$46, DW_AT_language(DW_LANG_C)
+    1133                            .dwattr $C$DW$T$46, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1134                            .dwattr $C$DW$T$46, DW_AT_decl_line(0x59)
+    1135                            .dwattr $C$DW$T$46, DW_AT_decl_column(0x13)
+    1136                    
+    1137                    $C$DW$T$47      .dwtag  DW_TAG_typedef
+    1138                            .dwattr $C$DW$T$47, DW_AT_name("int_least16_t")
+    1139                            .dwattr $C$DW$T$47, DW_AT_type(*$C$DW$T$46)
+    1140                            .dwattr $C$DW$T$47, DW_AT_language(DW_LANG_C)
+    1141                            .dwattr $C$DW$T$47, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1142                            .dwattr $C$DW$T$47, DW_AT_decl_line(0x29)
+    1143                            .dwattr $C$DW$T$47, DW_AT_decl_column(0x1a)
+    1144                    
+    1145                    $C$DW$T$48      .dwtag  DW_TAG_typedef
+    1146                            .dwattr $C$DW$T$48, DW_AT_name("int16_t")
+    1147                            .dwattr $C$DW$T$48, DW_AT_type(*$C$DW$T$45)
+    1148                            .dwattr $C$DW$T$48, DW_AT_language(DW_LANG_C)
+    1149                            .dwattr $C$DW$T$48, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1150                            .dwattr $C$DW$T$48, DW_AT_decl_line(0x29)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   22
+
+    1151                            .dwattr $C$DW$T$48, DW_AT_decl_column(0x14)
+    1152                    
+    1153                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+    1154                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+    1155                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+    1156                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+    1157                    
+    1158                    $C$DW$T$49      .dwtag  DW_TAG_typedef
+    1159                            .dwattr $C$DW$T$49, DW_AT_name("___wchar_t")
+    1160                            .dwattr $C$DW$T$49, DW_AT_type(*$C$DW$T$9)
+    1161                            .dwattr $C$DW$T$49, DW_AT_language(DW_LANG_C)
+    1162                            .dwattr $C$DW$T$49, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1163                            .dwattr $C$DW$T$49, DW_AT_decl_line(0x76)
+    1164                            .dwattr $C$DW$T$49, DW_AT_decl_column(0x1a)
+    1165                    
+    1166                    $C$DW$T$50      .dwtag  DW_TAG_typedef
+    1167                            .dwattr $C$DW$T$50, DW_AT_name("__uint16_t")
+    1168                            .dwattr $C$DW$T$50, DW_AT_type(*$C$DW$T$9)
+    1169                            .dwattr $C$DW$T$50, DW_AT_language(DW_LANG_C)
+    1170                            .dwattr $C$DW$T$50, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1171                            .dwattr $C$DW$T$50, DW_AT_decl_line(0x3c)
+    1172                            .dwattr $C$DW$T$50, DW_AT_decl_column(0x19)
+    1173                    
+    1174                    $C$DW$T$51      .dwtag  DW_TAG_typedef
+    1175                            .dwattr $C$DW$T$51, DW_AT_name("__mode_t")
+    1176                            .dwattr $C$DW$T$51, DW_AT_type(*$C$DW$T$50)
+    1177                            .dwattr $C$DW$T$51, DW_AT_language(DW_LANG_C)
+    1178                            .dwattr $C$DW$T$51, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1179                            .dwattr $C$DW$T$51, DW_AT_decl_line(0x39)
+    1180                            .dwattr $C$DW$T$51, DW_AT_decl_column(0x14)
+    1181                    
+    1182                    $C$DW$T$52      .dwtag  DW_TAG_typedef
+    1183                            .dwattr $C$DW$T$52, DW_AT_name("__uint_least16_t")
+    1184                            .dwattr $C$DW$T$52, DW_AT_type(*$C$DW$T$50)
+    1185                            .dwattr $C$DW$T$52, DW_AT_language(DW_LANG_C)
+    1186                            .dwattr $C$DW$T$52, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1187                            .dwattr $C$DW$T$52, DW_AT_decl_line(0x6e)
+    1188                            .dwattr $C$DW$T$52, DW_AT_decl_column(0x14)
+    1189                    
+    1190                    $C$DW$T$53      .dwtag  DW_TAG_typedef
+    1191                            .dwattr $C$DW$T$53, DW_AT_name("__char16_t")
+    1192                            .dwattr $C$DW$T$53, DW_AT_type(*$C$DW$T$52)
+    1193                            .dwattr $C$DW$T$53, DW_AT_language(DW_LANG_C)
+    1194                            .dwattr $C$DW$T$53, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1195                            .dwattr $C$DW$T$53, DW_AT_decl_line(0x66)
+    1196                            .dwattr $C$DW$T$53, DW_AT_decl_column(0x1a)
+    1197                    
+    1198                    $C$DW$T$54      .dwtag  DW_TAG_typedef
+    1199                            .dwattr $C$DW$T$54, DW_AT_name("uint_least16_t")
+    1200                            .dwattr $C$DW$T$54, DW_AT_type(*$C$DW$T$52)
+    1201                            .dwattr $C$DW$T$54, DW_AT_language(DW_LANG_C)
+    1202                            .dwattr $C$DW$T$54, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1203                            .dwattr $C$DW$T$54, DW_AT_decl_line(0x2e)
+    1204                            .dwattr $C$DW$T$54, DW_AT_decl_column(0x1a)
+    1205                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   23
+
+    1206                    $C$DW$T$55      .dwtag  DW_TAG_typedef
+    1207                            .dwattr $C$DW$T$55, DW_AT_name("uint16_t")
+    1208                            .dwattr $C$DW$T$55, DW_AT_type(*$C$DW$T$50)
+    1209                            .dwattr $C$DW$T$55, DW_AT_language(DW_LANG_C)
+    1210                            .dwattr $C$DW$T$55, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1211                            .dwattr $C$DW$T$55, DW_AT_decl_line(0x3d)
+    1212                            .dwattr $C$DW$T$55, DW_AT_decl_column(0x15)
+    1213                    
+    1214                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+    1215                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+    1216                            .dwattr $C$DW$T$10, DW_AT_name("int")
+    1217                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+    1218                    
+    1219                    $C$DW$T$56      .dwtag  DW_TAG_typedef
+    1220                            .dwattr $C$DW$T$56, DW_AT_name("_Mbstatet")
+    1221                            .dwattr $C$DW$T$56, DW_AT_type(*$C$DW$T$10)
+    1222                            .dwattr $C$DW$T$56, DW_AT_language(DW_LANG_C)
+    1223                            .dwattr $C$DW$T$56, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1224                            .dwattr $C$DW$T$56, DW_AT_decl_line(0x84)
+    1225                            .dwattr $C$DW$T$56, DW_AT_decl_column(0x0d)
+    1226                    
+    1227                    $C$DW$T$57      .dwtag  DW_TAG_typedef
+    1228                            .dwattr $C$DW$T$57, DW_AT_name("__mbstate_t")
+    1229                            .dwattr $C$DW$T$57, DW_AT_type(*$C$DW$T$56)
+    1230                            .dwattr $C$DW$T$57, DW_AT_language(DW_LANG_C)
+    1231                            .dwattr $C$DW$T$57, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1232                            .dwattr $C$DW$T$57, DW_AT_decl_line(0x87)
+    1233                            .dwattr $C$DW$T$57, DW_AT_decl_column(0x13)
+    1234                    
+    1235                    $C$DW$T$58      .dwtag  DW_TAG_typedef
+    1236                            .dwattr $C$DW$T$58, DW_AT_name("__accmode_t")
+    1237                            .dwattr $C$DW$T$58, DW_AT_type(*$C$DW$T$10)
+    1238                            .dwattr $C$DW$T$58, DW_AT_language(DW_LANG_C)
+    1239                            .dwattr $C$DW$T$58, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1240                            .dwattr $C$DW$T$58, DW_AT_decl_line(0x3a)
+    1241                            .dwattr $C$DW$T$58, DW_AT_decl_column(0x0e)
+    1242                    
+    1243                    $C$DW$T$59      .dwtag  DW_TAG_typedef
+    1244                            .dwattr $C$DW$T$59, DW_AT_name("__cpulevel_t")
+    1245                            .dwattr $C$DW$T$59, DW_AT_type(*$C$DW$T$10)
+    1246                            .dwattr $C$DW$T$59, DW_AT_language(DW_LANG_C)
+    1247                            .dwattr $C$DW$T$59, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1248                            .dwattr $C$DW$T$59, DW_AT_decl_line(0x4b)
+    1249                            .dwattr $C$DW$T$59, DW_AT_decl_column(0x0e)
+    1250                    
+    1251                    $C$DW$T$60      .dwtag  DW_TAG_typedef
+    1252                            .dwattr $C$DW$T$60, DW_AT_name("__cpusetid_t")
+    1253                            .dwattr $C$DW$T$60, DW_AT_type(*$C$DW$T$10)
+    1254                            .dwattr $C$DW$T$60, DW_AT_language(DW_LANG_C)
+    1255                            .dwattr $C$DW$T$60, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1256                            .dwattr $C$DW$T$60, DW_AT_decl_line(0x4c)
+    1257                            .dwattr $C$DW$T$60, DW_AT_decl_column(0x0e)
+    1258                    
+    1259                    $C$DW$T$61      .dwtag  DW_TAG_typedef
+    1260                            .dwattr $C$DW$T$61, DW_AT_name("__cpuwhich_t")
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   24
+
+    1261                            .dwattr $C$DW$T$61, DW_AT_type(*$C$DW$T$10)
+    1262                            .dwattr $C$DW$T$61, DW_AT_language(DW_LANG_C)
+    1263                            .dwattr $C$DW$T$61, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1264                            .dwattr $C$DW$T$61, DW_AT_decl_line(0x4a)
+    1265                            .dwattr $C$DW$T$61, DW_AT_decl_column(0x0e)
+    1266                    
+    1267                    $C$DW$T$62      .dwtag  DW_TAG_typedef
+    1268                            .dwattr $C$DW$T$62, DW_AT_name("__ct_rune_t")
+    1269                            .dwattr $C$DW$T$62, DW_AT_type(*$C$DW$T$10)
+    1270                            .dwattr $C$DW$T$62, DW_AT_language(DW_LANG_C)
+    1271                            .dwattr $C$DW$T$62, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1272                            .dwattr $C$DW$T$62, DW_AT_decl_line(0x60)
+    1273                            .dwattr $C$DW$T$62, DW_AT_decl_column(0x0e)
+    1274                    
+    1275                    $C$DW$T$63      .dwtag  DW_TAG_typedef
+    1276                            .dwattr $C$DW$T$63, DW_AT_name("__rune_t")
+    1277                            .dwattr $C$DW$T$63, DW_AT_type(*$C$DW$T$62)
+    1278                            .dwattr $C$DW$T$63, DW_AT_language(DW_LANG_C)
+    1279                            .dwattr $C$DW$T$63, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1280                            .dwattr $C$DW$T$63, DW_AT_decl_line(0x61)
+    1281                            .dwattr $C$DW$T$63, DW_AT_decl_column(0x15)
+    1282                    
+    1283                    $C$DW$T$64      .dwtag  DW_TAG_typedef
+    1284                            .dwattr $C$DW$T$64, DW_AT_name("__wint_t")
+    1285                            .dwattr $C$DW$T$64, DW_AT_type(*$C$DW$T$62)
+    1286                            .dwattr $C$DW$T$64, DW_AT_language(DW_LANG_C)
+    1287                            .dwattr $C$DW$T$64, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1288                            .dwattr $C$DW$T$64, DW_AT_decl_line(0x62)
+    1289                            .dwattr $C$DW$T$64, DW_AT_decl_column(0x15)
+    1290                    
+    1291                    $C$DW$T$65      .dwtag  DW_TAG_typedef
+    1292                            .dwattr $C$DW$T$65, DW_AT_name("__int32_t")
+    1293                            .dwattr $C$DW$T$65, DW_AT_type(*$C$DW$T$10)
+    1294                            .dwattr $C$DW$T$65, DW_AT_language(DW_LANG_C)
+    1295                            .dwattr $C$DW$T$65, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1296                            .dwattr $C$DW$T$65, DW_AT_decl_line(0x3d)
+    1297                            .dwattr $C$DW$T$65, DW_AT_decl_column(0x0f)
+    1298                    
+    1299                    $C$DW$T$66      .dwtag  DW_TAG_typedef
+    1300                            .dwattr $C$DW$T$66, DW_AT_name("__blksize_t")
+    1301                            .dwattr $C$DW$T$66, DW_AT_type(*$C$DW$T$65)
+    1302                            .dwattr $C$DW$T$66, DW_AT_language(DW_LANG_C)
+    1303                            .dwattr $C$DW$T$66, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1304                            .dwattr $C$DW$T$66, DW_AT_decl_line(0x2e)
+    1305                            .dwattr $C$DW$T$66, DW_AT_decl_column(0x13)
+    1306                    
+    1307                    $C$DW$T$67      .dwtag  DW_TAG_typedef
+    1308                            .dwattr $C$DW$T$67, DW_AT_name("__clockid_t")
+    1309                            .dwattr $C$DW$T$67, DW_AT_type(*$C$DW$T$65)
+    1310                            .dwattr $C$DW$T$67, DW_AT_language(DW_LANG_C)
+    1311                            .dwattr $C$DW$T$67, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1312                            .dwattr $C$DW$T$67, DW_AT_decl_line(0x30)
+    1313                            .dwattr $C$DW$T$67, DW_AT_decl_column(0x13)
+    1314                    
+    1315                    $C$DW$T$68      .dwtag  DW_TAG_typedef
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   25
+
+    1316                            .dwattr $C$DW$T$68, DW_AT_name("__critical_t")
+    1317                            .dwattr $C$DW$T$68, DW_AT_type(*$C$DW$T$65)
+    1318                            .dwattr $C$DW$T$68, DW_AT_language(DW_LANG_C)
+    1319                            .dwattr $C$DW$T$68, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1320                            .dwattr $C$DW$T$68, DW_AT_decl_line(0x4e)
+    1321                            .dwattr $C$DW$T$68, DW_AT_decl_column(0x13)
+    1322                    
+    1323                    $C$DW$T$69      .dwtag  DW_TAG_typedef
+    1324                            .dwattr $C$DW$T$69, DW_AT_name("__int_fast16_t")
+    1325                            .dwattr $C$DW$T$69, DW_AT_type(*$C$DW$T$65)
+    1326                            .dwattr $C$DW$T$69, DW_AT_language(DW_LANG_C)
+    1327                            .dwattr $C$DW$T$69, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1328                            .dwattr $C$DW$T$69, DW_AT_decl_line(0x55)
+    1329                            .dwattr $C$DW$T$69, DW_AT_decl_column(0x13)
+    1330                    
+    1331                    $C$DW$T$70      .dwtag  DW_TAG_typedef
+    1332                            .dwattr $C$DW$T$70, DW_AT_name("int_fast16_t")
+    1333                            .dwattr $C$DW$T$70, DW_AT_type(*$C$DW$T$69)
+    1334                            .dwattr $C$DW$T$70, DW_AT_language(DW_LANG_C)
+    1335                            .dwattr $C$DW$T$70, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1336                            .dwattr $C$DW$T$70, DW_AT_decl_line(0x33)
+    1337                            .dwattr $C$DW$T$70, DW_AT_decl_column(0x19)
+    1338                    
+    1339                    $C$DW$T$71      .dwtag  DW_TAG_typedef
+    1340                            .dwattr $C$DW$T$71, DW_AT_name("__int_fast32_t")
+    1341                            .dwattr $C$DW$T$71, DW_AT_type(*$C$DW$T$65)
+    1342                            .dwattr $C$DW$T$71, DW_AT_language(DW_LANG_C)
+    1343                            .dwattr $C$DW$T$71, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1344                            .dwattr $C$DW$T$71, DW_AT_decl_line(0x56)
+    1345                            .dwattr $C$DW$T$71, DW_AT_decl_column(0x13)
+    1346                    
+    1347                    $C$DW$T$72      .dwtag  DW_TAG_typedef
+    1348                            .dwattr $C$DW$T$72, DW_AT_name("int_fast32_t")
+    1349                            .dwattr $C$DW$T$72, DW_AT_type(*$C$DW$T$71)
+    1350                            .dwattr $C$DW$T$72, DW_AT_language(DW_LANG_C)
+    1351                            .dwattr $C$DW$T$72, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1352                            .dwattr $C$DW$T$72, DW_AT_decl_line(0x34)
+    1353                            .dwattr $C$DW$T$72, DW_AT_decl_column(0x19)
+    1354                    
+    1355                    $C$DW$T$73      .dwtag  DW_TAG_typedef
+    1356                            .dwattr $C$DW$T$73, DW_AT_name("__int_fast8_t")
+    1357                            .dwattr $C$DW$T$73, DW_AT_type(*$C$DW$T$65)
+    1358                            .dwattr $C$DW$T$73, DW_AT_language(DW_LANG_C)
+    1359                            .dwattr $C$DW$T$73, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1360                            .dwattr $C$DW$T$73, DW_AT_decl_line(0x54)
+    1361                            .dwattr $C$DW$T$73, DW_AT_decl_column(0x13)
+    1362                    
+    1363                    $C$DW$T$74      .dwtag  DW_TAG_typedef
+    1364                            .dwattr $C$DW$T$74, DW_AT_name("int_fast8_t")
+    1365                            .dwattr $C$DW$T$74, DW_AT_type(*$C$DW$T$73)
+    1366                            .dwattr $C$DW$T$74, DW_AT_language(DW_LANG_C)
+    1367                            .dwattr $C$DW$T$74, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1368                            .dwattr $C$DW$T$74, DW_AT_decl_line(0x32)
+    1369                            .dwattr $C$DW$T$74, DW_AT_decl_column(0x18)
+    1370                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   26
+
+    1371                    $C$DW$T$75      .dwtag  DW_TAG_typedef
+    1372                            .dwattr $C$DW$T$75, DW_AT_name("__int_least32_t")
+    1373                            .dwattr $C$DW$T$75, DW_AT_type(*$C$DW$T$65)
+    1374                            .dwattr $C$DW$T$75, DW_AT_language(DW_LANG_C)
+    1375                            .dwattr $C$DW$T$75, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1376                            .dwattr $C$DW$T$75, DW_AT_decl_line(0x5a)
+    1377                            .dwattr $C$DW$T$75, DW_AT_decl_column(0x13)
+    1378                    
+    1379                    $C$DW$T$76      .dwtag  DW_TAG_typedef
+    1380                            .dwattr $C$DW$T$76, DW_AT_name("int_least32_t")
+    1381                            .dwattr $C$DW$T$76, DW_AT_type(*$C$DW$T$75)
+    1382                            .dwattr $C$DW$T$76, DW_AT_language(DW_LANG_C)
+    1383                            .dwattr $C$DW$T$76, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1384                            .dwattr $C$DW$T$76, DW_AT_decl_line(0x2a)
+    1385                            .dwattr $C$DW$T$76, DW_AT_decl_column(0x1a)
+    1386                    
+    1387                    $C$DW$T$77      .dwtag  DW_TAG_typedef
+    1388                            .dwattr $C$DW$T$77, DW_AT_name("__intfptr_t")
+    1389                            .dwattr $C$DW$T$77, DW_AT_type(*$C$DW$T$65)
+    1390                            .dwattr $C$DW$T$77, DW_AT_language(DW_LANG_C)
+    1391                            .dwattr $C$DW$T$77, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1392                            .dwattr $C$DW$T$77, DW_AT_decl_line(0x51)
+    1393                            .dwattr $C$DW$T$77, DW_AT_decl_column(0x13)
+    1394                    
+    1395                    $C$DW$T$78      .dwtag  DW_TAG_typedef
+    1396                            .dwattr $C$DW$T$78, DW_AT_name("__intptr_t")
+    1397                            .dwattr $C$DW$T$78, DW_AT_type(*$C$DW$T$65)
+    1398                            .dwattr $C$DW$T$78, DW_AT_language(DW_LANG_C)
+    1399                            .dwattr $C$DW$T$78, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1400                            .dwattr $C$DW$T$78, DW_AT_decl_line(0x53)
+    1401                            .dwattr $C$DW$T$78, DW_AT_decl_column(0x13)
+    1402                    
+    1403                    $C$DW$T$79      .dwtag  DW_TAG_typedef
+    1404                            .dwattr $C$DW$T$79, DW_AT_name("intptr_t")
+    1405                            .dwattr $C$DW$T$79, DW_AT_type(*$C$DW$T$78)
+    1406                            .dwattr $C$DW$T$79, DW_AT_language(DW_LANG_C)
+    1407                            .dwattr $C$DW$T$79, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1408                            .dwattr $C$DW$T$79, DW_AT_decl_line(0x4c)
+    1409                            .dwattr $C$DW$T$79, DW_AT_decl_column(0x15)
+    1410                    
+    1411                    $C$DW$T$80      .dwtag  DW_TAG_typedef
+    1412                            .dwattr $C$DW$T$80, DW_AT_name("__lwpid_t")
+    1413                            .dwattr $C$DW$T$80, DW_AT_type(*$C$DW$T$65)
+    1414                            .dwattr $C$DW$T$80, DW_AT_language(DW_LANG_C)
+    1415                            .dwattr $C$DW$T$80, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1416                            .dwattr $C$DW$T$80, DW_AT_decl_line(0x38)
+    1417                            .dwattr $C$DW$T$80, DW_AT_decl_column(0x13)
+    1418                    
+    1419                    $C$DW$T$81      .dwtag  DW_TAG_typedef
+    1420                            .dwattr $C$DW$T$81, DW_AT_name("__pid_t")
+    1421                            .dwattr $C$DW$T$81, DW_AT_type(*$C$DW$T$65)
+    1422                            .dwattr $C$DW$T$81, DW_AT_language(DW_LANG_C)
+    1423                            .dwattr $C$DW$T$81, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1424                            .dwattr $C$DW$T$81, DW_AT_decl_line(0x3f)
+    1425                            .dwattr $C$DW$T$81, DW_AT_decl_column(0x13)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   27
+
+    1426                    
+    1427                    $C$DW$T$82      .dwtag  DW_TAG_typedef
+    1428                            .dwattr $C$DW$T$82, DW_AT_name("__ptrdiff_t")
+    1429                            .dwattr $C$DW$T$82, DW_AT_type(*$C$DW$T$65)
+    1430                            .dwattr $C$DW$T$82, DW_AT_language(DW_LANG_C)
+    1431                            .dwattr $C$DW$T$82, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1432                            .dwattr $C$DW$T$82, DW_AT_decl_line(0x5c)
+    1433                            .dwattr $C$DW$T$82, DW_AT_decl_column(0x13)
+    1434                    
+    1435                    $C$DW$T$83      .dwtag  DW_TAG_typedef
+    1436                            .dwattr $C$DW$T$83, DW_AT_name("__register_t")
+    1437                            .dwattr $C$DW$T$83, DW_AT_type(*$C$DW$T$65)
+    1438                            .dwattr $C$DW$T$83, DW_AT_language(DW_LANG_C)
+    1439                            .dwattr $C$DW$T$83, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1440                            .dwattr $C$DW$T$83, DW_AT_decl_line(0x5d)
+    1441                            .dwattr $C$DW$T$83, DW_AT_decl_column(0x13)
+    1442                    
+    1443                    $C$DW$T$84      .dwtag  DW_TAG_typedef
+    1444                            .dwattr $C$DW$T$84, DW_AT_name("__segsz_t")
+    1445                            .dwattr $C$DW$T$84, DW_AT_type(*$C$DW$T$65)
+    1446                            .dwattr $C$DW$T$84, DW_AT_language(DW_LANG_C)
+    1447                            .dwattr $C$DW$T$84, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1448                            .dwattr $C$DW$T$84, DW_AT_decl_line(0x5e)
+    1449                            .dwattr $C$DW$T$84, DW_AT_decl_column(0x13)
+    1450                    
+    1451                    $C$DW$T$85      .dwtag  DW_TAG_typedef
+    1452                            .dwattr $C$DW$T$85, DW_AT_name("__ssize_t")
+    1453                            .dwattr $C$DW$T$85, DW_AT_type(*$C$DW$T$65)
+    1454                            .dwattr $C$DW$T$85, DW_AT_language(DW_LANG_C)
+    1455                            .dwattr $C$DW$T$85, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1456                            .dwattr $C$DW$T$85, DW_AT_decl_line(0x60)
+    1457                            .dwattr $C$DW$T$85, DW_AT_decl_column(0x13)
+    1458                    
+    1459                    $C$DW$T$86      .dwtag  DW_TAG_typedef
+    1460                            .dwattr $C$DW$T$86, DW_AT_name("int32_t")
+    1461                            .dwattr $C$DW$T$86, DW_AT_type(*$C$DW$T$65)
+    1462                            .dwattr $C$DW$T$86, DW_AT_language(DW_LANG_C)
+    1463                            .dwattr $C$DW$T$86, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1464                            .dwattr $C$DW$T$86, DW_AT_decl_line(0x2e)
+    1465                            .dwattr $C$DW$T$86, DW_AT_decl_column(0x14)
+    1466                    
+    1467                    $C$DW$T$87      .dwtag  DW_TAG_typedef
+    1468                            .dwattr $C$DW$T$87, DW_AT_name("__nl_item")
+    1469                            .dwattr $C$DW$T$87, DW_AT_type(*$C$DW$T$10)
+    1470                            .dwattr $C$DW$T$87, DW_AT_language(DW_LANG_C)
+    1471                            .dwattr $C$DW$T$87, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1472                            .dwattr $C$DW$T$87, DW_AT_decl_line(0x3b)
+    1473                            .dwattr $C$DW$T$87, DW_AT_decl_column(0x0e)
+    1474                    
+    1475                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+    1476                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+    1477                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+    1478                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+    1479                    
+    1480                    $C$DW$T$26      .dwtag  DW_TAG_typedef
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   28
+
+    1481                            .dwattr $C$DW$T$26, DW_AT_name("__uint32_t")
+    1482                            .dwattr $C$DW$T$26, DW_AT_type(*$C$DW$T$11)
+    1483                            .dwattr $C$DW$T$26, DW_AT_language(DW_LANG_C)
+    1484                            .dwattr $C$DW$T$26, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1485                            .dwattr $C$DW$T$26, DW_AT_decl_line(0x3e)
+    1486                            .dwattr $C$DW$T$26, DW_AT_decl_column(0x17)
+    1487                    
+    1488                    $C$DW$T$88      .dwtag  DW_TAG_typedef
+    1489                            .dwattr $C$DW$T$88, DW_AT_name("__clock_t")
+    1490                            .dwattr $C$DW$T$88, DW_AT_type(*$C$DW$T$26)
+    1491                            .dwattr $C$DW$T$88, DW_AT_language(DW_LANG_C)
+    1492                            .dwattr $C$DW$T$88, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1493                            .dwattr $C$DW$T$88, DW_AT_decl_line(0x4d)
+    1494                            .dwattr $C$DW$T$88, DW_AT_decl_column(0x14)
+    1495                    
+    1496                    $C$DW$T$89      .dwtag  DW_TAG_typedef
+    1497                            .dwattr $C$DW$T$89, DW_AT_name("__fflags_t")
+    1498                            .dwattr $C$DW$T$89, DW_AT_type(*$C$DW$T$26)
+    1499                            .dwattr $C$DW$T$89, DW_AT_language(DW_LANG_C)
+    1500                            .dwattr $C$DW$T$89, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1501                            .dwattr $C$DW$T$89, DW_AT_decl_line(0x31)
+    1502                            .dwattr $C$DW$T$89, DW_AT_decl_column(0x14)
+    1503                    
+    1504                    $C$DW$T$90      .dwtag  DW_TAG_typedef
+    1505                            .dwattr $C$DW$T$90, DW_AT_name("__fixpt_t")
+    1506                            .dwattr $C$DW$T$90, DW_AT_type(*$C$DW$T$26)
+    1507                            .dwattr $C$DW$T$90, DW_AT_language(DW_LANG_C)
+    1508                            .dwattr $C$DW$T$90, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1509                            .dwattr $C$DW$T$90, DW_AT_decl_line(0x76)
+    1510                            .dwattr $C$DW$T$90, DW_AT_decl_column(0x14)
+    1511                    
+    1512                    $C$DW$T$91      .dwtag  DW_TAG_typedef
+    1513                            .dwattr $C$DW$T$91, DW_AT_name("__gid_t")
+    1514                            .dwattr $C$DW$T$91, DW_AT_type(*$C$DW$T$26)
+    1515                            .dwattr $C$DW$T$91, DW_AT_language(DW_LANG_C)
+    1516                            .dwattr $C$DW$T$91, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1517                            .dwattr $C$DW$T$91, DW_AT_decl_line(0x34)
+    1518                            .dwattr $C$DW$T$91, DW_AT_decl_column(0x14)
+    1519                    
+    1520                    $C$DW$T$92      .dwtag  DW_TAG_typedef
+    1521                            .dwattr $C$DW$T$92, DW_AT_name("__size_t")
+    1522                            .dwattr $C$DW$T$92, DW_AT_type(*$C$DW$T$26)
+    1523                            .dwattr $C$DW$T$92, DW_AT_language(DW_LANG_C)
+    1524                            .dwattr $C$DW$T$92, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1525                            .dwattr $C$DW$T$92, DW_AT_decl_line(0x5f)
+    1526                            .dwattr $C$DW$T$92, DW_AT_decl_column(0x14)
+    1527                    
+    1528                    $C$DW$T$93      .dwtag  DW_TAG_typedef
+    1529                            .dwattr $C$DW$T$93, DW_AT_name("__socklen_t")
+    1530                            .dwattr $C$DW$T$93, DW_AT_type(*$C$DW$T$26)
+    1531                            .dwattr $C$DW$T$93, DW_AT_language(DW_LANG_C)
+    1532                            .dwattr $C$DW$T$93, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1533                            .dwattr $C$DW$T$93, DW_AT_decl_line(0x44)
+    1534                            .dwattr $C$DW$T$93, DW_AT_decl_column(0x14)
+    1535                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   29
+
+    1536                    $C$DW$T$94      .dwtag  DW_TAG_typedef
+    1537                            .dwattr $C$DW$T$94, DW_AT_name("__time_t")
+    1538                            .dwattr $C$DW$T$94, DW_AT_type(*$C$DW$T$26)
+    1539                            .dwattr $C$DW$T$94, DW_AT_language(DW_LANG_C)
+    1540                            .dwattr $C$DW$T$94, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1541                            .dwattr $C$DW$T$94, DW_AT_decl_line(0x64)
+    1542                            .dwattr $C$DW$T$94, DW_AT_decl_column(0x19)
+    1543                    
+    1544                    $C$DW$T$95      .dwtag  DW_TAG_typedef
+    1545                            .dwattr $C$DW$T$95, DW_AT_name("__u_register_t")
+    1546                            .dwattr $C$DW$T$95, DW_AT_type(*$C$DW$T$26)
+    1547                            .dwattr $C$DW$T$95, DW_AT_language(DW_LANG_C)
+    1548                            .dwattr $C$DW$T$95, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1549                            .dwattr $C$DW$T$95, DW_AT_decl_line(0x71)
+    1550                            .dwattr $C$DW$T$95, DW_AT_decl_column(0x14)
+    1551                    
+    1552                    $C$DW$T$96      .dwtag  DW_TAG_typedef
+    1553                            .dwattr $C$DW$T$96, DW_AT_name("__uid_t")
+    1554                            .dwattr $C$DW$T$96, DW_AT_type(*$C$DW$T$26)
+    1555                            .dwattr $C$DW$T$96, DW_AT_language(DW_LANG_C)
+    1556                            .dwattr $C$DW$T$96, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1557                            .dwattr $C$DW$T$96, DW_AT_decl_line(0x48)
+    1558                            .dwattr $C$DW$T$96, DW_AT_decl_column(0x14)
+    1559                    
+    1560                    $C$DW$T$97      .dwtag  DW_TAG_typedef
+    1561                            .dwattr $C$DW$T$97, DW_AT_name("__uint_fast16_t")
+    1562                            .dwattr $C$DW$T$97, DW_AT_type(*$C$DW$T$26)
+    1563                            .dwattr $C$DW$T$97, DW_AT_language(DW_LANG_C)
+    1564                            .dwattr $C$DW$T$97, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1565                            .dwattr $C$DW$T$97, DW_AT_decl_line(0x6a)
+    1566                            .dwattr $C$DW$T$97, DW_AT_decl_column(0x14)
+    1567                    
+    1568                    $C$DW$T$98      .dwtag  DW_TAG_typedef
+    1569                            .dwattr $C$DW$T$98, DW_AT_name("uint_fast16_t")
+    1570                            .dwattr $C$DW$T$98, DW_AT_type(*$C$DW$T$97)
+    1571                            .dwattr $C$DW$T$98, DW_AT_language(DW_LANG_C)
+    1572                            .dwattr $C$DW$T$98, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1573                            .dwattr $C$DW$T$98, DW_AT_decl_line(0x38)
+    1574                            .dwattr $C$DW$T$98, DW_AT_decl_column(0x1a)
+    1575                    
+    1576                    $C$DW$T$99      .dwtag  DW_TAG_typedef
+    1577                            .dwattr $C$DW$T$99, DW_AT_name("__uint_fast32_t")
+    1578                            .dwattr $C$DW$T$99, DW_AT_type(*$C$DW$T$26)
+    1579                            .dwattr $C$DW$T$99, DW_AT_language(DW_LANG_C)
+    1580                            .dwattr $C$DW$T$99, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1581                            .dwattr $C$DW$T$99, DW_AT_decl_line(0x6b)
+    1582                            .dwattr $C$DW$T$99, DW_AT_decl_column(0x14)
+    1583                    
+    1584                    $C$DW$T$100     .dwtag  DW_TAG_typedef
+    1585                            .dwattr $C$DW$T$100, DW_AT_name("uint_fast32_t")
+    1586                            .dwattr $C$DW$T$100, DW_AT_type(*$C$DW$T$99)
+    1587                            .dwattr $C$DW$T$100, DW_AT_language(DW_LANG_C)
+    1588                            .dwattr $C$DW$T$100, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1589                            .dwattr $C$DW$T$100, DW_AT_decl_line(0x39)
+    1590                            .dwattr $C$DW$T$100, DW_AT_decl_column(0x1a)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   30
+
+    1591                    
+    1592                    $C$DW$T$101     .dwtag  DW_TAG_typedef
+    1593                            .dwattr $C$DW$T$101, DW_AT_name("__uint_fast8_t")
+    1594                            .dwattr $C$DW$T$101, DW_AT_type(*$C$DW$T$26)
+    1595                            .dwattr $C$DW$T$101, DW_AT_language(DW_LANG_C)
+    1596                            .dwattr $C$DW$T$101, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1597                            .dwattr $C$DW$T$101, DW_AT_decl_line(0x69)
+    1598                            .dwattr $C$DW$T$101, DW_AT_decl_column(0x14)
+    1599                    
+    1600                    $C$DW$T$102     .dwtag  DW_TAG_typedef
+    1601                            .dwattr $C$DW$T$102, DW_AT_name("uint_fast8_t")
+    1602                            .dwattr $C$DW$T$102, DW_AT_type(*$C$DW$T$101)
+    1603                            .dwattr $C$DW$T$102, DW_AT_language(DW_LANG_C)
+    1604                            .dwattr $C$DW$T$102, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1605                            .dwattr $C$DW$T$102, DW_AT_decl_line(0x37)
+    1606                            .dwattr $C$DW$T$102, DW_AT_decl_column(0x19)
+    1607                    
+    1608                    $C$DW$T$103     .dwtag  DW_TAG_typedef
+    1609                            .dwattr $C$DW$T$103, DW_AT_name("__uint_least32_t")
+    1610                            .dwattr $C$DW$T$103, DW_AT_type(*$C$DW$T$26)
+    1611                            .dwattr $C$DW$T$103, DW_AT_language(DW_LANG_C)
+    1612                            .dwattr $C$DW$T$103, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1613                            .dwattr $C$DW$T$103, DW_AT_decl_line(0x6f)
+    1614                            .dwattr $C$DW$T$103, DW_AT_decl_column(0x14)
+    1615                    
+    1616                    $C$DW$T$104     .dwtag  DW_TAG_typedef
+    1617                            .dwattr $C$DW$T$104, DW_AT_name("__char32_t")
+    1618                            .dwattr $C$DW$T$104, DW_AT_type(*$C$DW$T$103)
+    1619                            .dwattr $C$DW$T$104, DW_AT_language(DW_LANG_C)
+    1620                            .dwattr $C$DW$T$104, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1621                            .dwattr $C$DW$T$104, DW_AT_decl_line(0x67)
+    1622                            .dwattr $C$DW$T$104, DW_AT_decl_column(0x1a)
+    1623                    
+    1624                    $C$DW$T$105     .dwtag  DW_TAG_typedef
+    1625                            .dwattr $C$DW$T$105, DW_AT_name("uint_least32_t")
+    1626                            .dwattr $C$DW$T$105, DW_AT_type(*$C$DW$T$103)
+    1627                            .dwattr $C$DW$T$105, DW_AT_language(DW_LANG_C)
+    1628                            .dwattr $C$DW$T$105, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1629                            .dwattr $C$DW$T$105, DW_AT_decl_line(0x2f)
+    1630                            .dwattr $C$DW$T$105, DW_AT_decl_column(0x1a)
+    1631                    
+    1632                    $C$DW$T$106     .dwtag  DW_TAG_typedef
+    1633                            .dwattr $C$DW$T$106, DW_AT_name("__uintfptr_t")
+    1634                            .dwattr $C$DW$T$106, DW_AT_type(*$C$DW$T$26)
+    1635                            .dwattr $C$DW$T$106, DW_AT_language(DW_LANG_C)
+    1636                            .dwattr $C$DW$T$106, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1637                            .dwattr $C$DW$T$106, DW_AT_decl_line(0x66)
+    1638                            .dwattr $C$DW$T$106, DW_AT_decl_column(0x14)
+    1639                    
+    1640                    $C$DW$T$107     .dwtag  DW_TAG_typedef
+    1641                            .dwattr $C$DW$T$107, DW_AT_name("__uintptr_t")
+    1642                            .dwattr $C$DW$T$107, DW_AT_type(*$C$DW$T$26)
+    1643                            .dwattr $C$DW$T$107, DW_AT_language(DW_LANG_C)
+    1644                            .dwattr $C$DW$T$107, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1645                            .dwattr $C$DW$T$107, DW_AT_decl_line(0x68)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   31
+
+    1646                            .dwattr $C$DW$T$107, DW_AT_decl_column(0x14)
+    1647                    
+    1648                    $C$DW$T$108     .dwtag  DW_TAG_typedef
+    1649                            .dwattr $C$DW$T$108, DW_AT_name("uintptr_t")
+    1650                            .dwattr $C$DW$T$108, DW_AT_type(*$C$DW$T$107)
+    1651                            .dwattr $C$DW$T$108, DW_AT_language(DW_LANG_C)
+    1652                            .dwattr $C$DW$T$108, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1653                            .dwattr $C$DW$T$108, DW_AT_decl_line(0x50)
+    1654                            .dwattr $C$DW$T$108, DW_AT_decl_column(0x16)
+    1655                    
+    1656                    $C$DW$T$109     .dwtag  DW_TAG_typedef
+    1657                            .dwattr $C$DW$T$109, DW_AT_name("__vm_offset_t")
+    1658                            .dwattr $C$DW$T$109, DW_AT_type(*$C$DW$T$26)
+    1659                            .dwattr $C$DW$T$109, DW_AT_language(DW_LANG_C)
+    1660                            .dwattr $C$DW$T$109, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1661                            .dwattr $C$DW$T$109, DW_AT_decl_line(0x72)
+    1662                            .dwattr $C$DW$T$109, DW_AT_decl_column(0x14)
+    1663                    
+    1664                    $C$DW$T$110     .dwtag  DW_TAG_typedef
+    1665                            .dwattr $C$DW$T$110, DW_AT_name("__vm_paddr_t")
+    1666                            .dwattr $C$DW$T$110, DW_AT_type(*$C$DW$T$26)
+    1667                            .dwattr $C$DW$T$110, DW_AT_language(DW_LANG_C)
+    1668                            .dwattr $C$DW$T$110, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1669                            .dwattr $C$DW$T$110, DW_AT_decl_line(0x73)
+    1670                            .dwattr $C$DW$T$110, DW_AT_decl_column(0x14)
+    1671                    
+    1672                    $C$DW$T$111     .dwtag  DW_TAG_typedef
+    1673                            .dwattr $C$DW$T$111, DW_AT_name("__vm_size_t")
+    1674                            .dwattr $C$DW$T$111, DW_AT_type(*$C$DW$T$26)
+    1675                            .dwattr $C$DW$T$111, DW_AT_language(DW_LANG_C)
+    1676                            .dwattr $C$DW$T$111, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1677                            .dwattr $C$DW$T$111, DW_AT_decl_line(0x74)
+    1678                            .dwattr $C$DW$T$111, DW_AT_decl_column(0x14)
+    1679                    
+    1680                    $C$DW$T$27      .dwtag  DW_TAG_typedef
+    1681                            .dwattr $C$DW$T$27, DW_AT_name("uint32_t")
+    1682                            .dwattr $C$DW$T$27, DW_AT_type(*$C$DW$T$26)
+    1683                            .dwattr $C$DW$T$27, DW_AT_language(DW_LANG_C)
+    1684                            .dwattr $C$DW$T$27, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1685                            .dwattr $C$DW$T$27, DW_AT_decl_line(0x42)
+    1686                            .dwattr $C$DW$T$27, DW_AT_decl_column(0x15)
+    1687                    
+    1688                    $C$DW$T$33      .dwtag  DW_TAG_pointer_type
+    1689                            .dwattr $C$DW$T$33, DW_AT_type(*$C$DW$T$27)
+    1690                            .dwattr $C$DW$T$33, DW_AT_address_class(0x20)
+    1691                    
+    1692                    $C$DW$T$115     .dwtag  DW_TAG_typedef
+    1693                            .dwattr $C$DW$T$115, DW_AT_name("__useconds_t")
+    1694                            .dwattr $C$DW$T$115, DW_AT_type(*$C$DW$T$11)
+    1695                            .dwattr $C$DW$T$115, DW_AT_language(DW_LANG_C)
+    1696                            .dwattr $C$DW$T$115, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1697                            .dwattr $C$DW$T$115, DW_AT_decl_line(0x49)
+    1698                            .dwattr $C$DW$T$115, DW_AT_decl_column(0x16)
+    1699                    
+    1700                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   32
+
+    1701                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+    1702                            .dwattr $C$DW$T$12, DW_AT_name("long")
+    1703                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x04)
+    1704                    
+    1705                    $C$DW$T$116     .dwtag  DW_TAG_typedef
+    1706                            .dwattr $C$DW$T$116, DW_AT_name("__key_t")
+    1707                            .dwattr $C$DW$T$116, DW_AT_type(*$C$DW$T$12)
+    1708                            .dwattr $C$DW$T$116, DW_AT_language(DW_LANG_C)
+    1709                            .dwattr $C$DW$T$116, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1710                            .dwattr $C$DW$T$116, DW_AT_decl_line(0x37)
+    1711                            .dwattr $C$DW$T$116, DW_AT_decl_column(0x0f)
+    1712                    
+    1713                    $C$DW$T$117     .dwtag  DW_TAG_typedef
+    1714                            .dwattr $C$DW$T$117, DW_AT_name("__suseconds_t")
+    1715                            .dwattr $C$DW$T$117, DW_AT_type(*$C$DW$T$12)
+    1716                            .dwattr $C$DW$T$117, DW_AT_language(DW_LANG_C)
+    1717                            .dwattr $C$DW$T$117, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1718                            .dwattr $C$DW$T$117, DW_AT_decl_line(0x45)
+    1719                            .dwattr $C$DW$T$117, DW_AT_decl_column(0x0f)
+    1720                    
+    1721                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+    1722                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+    1723                            .dwattr $C$DW$T$13, DW_AT_name("unsigned long")
+    1724                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x04)
+    1725                    
+    1726                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+    1727                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+    1728                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+    1729                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+    1730                    
+    1731                    $C$DW$T$118     .dwtag  DW_TAG_typedef
+    1732                            .dwattr $C$DW$T$118, DW_AT_name("__int64_t")
+    1733                            .dwattr $C$DW$T$118, DW_AT_type(*$C$DW$T$14)
+    1734                            .dwattr $C$DW$T$118, DW_AT_language(DW_LANG_C)
+    1735                            .dwattr $C$DW$T$118, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1736                            .dwattr $C$DW$T$118, DW_AT_decl_line(0x43)
+    1737                            .dwattr $C$DW$T$118, DW_AT_decl_column(0x14)
+    1738                    
+    1739                    $C$DW$T$119     .dwtag  DW_TAG_typedef
+    1740                            .dwattr $C$DW$T$119, DW_AT_name("__blkcnt_t")
+    1741                            .dwattr $C$DW$T$119, DW_AT_type(*$C$DW$T$118)
+    1742                            .dwattr $C$DW$T$119, DW_AT_language(DW_LANG_C)
+    1743                            .dwattr $C$DW$T$119, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1744                            .dwattr $C$DW$T$119, DW_AT_decl_line(0x2f)
+    1745                            .dwattr $C$DW$T$119, DW_AT_decl_column(0x13)
+    1746                    
+    1747                    $C$DW$T$120     .dwtag  DW_TAG_typedef
+    1748                            .dwattr $C$DW$T$120, DW_AT_name("__id_t")
+    1749                            .dwattr $C$DW$T$120, DW_AT_type(*$C$DW$T$118)
+    1750                            .dwattr $C$DW$T$120, DW_AT_language(DW_LANG_C)
+    1751                            .dwattr $C$DW$T$120, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1752                            .dwattr $C$DW$T$120, DW_AT_decl_line(0x35)
+    1753                            .dwattr $C$DW$T$120, DW_AT_decl_column(0x13)
+    1754                    
+    1755                    $C$DW$T$121     .dwtag  DW_TAG_typedef
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   33
+
+    1756                            .dwattr $C$DW$T$121, DW_AT_name("__int_fast64_t")
+    1757                            .dwattr $C$DW$T$121, DW_AT_type(*$C$DW$T$118)
+    1758                            .dwattr $C$DW$T$121, DW_AT_language(DW_LANG_C)
+    1759                            .dwattr $C$DW$T$121, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1760                            .dwattr $C$DW$T$121, DW_AT_decl_line(0x57)
+    1761                            .dwattr $C$DW$T$121, DW_AT_decl_column(0x13)
+    1762                    
+    1763                    $C$DW$T$122     .dwtag  DW_TAG_typedef
+    1764                            .dwattr $C$DW$T$122, DW_AT_name("int_fast64_t")
+    1765                            .dwattr $C$DW$T$122, DW_AT_type(*$C$DW$T$121)
+    1766                            .dwattr $C$DW$T$122, DW_AT_language(DW_LANG_C)
+    1767                            .dwattr $C$DW$T$122, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1768                            .dwattr $C$DW$T$122, DW_AT_decl_line(0x35)
+    1769                            .dwattr $C$DW$T$122, DW_AT_decl_column(0x19)
+    1770                    
+    1771                    $C$DW$T$123     .dwtag  DW_TAG_typedef
+    1772                            .dwattr $C$DW$T$123, DW_AT_name("__int_least64_t")
+    1773                            .dwattr $C$DW$T$123, DW_AT_type(*$C$DW$T$118)
+    1774                            .dwattr $C$DW$T$123, DW_AT_language(DW_LANG_C)
+    1775                            .dwattr $C$DW$T$123, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1776                            .dwattr $C$DW$T$123, DW_AT_decl_line(0x5b)
+    1777                            .dwattr $C$DW$T$123, DW_AT_decl_column(0x13)
+    1778                    
+    1779                    $C$DW$T$124     .dwtag  DW_TAG_typedef
+    1780                            .dwattr $C$DW$T$124, DW_AT_name("int_least64_t")
+    1781                            .dwattr $C$DW$T$124, DW_AT_type(*$C$DW$T$123)
+    1782                            .dwattr $C$DW$T$124, DW_AT_language(DW_LANG_C)
+    1783                            .dwattr $C$DW$T$124, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1784                            .dwattr $C$DW$T$124, DW_AT_decl_line(0x2b)
+    1785                            .dwattr $C$DW$T$124, DW_AT_decl_column(0x1a)
+    1786                    
+    1787                    $C$DW$T$125     .dwtag  DW_TAG_typedef
+    1788                            .dwattr $C$DW$T$125, DW_AT_name("__intmax_t")
+    1789                            .dwattr $C$DW$T$125, DW_AT_type(*$C$DW$T$118)
+    1790                            .dwattr $C$DW$T$125, DW_AT_language(DW_LANG_C)
+    1791                            .dwattr $C$DW$T$125, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1792                            .dwattr $C$DW$T$125, DW_AT_decl_line(0x52)
+    1793                            .dwattr $C$DW$T$125, DW_AT_decl_column(0x13)
+    1794                    
+    1795                    $C$DW$T$126     .dwtag  DW_TAG_typedef
+    1796                            .dwattr $C$DW$T$126, DW_AT_name("intmax_t")
+    1797                            .dwattr $C$DW$T$126, DW_AT_type(*$C$DW$T$125)
+    1798                            .dwattr $C$DW$T$126, DW_AT_language(DW_LANG_C)
+    1799                            .dwattr $C$DW$T$126, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1800                            .dwattr $C$DW$T$126, DW_AT_decl_line(0x54)
+    1801                            .dwattr $C$DW$T$126, DW_AT_decl_column(0x15)
+    1802                    
+    1803                    $C$DW$T$127     .dwtag  DW_TAG_typedef
+    1804                            .dwattr $C$DW$T$127, DW_AT_name("__off64_t")
+    1805                            .dwattr $C$DW$T$127, DW_AT_type(*$C$DW$T$118)
+    1806                            .dwattr $C$DW$T$127, DW_AT_language(DW_LANG_C)
+    1807                            .dwattr $C$DW$T$127, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1808                            .dwattr $C$DW$T$127, DW_AT_decl_line(0x3e)
+    1809                            .dwattr $C$DW$T$127, DW_AT_decl_column(0x13)
+    1810                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   34
+
+    1811                    $C$DW$T$128     .dwtag  DW_TAG_typedef
+    1812                            .dwattr $C$DW$T$128, DW_AT_name("__off_t")
+    1813                            .dwattr $C$DW$T$128, DW_AT_type(*$C$DW$T$118)
+    1814                            .dwattr $C$DW$T$128, DW_AT_language(DW_LANG_C)
+    1815                            .dwattr $C$DW$T$128, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1816                            .dwattr $C$DW$T$128, DW_AT_decl_line(0x3d)
+    1817                            .dwattr $C$DW$T$128, DW_AT_decl_column(0x13)
+    1818                    
+    1819                    $C$DW$T$129     .dwtag  DW_TAG_typedef
+    1820                            .dwattr $C$DW$T$129, DW_AT_name("__rlim_t")
+    1821                            .dwattr $C$DW$T$129, DW_AT_type(*$C$DW$T$118)
+    1822                            .dwattr $C$DW$T$129, DW_AT_language(DW_LANG_C)
+    1823                            .dwattr $C$DW$T$129, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1824                            .dwattr $C$DW$T$129, DW_AT_decl_line(0x40)
+    1825                            .dwattr $C$DW$T$129, DW_AT_decl_column(0x13)
+    1826                    
+    1827                    $C$DW$T$130     .dwtag  DW_TAG_typedef
+    1828                            .dwattr $C$DW$T$130, DW_AT_name("int64_t")
+    1829                            .dwattr $C$DW$T$130, DW_AT_type(*$C$DW$T$118)
+    1830                            .dwattr $C$DW$T$130, DW_AT_language(DW_LANG_C)
+    1831                            .dwattr $C$DW$T$130, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1832                            .dwattr $C$DW$T$130, DW_AT_decl_line(0x33)
+    1833                            .dwattr $C$DW$T$130, DW_AT_decl_column(0x14)
+    1834                    
+    1835                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+    1836                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+    1837                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+    1838                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+    1839                    
+    1840                    $C$DW$T$131     .dwtag  DW_TAG_typedef
+    1841                            .dwattr $C$DW$T$131, DW_AT_name("__uint64_t")
+    1842                            .dwattr $C$DW$T$131, DW_AT_type(*$C$DW$T$15)
+    1843                            .dwattr $C$DW$T$131, DW_AT_language(DW_LANG_C)
+    1844                            .dwattr $C$DW$T$131, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1845                            .dwattr $C$DW$T$131, DW_AT_decl_line(0x48)
+    1846                            .dwattr $C$DW$T$131, DW_AT_decl_column(0x1c)
+    1847                    
+    1848                    $C$DW$T$132     .dwtag  DW_TAG_typedef
+    1849                            .dwattr $C$DW$T$132, DW_AT_name("__dev_t")
+    1850                            .dwattr $C$DW$T$132, DW_AT_type(*$C$DW$T$131)
+    1851                            .dwattr $C$DW$T$132, DW_AT_language(DW_LANG_C)
+    1852                            .dwattr $C$DW$T$132, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1853                            .dwattr $C$DW$T$132, DW_AT_decl_line(0x74)
+    1854                            .dwattr $C$DW$T$132, DW_AT_decl_column(0x14)
+    1855                    
+    1856                    $C$DW$T$133     .dwtag  DW_TAG_typedef
+    1857                            .dwattr $C$DW$T$133, DW_AT_name("__fsblkcnt_t")
+    1858                            .dwattr $C$DW$T$133, DW_AT_type(*$C$DW$T$131)
+    1859                            .dwattr $C$DW$T$133, DW_AT_language(DW_LANG_C)
+    1860                            .dwattr $C$DW$T$133, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1861                            .dwattr $C$DW$T$133, DW_AT_decl_line(0x32)
+    1862                            .dwattr $C$DW$T$133, DW_AT_decl_column(0x14)
+    1863                    
+    1864                    $C$DW$T$134     .dwtag  DW_TAG_typedef
+    1865                            .dwattr $C$DW$T$134, DW_AT_name("__fsfilcnt_t")
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   35
+
+    1866                            .dwattr $C$DW$T$134, DW_AT_type(*$C$DW$T$131)
+    1867                            .dwattr $C$DW$T$134, DW_AT_language(DW_LANG_C)
+    1868                            .dwattr $C$DW$T$134, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1869                            .dwattr $C$DW$T$134, DW_AT_decl_line(0x33)
+    1870                            .dwattr $C$DW$T$134, DW_AT_decl_column(0x14)
+    1871                    
+    1872                    $C$DW$T$135     .dwtag  DW_TAG_typedef
+    1873                            .dwattr $C$DW$T$135, DW_AT_name("__ino_t")
+    1874                            .dwattr $C$DW$T$135, DW_AT_type(*$C$DW$T$131)
+    1875                            .dwattr $C$DW$T$135, DW_AT_language(DW_LANG_C)
+    1876                            .dwattr $C$DW$T$135, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1877                            .dwattr $C$DW$T$135, DW_AT_decl_line(0x36)
+    1878                            .dwattr $C$DW$T$135, DW_AT_decl_column(0x14)
+    1879                    
+    1880                    $C$DW$T$136     .dwtag  DW_TAG_typedef
+    1881                            .dwattr $C$DW$T$136, DW_AT_name("__nlink_t")
+    1882                            .dwattr $C$DW$T$136, DW_AT_type(*$C$DW$T$131)
+    1883                            .dwattr $C$DW$T$136, DW_AT_language(DW_LANG_C)
+    1884                            .dwattr $C$DW$T$136, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1885                            .dwattr $C$DW$T$136, DW_AT_decl_line(0x3c)
+    1886                            .dwattr $C$DW$T$136, DW_AT_decl_column(0x14)
+    1887                    
+    1888                    $C$DW$T$137     .dwtag  DW_TAG_typedef
+    1889                            .dwattr $C$DW$T$137, DW_AT_name("__uint_fast64_t")
+    1890                            .dwattr $C$DW$T$137, DW_AT_type(*$C$DW$T$131)
+    1891                            .dwattr $C$DW$T$137, DW_AT_language(DW_LANG_C)
+    1892                            .dwattr $C$DW$T$137, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1893                            .dwattr $C$DW$T$137, DW_AT_decl_line(0x6c)
+    1894                            .dwattr $C$DW$T$137, DW_AT_decl_column(0x14)
+    1895                    
+    1896                    $C$DW$T$138     .dwtag  DW_TAG_typedef
+    1897                            .dwattr $C$DW$T$138, DW_AT_name("uint_fast64_t")
+    1898                            .dwattr $C$DW$T$138, DW_AT_type(*$C$DW$T$137)
+    1899                            .dwattr $C$DW$T$138, DW_AT_language(DW_LANG_C)
+    1900                            .dwattr $C$DW$T$138, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1901                            .dwattr $C$DW$T$138, DW_AT_decl_line(0x3a)
+    1902                            .dwattr $C$DW$T$138, DW_AT_decl_column(0x1a)
+    1903                    
+    1904                    $C$DW$T$139     .dwtag  DW_TAG_typedef
+    1905                            .dwattr $C$DW$T$139, DW_AT_name("__uint_least64_t")
+    1906                            .dwattr $C$DW$T$139, DW_AT_type(*$C$DW$T$131)
+    1907                            .dwattr $C$DW$T$139, DW_AT_language(DW_LANG_C)
+    1908                            .dwattr $C$DW$T$139, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1909                            .dwattr $C$DW$T$139, DW_AT_decl_line(0x70)
+    1910                            .dwattr $C$DW$T$139, DW_AT_decl_column(0x14)
+    1911                    
+    1912                    $C$DW$T$140     .dwtag  DW_TAG_typedef
+    1913                            .dwattr $C$DW$T$140, DW_AT_name("uint_least64_t")
+    1914                            .dwattr $C$DW$T$140, DW_AT_type(*$C$DW$T$139)
+    1915                            .dwattr $C$DW$T$140, DW_AT_language(DW_LANG_C)
+    1916                            .dwattr $C$DW$T$140, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1917                            .dwattr $C$DW$T$140, DW_AT_decl_line(0x30)
+    1918                            .dwattr $C$DW$T$140, DW_AT_decl_column(0x1a)
+    1919                    
+    1920                    $C$DW$T$141     .dwtag  DW_TAG_typedef
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   36
+
+    1921                            .dwattr $C$DW$T$141, DW_AT_name("__uintmax_t")
+    1922                            .dwattr $C$DW$T$141, DW_AT_type(*$C$DW$T$131)
+    1923                            .dwattr $C$DW$T$141, DW_AT_language(DW_LANG_C)
+    1924                            .dwattr $C$DW$T$141, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1925                            .dwattr $C$DW$T$141, DW_AT_decl_line(0x67)
+    1926                            .dwattr $C$DW$T$141, DW_AT_decl_column(0x14)
+    1927                    
+    1928                    $C$DW$T$142     .dwtag  DW_TAG_typedef
+    1929                            .dwattr $C$DW$T$142, DW_AT_name("__rman_res_t")
+    1930                            .dwattr $C$DW$T$142, DW_AT_type(*$C$DW$T$141)
+    1931                            .dwattr $C$DW$T$142, DW_AT_language(DW_LANG_C)
+    1932                            .dwattr $C$DW$T$142, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1933                            .dwattr $C$DW$T$142, DW_AT_decl_line(0x8f)
+    1934                            .dwattr $C$DW$T$142, DW_AT_decl_column(0x19)
+    1935                    
+    1936                    $C$DW$T$143     .dwtag  DW_TAG_typedef
+    1937                            .dwattr $C$DW$T$143, DW_AT_name("uintmax_t")
+    1938                            .dwattr $C$DW$T$143, DW_AT_type(*$C$DW$T$141)
+    1939                            .dwattr $C$DW$T$143, DW_AT_language(DW_LANG_C)
+    1940                            .dwattr $C$DW$T$143, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1941                            .dwattr $C$DW$T$143, DW_AT_decl_line(0x58)
+    1942                            .dwattr $C$DW$T$143, DW_AT_decl_column(0x16)
+    1943                    
+    1944                    $C$DW$T$144     .dwtag  DW_TAG_typedef
+    1945                            .dwattr $C$DW$T$144, DW_AT_name("uint64_t")
+    1946                            .dwattr $C$DW$T$144, DW_AT_type(*$C$DW$T$131)
+    1947                            .dwattr $C$DW$T$144, DW_AT_language(DW_LANG_C)
+    1948                            .dwattr $C$DW$T$144, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1949                            .dwattr $C$DW$T$144, DW_AT_decl_line(0x47)
+    1950                            .dwattr $C$DW$T$144, DW_AT_decl_column(0x15)
+    1951                    
+    1952                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+    1953                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+    1954                            .dwattr $C$DW$T$16, DW_AT_name("float")
+    1955                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+    1956                    
+    1957                    $C$DW$T$145     .dwtag  DW_TAG_typedef
+    1958                            .dwattr $C$DW$T$145, DW_AT_name("__float_t")
+    1959                            .dwattr $C$DW$T$145, DW_AT_type(*$C$DW$T$16)
+    1960                            .dwattr $C$DW$T$145, DW_AT_language(DW_LANG_C)
+    1961                            .dwattr $C$DW$T$145, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1962                            .dwattr $C$DW$T$145, DW_AT_decl_line(0x50)
+    1963                            .dwattr $C$DW$T$145, DW_AT_decl_column(0x10)
+    1964                    
+    1965                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+    1966                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+    1967                            .dwattr $C$DW$T$17, DW_AT_name("double")
+    1968                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+    1969                    
+    1970                    $C$DW$T$146     .dwtag  DW_TAG_typedef
+    1971                            .dwattr $C$DW$T$146, DW_AT_name("__double_t")
+    1972                            .dwattr $C$DW$T$146, DW_AT_type(*$C$DW$T$17)
+    1973                            .dwattr $C$DW$T$146, DW_AT_language(DW_LANG_C)
+    1974                            .dwattr $C$DW$T$146, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    1975                            .dwattr $C$DW$T$146, DW_AT_decl_line(0x4f)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   37
+
+    1976                            .dwattr $C$DW$T$146, DW_AT_decl_column(0x11)
+    1977                    
+    1978                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+    1979                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+    1980                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+    1981                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+    1982                    
+    1983                    
+    1984                    $C$DW$T$19      .dwtag  DW_TAG_structure_type
+    1985                            .dwattr $C$DW$T$19, DW_AT_name("__mq")
+    1986                            .dwattr $C$DW$T$19, DW_AT_declaration
+    1987                            .dwattr $C$DW$T$19, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    1988                            .dwattr $C$DW$T$19, DW_AT_decl_line(0x47)
+    1989                            .dwattr $C$DW$T$19, DW_AT_decl_column(0x10)
+    1990                            .dwendtag $C$DW$T$19
+    1991                    
+    1992                    $C$DW$T$147     .dwtag  DW_TAG_pointer_type
+    1993                            .dwattr $C$DW$T$147, DW_AT_type(*$C$DW$T$19)
+    1994                            .dwattr $C$DW$T$147, DW_AT_address_class(0x20)
+    1995                    
+    1996                    $C$DW$T$148     .dwtag  DW_TAG_typedef
+    1997                            .dwattr $C$DW$T$148, DW_AT_name("__mqd_t")
+    1998                            .dwattr $C$DW$T$148, DW_AT_type(*$C$DW$T$147)
+    1999                            .dwattr $C$DW$T$148, DW_AT_language(DW_LANG_C)
+    2000                            .dwattr $C$DW$T$148, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    2001                            .dwattr $C$DW$T$148, DW_AT_decl_line(0x47)
+    2002                            .dwattr $C$DW$T$148, DW_AT_decl_column(0x16)
+    2003                    
+    2004                    
+    2005                    $C$DW$T$20      .dwtag  DW_TAG_structure_type
+    2006                            .dwattr $C$DW$T$20, DW_AT_name("__timer")
+    2007                            .dwattr $C$DW$T$20, DW_AT_declaration
+    2008                            .dwattr $C$DW$T$20, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    2009                            .dwattr $C$DW$T$20, DW_AT_decl_line(0x46)
+    2010                            .dwattr $C$DW$T$20, DW_AT_decl_column(0x10)
+    2011                            .dwendtag $C$DW$T$20
+    2012                    
+    2013                    $C$DW$T$149     .dwtag  DW_TAG_pointer_type
+    2014                            .dwattr $C$DW$T$149, DW_AT_type(*$C$DW$T$20)
+    2015                            .dwattr $C$DW$T$149, DW_AT_address_class(0x20)
+    2016                    
+    2017                    $C$DW$T$150     .dwtag  DW_TAG_typedef
+    2018                            .dwattr $C$DW$T$150, DW_AT_name("__timer_t")
+    2019                            .dwattr $C$DW$T$150, DW_AT_type(*$C$DW$T$149)
+    2020                            .dwattr $C$DW$T$150, DW_AT_language(DW_LANG_C)
+    2021                            .dwattr $C$DW$T$150, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    2022                            .dwattr $C$DW$T$150, DW_AT_decl_line(0x46)
+    2023                            .dwattr $C$DW$T$150, DW_AT_decl_column(0x19)
+    2024                    
+    2025                    
+    2026                    $C$DW$T$22      .dwtag  DW_TAG_structure_type
+    2027                            .dwattr $C$DW$T$22, DW_AT_name("__va_list_t")
+    2028                            .dwattr $C$DW$T$22, DW_AT_byte_size(0x04)
+    2029                    $C$DW$54        .dwtag  DW_TAG_member
+    2030                            .dwattr $C$DW$54, DW_AT_type(*$C$DW$T$3)
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   38
+
+    2031                            .dwattr $C$DW$54, DW_AT_name("__ap")
+    2032                            .dwattr $C$DW$54, DW_AT_TI_symbol_name("__ap")
+    2033                            .dwattr $C$DW$54, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+    2034                            .dwattr $C$DW$54, DW_AT_accessibility(DW_ACCESS_public)
+    2035                            .dwattr $C$DW$54, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/in
+    2036                            .dwattr $C$DW$54, DW_AT_decl_line(0x88)
+    2037                            .dwattr $C$DW$54, DW_AT_decl_column(0x0c)
+    2038                    
+    2039                            .dwattr $C$DW$T$22, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/
+    2040                            .dwattr $C$DW$T$22, DW_AT_decl_line(0x87)
+    2041                            .dwattr $C$DW$T$22, DW_AT_decl_column(0x10)
+    2042                            .dwendtag $C$DW$T$22
+    2043                    
+    2044                    $C$DW$T$151     .dwtag  DW_TAG_typedef
+    2045                            .dwattr $C$DW$T$151, DW_AT_name("__va_list")
+    2046                            .dwattr $C$DW$T$151, DW_AT_type(*$C$DW$T$22)
+    2047                            .dwattr $C$DW$T$151, DW_AT_language(DW_LANG_C)
+    2048                            .dwattr $C$DW$T$151, DW_AT_decl_file("/home/pola/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS
+    2049                            .dwattr $C$DW$T$151, DW_AT_decl_line(0x89)
+    2050                            .dwattr $C$DW$T$151, DW_AT_decl_column(0x03)
+    2051                    
+    2052                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+    2053                    
+    2054                    ;***************************************************************
+    2055                    ;* DWARF CIE ENTRIES                                           *
+    2056                    ;***************************************************************
+    2057                    
+    2058                    $C$DW$CIE       .dwcie 14
+    2059                            .dwcfi  cfa_register, 13
+    2060                            .dwcfi  cfa_offset, 0
+    2061                            .dwcfi  same_value, 4
+    2062                            .dwcfi  same_value, 5
+    2063                            .dwcfi  same_value, 6
+    2064                            .dwcfi  same_value, 7
+    2065                            .dwcfi  same_value, 8
+    2066                            .dwcfi  same_value, 9
+    2067                            .dwcfi  same_value, 10
+    2068                            .dwcfi  same_value, 11
+    2069                            .dwcfi  same_value, 80
+    2070                            .dwcfi  same_value, 81
+    2071                            .dwcfi  same_value, 82
+    2072                            .dwcfi  same_value, 83
+    2073                            .dwcfi  same_value, 84
+    2074                            .dwcfi  same_value, 85
+    2075                            .dwcfi  same_value, 86
+    2076                            .dwcfi  same_value, 87
+    2077                            .dwcfi  same_value, 88
+    2078                            .dwcfi  same_value, 89
+    2079                            .dwcfi  same_value, 90
+    2080                            .dwcfi  same_value, 91
+    2081                            .dwcfi  same_value, 92
+    2082                            .dwcfi  same_value, 93
+    2083                            .dwcfi  same_value, 94
+    2084                            .dwcfi  same_value, 95
+    2085                            .dwendentry
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   39
+
+    2086                    
+    2087                    ;***************************************************************
+    2088                    ;* DWARF REGISTER MAP                                          *
+    2089                    ;***************************************************************
+    2090                    
+    2091                    $C$DW$55        .dwtag  DW_TAG_TI_assign_register
+    2092                            .dwattr $C$DW$55, DW_AT_name("A1")
+    2093                            .dwattr $C$DW$55, DW_AT_location[DW_OP_reg0]
+    2094                    
+    2095                    $C$DW$56        .dwtag  DW_TAG_TI_assign_register
+    2096                            .dwattr $C$DW$56, DW_AT_name("A2")
+    2097                            .dwattr $C$DW$56, DW_AT_location[DW_OP_reg1]
+    2098                    
+    2099                    $C$DW$57        .dwtag  DW_TAG_TI_assign_register
+    2100                            .dwattr $C$DW$57, DW_AT_name("A3")
+    2101                            .dwattr $C$DW$57, DW_AT_location[DW_OP_reg2]
+    2102                    
+    2103                    $C$DW$58        .dwtag  DW_TAG_TI_assign_register
+    2104                            .dwattr $C$DW$58, DW_AT_name("A4")
+    2105                            .dwattr $C$DW$58, DW_AT_location[DW_OP_reg3]
+    2106                    
+    2107                    $C$DW$59        .dwtag  DW_TAG_TI_assign_register
+    2108                            .dwattr $C$DW$59, DW_AT_name("V1")
+    2109                            .dwattr $C$DW$59, DW_AT_location[DW_OP_reg4]
+    2110                    
+    2111                    $C$DW$60        .dwtag  DW_TAG_TI_assign_register
+    2112                            .dwattr $C$DW$60, DW_AT_name("V2")
+    2113                            .dwattr $C$DW$60, DW_AT_location[DW_OP_reg5]
+    2114                    
+    2115                    $C$DW$61        .dwtag  DW_TAG_TI_assign_register
+    2116                            .dwattr $C$DW$61, DW_AT_name("V3")
+    2117                            .dwattr $C$DW$61, DW_AT_location[DW_OP_reg6]
+    2118                    
+    2119                    $C$DW$62        .dwtag  DW_TAG_TI_assign_register
+    2120                            .dwattr $C$DW$62, DW_AT_name("V4")
+    2121                            .dwattr $C$DW$62, DW_AT_location[DW_OP_reg7]
+    2122                    
+    2123                    $C$DW$63        .dwtag  DW_TAG_TI_assign_register
+    2124                            .dwattr $C$DW$63, DW_AT_name("V5")
+    2125                            .dwattr $C$DW$63, DW_AT_location[DW_OP_reg8]
+    2126                    
+    2127                    $C$DW$64        .dwtag  DW_TAG_TI_assign_register
+    2128                            .dwattr $C$DW$64, DW_AT_name("V6")
+    2129                            .dwattr $C$DW$64, DW_AT_location[DW_OP_reg9]
+    2130                    
+    2131                    $C$DW$65        .dwtag  DW_TAG_TI_assign_register
+    2132                            .dwattr $C$DW$65, DW_AT_name("V7")
+    2133                            .dwattr $C$DW$65, DW_AT_location[DW_OP_reg10]
+    2134                    
+    2135                    $C$DW$66        .dwtag  DW_TAG_TI_assign_register
+    2136                            .dwattr $C$DW$66, DW_AT_name("V8")
+    2137                            .dwattr $C$DW$66, DW_AT_location[DW_OP_reg11]
+    2138                    
+    2139                    $C$DW$67        .dwtag  DW_TAG_TI_assign_register
+    2140                            .dwattr $C$DW$67, DW_AT_name("V9")
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   40
+
+    2141                            .dwattr $C$DW$67, DW_AT_location[DW_OP_reg12]
+    2142                    
+    2143                    $C$DW$68        .dwtag  DW_TAG_TI_assign_register
+    2144                            .dwattr $C$DW$68, DW_AT_name("SP")
+    2145                            .dwattr $C$DW$68, DW_AT_location[DW_OP_reg13]
+    2146                    
+    2147                    $C$DW$69        .dwtag  DW_TAG_TI_assign_register
+    2148                            .dwattr $C$DW$69, DW_AT_name("LR")
+    2149                            .dwattr $C$DW$69, DW_AT_location[DW_OP_reg14]
+    2150                    
+    2151                    $C$DW$70        .dwtag  DW_TAG_TI_assign_register
+    2152                            .dwattr $C$DW$70, DW_AT_name("PC")
+    2153                            .dwattr $C$DW$70, DW_AT_location[DW_OP_reg15]
+    2154                    
+    2155                    $C$DW$71        .dwtag  DW_TAG_TI_assign_register
+    2156                            .dwattr $C$DW$71, DW_AT_name("SR")
+    2157                            .dwattr $C$DW$71, DW_AT_location[DW_OP_reg17]
+    2158                    
+    2159                    $C$DW$72        .dwtag  DW_TAG_TI_assign_register
+    2160                            .dwattr $C$DW$72, DW_AT_name("AP")
+    2161                            .dwattr $C$DW$72, DW_AT_location[DW_OP_reg7]
+    2162                    
+    2163                    $C$DW$73        .dwtag  DW_TAG_TI_assign_register
+    2164                            .dwattr $C$DW$73, DW_AT_name("D0")
+    2165                            .dwattr $C$DW$73, DW_AT_location[DW_OP_regx 0x40]
+    2166                    
+    2167                    $C$DW$74        .dwtag  DW_TAG_TI_assign_register
+    2168                            .dwattr $C$DW$74, DW_AT_name("D0_hi")
+    2169                            .dwattr $C$DW$74, DW_AT_location[DW_OP_regx 0x41]
+    2170                    
+    2171                    $C$DW$75        .dwtag  DW_TAG_TI_assign_register
+    2172                            .dwattr $C$DW$75, DW_AT_name("D1")
+    2173                            .dwattr $C$DW$75, DW_AT_location[DW_OP_regx 0x42]
+    2174                    
+    2175                    $C$DW$76        .dwtag  DW_TAG_TI_assign_register
+    2176                            .dwattr $C$DW$76, DW_AT_name("D1_hi")
+    2177                            .dwattr $C$DW$76, DW_AT_location[DW_OP_regx 0x43]
+    2178                    
+    2179                    $C$DW$77        .dwtag  DW_TAG_TI_assign_register
+    2180                            .dwattr $C$DW$77, DW_AT_name("D2")
+    2181                            .dwattr $C$DW$77, DW_AT_location[DW_OP_regx 0x44]
+    2182                    
+    2183                    $C$DW$78        .dwtag  DW_TAG_TI_assign_register
+    2184                            .dwattr $C$DW$78, DW_AT_name("D2_hi")
+    2185                            .dwattr $C$DW$78, DW_AT_location[DW_OP_regx 0x45]
+    2186                    
+    2187                    $C$DW$79        .dwtag  DW_TAG_TI_assign_register
+    2188                            .dwattr $C$DW$79, DW_AT_name("D3")
+    2189                            .dwattr $C$DW$79, DW_AT_location[DW_OP_regx 0x46]
+    2190                    
+    2191                    $C$DW$80        .dwtag  DW_TAG_TI_assign_register
+    2192                            .dwattr $C$DW$80, DW_AT_name("D3_hi")
+    2193                            .dwattr $C$DW$80, DW_AT_location[DW_OP_regx 0x47]
+    2194                    
+    2195                    $C$DW$81        .dwtag  DW_TAG_TI_assign_register
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   41
+
+    2196                            .dwattr $C$DW$81, DW_AT_name("D4")
+    2197                            .dwattr $C$DW$81, DW_AT_location[DW_OP_regx 0x48]
+    2198                    
+    2199                    $C$DW$82        .dwtag  DW_TAG_TI_assign_register
+    2200                            .dwattr $C$DW$82, DW_AT_name("D4_hi")
+    2201                            .dwattr $C$DW$82, DW_AT_location[DW_OP_regx 0x49]
+    2202                    
+    2203                    $C$DW$83        .dwtag  DW_TAG_TI_assign_register
+    2204                            .dwattr $C$DW$83, DW_AT_name("D5")
+    2205                            .dwattr $C$DW$83, DW_AT_location[DW_OP_regx 0x4a]
+    2206                    
+    2207                    $C$DW$84        .dwtag  DW_TAG_TI_assign_register
+    2208                            .dwattr $C$DW$84, DW_AT_name("D5_hi")
+    2209                            .dwattr $C$DW$84, DW_AT_location[DW_OP_regx 0x4b]
+    2210                    
+    2211                    $C$DW$85        .dwtag  DW_TAG_TI_assign_register
+    2212                            .dwattr $C$DW$85, DW_AT_name("D6")
+    2213                            .dwattr $C$DW$85, DW_AT_location[DW_OP_regx 0x4c]
+    2214                    
+    2215                    $C$DW$86        .dwtag  DW_TAG_TI_assign_register
+    2216                            .dwattr $C$DW$86, DW_AT_name("D6_hi")
+    2217                            .dwattr $C$DW$86, DW_AT_location[DW_OP_regx 0x4d]
+    2218                    
+    2219                    $C$DW$87        .dwtag  DW_TAG_TI_assign_register
+    2220                            .dwattr $C$DW$87, DW_AT_name("D7")
+    2221                            .dwattr $C$DW$87, DW_AT_location[DW_OP_regx 0x4e]
+    2222                    
+    2223                    $C$DW$88        .dwtag  DW_TAG_TI_assign_register
+    2224                            .dwattr $C$DW$88, DW_AT_name("D7_hi")
+    2225                            .dwattr $C$DW$88, DW_AT_location[DW_OP_regx 0x4f]
+    2226                    
+    2227                    $C$DW$89        .dwtag  DW_TAG_TI_assign_register
+    2228                            .dwattr $C$DW$89, DW_AT_name("D8")
+    2229                            .dwattr $C$DW$89, DW_AT_location[DW_OP_regx 0x50]
+    2230                    
+    2231                    $C$DW$90        .dwtag  DW_TAG_TI_assign_register
+    2232                            .dwattr $C$DW$90, DW_AT_name("D8_hi")
+    2233                            .dwattr $C$DW$90, DW_AT_location[DW_OP_regx 0x51]
+    2234                    
+    2235                    $C$DW$91        .dwtag  DW_TAG_TI_assign_register
+    2236                            .dwattr $C$DW$91, DW_AT_name("D9")
+    2237                            .dwattr $C$DW$91, DW_AT_location[DW_OP_regx 0x52]
+    2238                    
+    2239                    $C$DW$92        .dwtag  DW_TAG_TI_assign_register
+    2240                            .dwattr $C$DW$92, DW_AT_name("D9_hi")
+    2241                            .dwattr $C$DW$92, DW_AT_location[DW_OP_regx 0x53]
+    2242                    
+    2243                    $C$DW$93        .dwtag  DW_TAG_TI_assign_register
+    2244                            .dwattr $C$DW$93, DW_AT_name("D10")
+    2245                            .dwattr $C$DW$93, DW_AT_location[DW_OP_regx 0x54]
+    2246                    
+    2247                    $C$DW$94        .dwtag  DW_TAG_TI_assign_register
+    2248                            .dwattr $C$DW$94, DW_AT_name("D10_hi")
+    2249                            .dwattr $C$DW$94, DW_AT_location[DW_OP_regx 0x55]
+    2250                    
+TI ARM Assembler Unix v18.1.1 Fri Jul  3 20:08:24 2020
+
+Tools Copyright (c) 1996-2017 Texas Instruments Incorporated
+mpu.asm                                                              PAGE   42
+
+    2251                    $C$DW$95        .dwtag  DW_TAG_TI_assign_register
+    2252                            .dwattr $C$DW$95, DW_AT_name("D11")
+    2253                            .dwattr $C$DW$95, DW_AT_location[DW_OP_regx 0x56]
+    2254                    
+    2255                    $C$DW$96        .dwtag  DW_TAG_TI_assign_register
+    2256                            .dwattr $C$DW$96, DW_AT_name("D11_hi")
+    2257                            .dwattr $C$DW$96, DW_AT_location[DW_OP_regx 0x57]
+    2258                    
+    2259                    $C$DW$97        .dwtag  DW_TAG_TI_assign_register
+    2260                            .dwattr $C$DW$97, DW_AT_name("D12")
+    2261                            .dwattr $C$DW$97, DW_AT_location[DW_OP_regx 0x58]
+    2262                    
+    2263                    $C$DW$98        .dwtag  DW_TAG_TI_assign_register
+    2264                            .dwattr $C$DW$98, DW_AT_name("D12_hi")
+    2265                            .dwattr $C$DW$98, DW_AT_location[DW_OP_regx 0x59]
+    2266                    
+    2267                    $C$DW$99        .dwtag  DW_TAG_TI_assign_register
+    2268                            .dwattr $C$DW$99, DW_AT_name("D13")
+    2269                            .dwattr $C$DW$99, DW_AT_location[DW_OP_regx 0x5a]
+    2270                    
+    2271                    $C$DW$100       .dwtag  DW_TAG_TI_assign_register
+    2272                            .dwattr $C$DW$100, DW_AT_name("D13_hi")
+    2273                            .dwattr $C$DW$100, DW_AT_location[DW_OP_regx 0x5b]
+    2274                    
+    2275                    $C$DW$101       .dwtag  DW_TAG_TI_assign_register
+    2276                            .dwattr $C$DW$101, DW_AT_name("D14")
+    2277                            .dwattr $C$DW$101, DW_AT_location[DW_OP_regx 0x5c]
+    2278                    
+    2279                    $C$DW$102       .dwtag  DW_TAG_TI_assign_register
+    2280                            .dwattr $C$DW$102, DW_AT_name("D14_hi")
+    2281                            .dwattr $C$DW$102, DW_AT_location[DW_OP_regx 0x5d]
+    2282                    
+    2283                    $C$DW$103       .dwtag  DW_TAG_TI_assign_register
+    2284                            .dwattr $C$DW$103, DW_AT_name("D15")
+    2285                            .dwattr $C$DW$103, DW_AT_location[DW_OP_regx 0x5e]
+    2286                    
+    2287                    $C$DW$104       .dwtag  DW_TAG_TI_assign_register
+    2288                            .dwattr $C$DW$104, DW_AT_name("D15_hi")
+    2289                            .dwattr $C$DW$104, DW_AT_location[DW_OP_regx 0x5f]
+    2290                    
+    2291                    $C$DW$105       .dwtag  DW_TAG_TI_assign_register
+    2292                            .dwattr $C$DW$105, DW_AT_name("FPEXC")
+    2293                            .dwattr $C$DW$105, DW_AT_location[DW_OP_reg18]
+    2294                    
+    2295                    $C$DW$106       .dwtag  DW_TAG_TI_assign_register
+    2296                            .dwattr $C$DW$106, DW_AT_name("FPSCR")
+    2297                            .dwattr $C$DW$106, DW_AT_location[DW_OP_reg19]
+    2298                    
+    2299                            .dwendtag $C$DW$CU
+    2300                    
+
+--------------------------
+Thumb2 Statistics
+--------------------------
+Number of Thumb2 ins converted to Thumb = 0 (0%)
+Number of Thumb ins in input = 86 (82%)
+Number of Thumb2 ins encoded as Thumb2 = 18 (100%)
+Number of Thumb2 ins converted to 2 OPND Thumb = 6
+
+
+No Assembly Errors, No Assembly Warnings
