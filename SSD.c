@@ -113,13 +113,15 @@ void SSD_SetBlinkable(tSSD ssd,uint8_t isBlinkable)
     taskEXIT_CRITICAL();
 }
 
-/*WCET 158 us*/
+/*
+Requires hard real-time handling
+    WCET 158 us 
+    P = 10ms
+    D = P
+*/
 void SSD_ISR(void)
 {
     static tSSD ssd_itr = SSD_ONCE;
-
-//    Debug_PrintString("SSD ISR Enter:",0);
-//    Debug_PrintNumber(xTaskGetTickCount(),1);
 
     TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
 
@@ -156,7 +158,4 @@ void SSD_ISR(void)
     {
         ssd_itr = SSD_ONCE;
     }
-
-//    Debug_PrintString("SSD ISR Exit:",0);
-//    Debug_PrintNumber(xTaskGetTickCount(),1);
 }

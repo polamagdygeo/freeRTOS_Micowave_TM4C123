@@ -70,41 +70,15 @@ void Heater_SetState(tHeater_State state)
     heater_state = state;
 }
 
+/*
+Requires hard real-time handling
+    WCET
+    P = 2ms
+    D = P
+*/
 void Heater_SwPwmIsr(void)
 {
     static uint8_t pwm_counter = 0;
-
-//    Debug_PrintString("Heater ISR Enter:",0);
-//    Debug_PrintNumber(xTaskGetTickCount(),1);
-
-//    static uint8_t start = 0;
-//    static uint32_t max_diff_tick = 0;
-//    static uint32_t min_diff_tick = INT32_MAX;
-//    static uint32_t prev_tick = 0;
-//    uint32_t curr_tick = xTaskGetTickCount();
-//    uint32_t curr_diff = 0;
-//
-//    if(start == 1)
-//    {
-//        curr_diff = curr_tick - prev_tick;
-//
-//        if(curr_diff > max_diff_tick)
-//        {
-//            max_diff_tick = curr_diff;
-//        }
-//
-//        if(min_diff_tick > curr_diff)
-//        {
-//            min_diff_tick = curr_diff;
-//        }
-//    }
-//
-//    if(start == 0)
-//    {
-//        start = 1;
-//    }
-//
-//    prev_tick = curr_tick;
 
     TimerIntClear(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
 
@@ -131,7 +105,4 @@ void Heater_SwPwmIsr(void)
         pwm_counter = 0;
         GPIOPinWrite(HEATER_LED_PORT, 1 << HEATER_LED_PIN, 0 << HEATER_LED_PIN);
     }
-
-//    Debug_PrintString("Heater ISR Exit:",0);
-//    Debug_PrintNumber(xTaskGetTickCount(),1);
 }
