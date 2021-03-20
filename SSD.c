@@ -21,9 +21,9 @@
 #define SSD_ISR_RATE_MS        (SSD_REFRESH_RATE_MS/SSD_COUNT)
 #define BLINKING_RATE_MS        300U
 
-static tSSD_Symbol SSD_Number[SSD_COUNT] = {SSD_NUMBER_ZERO};
-static uint8_t Blinking_State[SSD_COUNT] = {0,0};
-static uint32_t Blinking_Counter[SSD_COUNT] = {0};
+static tSSD_Symbol ssd_current_symbol[SSD_COUNT] = {SSD_NUMBER_ZERO};
+static uint8_t ssd_blinking_state[SSD_COUNT] = {0,0};
+static uint32_t ssd_blinking_counter[SSD_COUNT] = {0};
 
 static void SSD_ShowNumber(tSSD ssd,uint8_t number);
 
@@ -101,15 +101,15 @@ void SSD_SetSymbol(tSSD ssd,tSSD_Symbol number)
 {
     if(number <= SSD_NUMBER_NULL)
     {
-        SSD_Number[ssd] = number;
+        ssd_current_symbol[ssd] = number;
     }
 }
 
 void SSD_SetBlinkable(tSSD ssd,uint8_t isBlinkable)
 {
     taskENTER_CRITICAL();
-    Blinking_State[ssd] = isBlinkable;
-    Blinking_Counter[ssd] = 0;
+    ssd_blinking_state[ssd] = isBlinkable;
+    ssd_blinking_counter[ssd] = 0;
     taskEXIT_CRITICAL();
 }
 
@@ -123,31 +123,31 @@ void SSD_ISR(void)
 
     TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
 
-    if(Blinking_State[ssd_itr] == 1)
+    if(ssd_blinking_state[ssd_itr] == 1)
     {
-        if(Blinking_Counter[ssd_itr] < BLINKING_RATE_MS)
+        if(ssd_blinking_counter[ssd_itr] < BLINKING_RATE_MS)
         {
-            SSD_ShowNumber(ssd_itr,SSD_Number[ssd_itr]);
+            SSD_ShowNumber(ssd_itr,ssd_current_symbol[ssd_itr]);
         }
         else
         {
             SSD_ShowNumber(ssd_itr,SSD_NUMBER_NULL);
         }
 
-        Blinking_Counter[ssd_itr] += SSD_ISR_RATE_MS;
+        ssd_blinking_counter[ssd_itr] += SSD_ISR_RATE_MS;
 
-        if(Blinking_Counter[ssd_itr] >= 2*BLINKING_RATE_MS)
+        if(ssd_blinking_counter[ssd_itr] >= 2*BLINKING_RATE_MS)
         {
-            Blinking_Counter[ssd_itr] = 0;
+            ssd_blinking_counter[ssd_itr] = 0;
         }
         else
         {
-            Blinking_Counter[ssd_itr] = Blinking_Counter[ssd_itr];
+            ssd_blinking_counter[ssd_itr] = ssd_blinking_counter[ssd_itr];
         }
     }
     else
     {
-        SSD_ShowNumber(ssd_itr,SSD_Number[ssd_itr]);
+        SSD_ShowNumber(ssd_itr,ssd_current_symbol[ssd_itr]);
     }
 
     ssd_itr++;

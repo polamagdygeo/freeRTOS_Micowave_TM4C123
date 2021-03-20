@@ -22,19 +22,19 @@ typedef struct{
     uint16_t off_ms;
 }tSound_Param;
 
-TaskHandle_t SOUND_Task_Handle;
+TaskHandle_t sound_task_handle;
 
 static SemaphoreHandle_t sound_state_lock;
 static StaticSemaphore_t sound_state_sem_block;
 static tSound_Param sound_param;
-static StaticTask_t SOUND_TCB;
-static StackType_t SOUND_Stack_Buffer[128] = {0};
+static StaticTask_t sound_task_tcb;
+static StackType_t sound_task_stack_buffer[128] = {0};
 
 void Sound_Init(void)
 {
-    SOUND_Task_Handle = xTaskCreateStatic(Sound_Task, "SOUND", 128, 0, 1, SOUND_Stack_Buffer, &SOUND_TCB);
+    sound_task_handle = xTaskCreateStatic(Sound_Task, "SOUND", 128, 0, 1, sound_task_stack_buffer, &sound_task_tcb);
 
-    vTaskSuspend(SOUND_Task_Handle);
+    vTaskSuspend(sound_task_handle);
 
     sound_state_lock = xSemaphoreCreateMutexStatic(&sound_state_sem_block);
 }
@@ -61,7 +61,7 @@ void Sound_Set(tSound sound)
 
         xSemaphoreGive(sound_state_lock);
 
-        vTaskResume(SOUND_Task_Handle);
+        vTaskResume(sound_task_handle);
     }
 }
 
@@ -102,7 +102,7 @@ void Sound_Task(void *param)
 
                     xSemaphoreGive(sound_state_lock);
 
-                    vTaskSuspend(SOUND_Task_Handle);
+                    vTaskSuspend(sound_task_handle);
                 }
             }
 

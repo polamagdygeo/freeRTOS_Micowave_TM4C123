@@ -19,14 +19,17 @@ void Debug_Init(void)
 }
 void Debug_PrintString(char *string,uint8_t newLine)
 {
-    while(string != 0 && *string != 0)
+    if(string != 0)
     {
-        UARTCharPut(UART0_BASE,*(string++));
-    }
+        while(*string)
+        {
+            UARTCharPut(UART0_BASE,*(string++));
+        }
 
-    if(newLine == 1)
-    {
-        UARTCharPut(UART0_BASE,'\n');
+        if(newLine == 1)
+        {
+            UARTCharPut(UART0_BASE,'\n');
+        }
     }
 }
 

@@ -28,18 +28,18 @@ static StaticQueue_t pressed_btn_q_ds;
 static uint8_t pressed_btn_q_buffer[sizeof(tButton)];
 static TimerHandle_t heating_timer_handle;
 static StaticTimer_t heating_timer_ds;
-static StaticTask_t UW_TCB;
-static StackType_t UW_Stack_Buffer[128] = {0};
-static tUW_State UW_State = UW_STATE_IDLE;
-static tSSD UW_SettingTimerCurrSSD = SSD_ONCE;
-static tSSD_Symbol UW_SetTimerDigits[2] = {SSD_NUMBER_ZERO,SSD_NUMBER_ZERO};
-static tSSD_Symbol UW_CurrTimerDigits[2] = {SSD_NUMBER_ZERO,SSD_NUMBER_ZERO};
+static StaticTask_t uw_task_tcb;
+static StackType_t uw_task_stack_buffer[128] = {0};
+static tUW_State uw_state = UW_STATE_IDLE;
+static tSSD uw_timer_setting_ssd_current_sym = SSD_ONCE;
+static tSSD_Symbol uw_target_timer_digits[2] = {SSD_NUMBER_ZERO,SSD_NUMBER_ZERO};
+static tSSD_Symbol uw_current_timer_digits[2] = {SSD_NUMBER_ZERO,SSD_NUMBER_ZERO};
 
 static void heating_timer_callback(TimerHandle_t xTimer);
 
 void UWAVE_Init(void)
 {
-    xTaskCreateStatic(UWAVE_Task, "UW", 128, 0, 0, UW_Stack_Buffer, &UW_TCB);
+    xTaskCreateStatic(UWAVE_Task, "UW", 128, 0, 0, uw_task_stack_buffer, &uw_task_tcb);
 
     pressed_btn_q_handle = xQueueCreateStatic(1,sizeof(tButton),pressed_btn_q_buffer,&pressed_btn_q_ds);
 
@@ -57,21 +57,21 @@ static void heating_timer_callback(TimerHandle_t xTimer)
 
     if(!isFinished)
     {
-        if(UW_CurrTimerDigits[SSD_ONCE] > SSD_NUMBER_ZERO)
+        if(uw_current_timer_digits[SSD_ONCE] > SSD_NUMBER_ZERO)
         {
-            UW_CurrTimerDigits[SSD_ONCE]--;
-            SSD_SetSymbol(SSD_ONCE,UW_CurrTimerDigits[SSD_ONCE]);
+            uw_current_timer_digits[SSD_ONCE]--;
+            SSD_SetSymbol(SSD_ONCE,uw_current_timer_digits[SSD_ONCE]);
         }
-        else if(UW_CurrTimerDigits[SSD_TENTH] > SSD_NUMBER_ZERO)
+        else if(uw_current_timer_digits[SSD_TENTH] > SSD_NUMBER_ZERO)
         {
-            UW_CurrTimerDigits[SSD_TENTH]--;
-            SSD_SetSymbol(SSD_TENTH,UW_CurrTimerDigits[SSD_TENTH]);
+            uw_current_timer_digits[SSD_TENTH]--;
+            SSD_SetSymbol(SSD_TENTH,uw_current_timer_digits[SSD_TENTH]);
 
-            UW_CurrTimerDigits[SSD_ONCE] = SSD_NUMBER_NINE;
+            uw_current_timer_digits[SSD_ONCE] = SSD_NUMBER_NINE;
         }
 
-        if(UW_CurrTimerDigits[SSD_ONCE] == SSD_NUMBER_ZERO &&
-                UW_CurrTimerDigits[SSD_TENTH] == SSD_NUMBER_ZERO)
+        if(uw_current_timer_digits[SSD_ONCE] == SSD_NUMBER_ZERO &&
+                uw_current_timer_digits[SSD_TENTH] == SSD_NUMBER_ZERO)
         {
             Sound_Set(SOUND_TIMEOUT);
             Heater_SetState(HEATER_OFF);
@@ -90,12 +90,12 @@ static void heating_timer_callback(TimerHandle_t xTimer)
         {
             post_scaler_counter = 0;
 
-            UW_State = UW_STATE_IDLE;
+            uw_state = UW_STATE_IDLE;
 
             SSD_SetBlinkable(SSD_ONCE,0);
             SSD_SetBlinkable(SSD_TENTH,0);
-            SSD_SetSymbol(SSD_ONCE,UW_SetTimerDigits[SSD_ONCE]);
-            SSD_SetSymbol(SSD_TENTH,UW_SetTimerDigits[SSD_TENTH]);
+            SSD_SetSymbol(SSD_ONCE,uw_target_timer_digits[SSD_ONCE]);
+            SSD_SetSymbol(SSD_TENTH,uw_target_timer_digits[SSD_TENTH]);
 
             isFinished = 0;
 
@@ -115,61 +115,61 @@ void UWAVE_Task(void* param)
 
         xQueueReceive(pressed_btn_q_handle, &button, portMAX_DELAY);
 
-        switch(UW_State)
+        switch(uw_state)
         {
         case UW_STATE_IDLE:
             if(BUTTON_OK == button)
             {
-                UW_State = UW_STATE_SET_TIMER;
-                UW_SettingTimerCurrSSD = SSD_ONCE;
-                SSD_SetBlinkable(UW_SettingTimerCurrSSD,1);
+                uw_state = UW_STATE_SET_TIMER;
+                uw_timer_setting_ssd_current_sym = SSD_ONCE;
+                SSD_SetBlinkable(uw_timer_setting_ssd_current_sym,1);
                 Sound_Set(SOUND_BEEP);
             }
             break;
         case UW_STATE_SET_TIMER:
             if(BUTTON_UP == button)
             {
-                if(UW_SetTimerDigits[UW_SettingTimerCurrSSD] < SSD_NUMBER_NINE)
+                if(uw_target_timer_digits[uw_timer_setting_ssd_current_sym] < SSD_NUMBER_NINE)
                 {
-                    UW_SetTimerDigits[UW_SettingTimerCurrSSD]++;
+                    uw_target_timer_digits[uw_timer_setting_ssd_current_sym]++;
 
-                    SSD_SetSymbol(UW_SettingTimerCurrSSD,UW_SetTimerDigits[UW_SettingTimerCurrSSD]);
+                    SSD_SetSymbol(uw_timer_setting_ssd_current_sym,uw_target_timer_digits[uw_timer_setting_ssd_current_sym]);
                 }
 
                 Sound_Set(SOUND_BEEP);
             }
             else if(BUTTON_DOWN == button)
             {
-                if(UW_SetTimerDigits[UW_SettingTimerCurrSSD] > SSD_NUMBER_ZERO)
+                if(uw_target_timer_digits[uw_timer_setting_ssd_current_sym] > SSD_NUMBER_ZERO)
                 {
-                    UW_SetTimerDigits[UW_SettingTimerCurrSSD]--;
+                    uw_target_timer_digits[uw_timer_setting_ssd_current_sym]--;
 
-                    SSD_SetSymbol(UW_SettingTimerCurrSSD,UW_SetTimerDigits[UW_SettingTimerCurrSSD]);
+                    SSD_SetSymbol(uw_timer_setting_ssd_current_sym,uw_target_timer_digits[uw_timer_setting_ssd_current_sym]);
                 }
 
                 Sound_Set(SOUND_BEEP);
             }
             else if(BUTTON_OK == button)
             {
-                SSD_SetBlinkable(UW_SettingTimerCurrSSD,0);
+                SSD_SetBlinkable(uw_timer_setting_ssd_current_sym,0);
 
-                UW_SettingTimerCurrSSD++;
+                uw_timer_setting_ssd_current_sym++;
 
-                if(UW_SettingTimerCurrSSD > SSD_TENTH)
+                if(uw_timer_setting_ssd_current_sym > SSD_TENTH)
                 {
-                    UW_State = UW_STATE_HEATING;
-                    SSD_SetBlinkable(UW_SettingTimerCurrSSD,0);
+                    uw_state = UW_STATE_HEATING;
+                    SSD_SetBlinkable(uw_timer_setting_ssd_current_sym,0);
                     Heater_SetState(HEATER_ON);
 
-                    UW_CurrTimerDigits[SSD_ONCE] = UW_SetTimerDigits[SSD_ONCE];
-                    UW_CurrTimerDigits[SSD_TENTH] = UW_SetTimerDigits[SSD_TENTH];
+                    uw_current_timer_digits[SSD_ONCE] = uw_target_timer_digits[SSD_ONCE];
+                    uw_current_timer_digits[SSD_TENTH] = uw_target_timer_digits[SSD_TENTH];
 
                     /*Trigger timer*/
                     xTimerStart(heating_timer_handle,portMAX_DELAY);
                 }
                 else
                 {
-                    SSD_SetBlinkable(UW_SettingTimerCurrSSD,1);
+                    SSD_SetBlinkable(uw_timer_setting_ssd_current_sym,1);
                 }
 
                 Sound_Set(SOUND_BEEP);
@@ -178,10 +178,10 @@ void UWAVE_Task(void* param)
         case UW_STATE_HEATING:
             if(BUTTON_OK == button)
             {
-                UW_State = UW_STATE_IDLE;
+                uw_state = UW_STATE_IDLE;
 
-                SSD_SetSymbol(SSD_ONCE,UW_SetTimerDigits[SSD_ONCE]);
-                SSD_SetSymbol(SSD_TENTH,UW_SetTimerDigits[SSD_TENTH]);
+                SSD_SetSymbol(SSD_ONCE,uw_target_timer_digits[SSD_ONCE]);
+                SSD_SetSymbol(SSD_TENTH,uw_target_timer_digits[SSD_TENTH]);
 
                 Heater_SetState(HEATER_OFF);
 

@@ -41,7 +41,7 @@ void Heater_Init(void)
     TimerClockSourceSet(TIMER1_BASE,TIMER_CLOCK_SYSTEM);
     TimerLoadSet(TIMER1_BASE, TIMER_B,HEATER_ISR_RATE_MS * 1000);
     TimerUpdateMode(TIMER1_BASE,TIMER_B,TIMER_UP_LOAD_TIMEOUT);
-    TimerIntRegister(TIMER1_BASE, TIMER_B, Heater_ISR);
+    TimerIntRegister(TIMER1_BASE, TIMER_B, Heater_SwPwmIsr);
     TimerIntEnable(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
 
     /*Configure start timer*/
@@ -70,9 +70,9 @@ void Heater_SetState(tHeater_State state)
     heater_state = state;
 }
 
-void Heater_ISR(void)
+void Heater_SwPwmIsr(void)
 {
-    static uint8_t width_counter = 0;
+    static uint8_t pwm_counter = 0;
 
 //    Debug_PrintString("Heater ISR Enter:",0);
 //    Debug_PrintNumber(xTaskGetTickCount(),1);
@@ -110,25 +110,25 @@ void Heater_ISR(void)
 
     if(heater_state == HEATER_ON)
     {
-        if(width_counter < HEATER_ON_STEPS_NO)
+        if(pwm_counter < HEATER_ON_STEPS_NO)
         {
             GPIOPinWrite(HEATER_LED_PORT, 1 << HEATER_LED_PIN, 1 << HEATER_LED_PIN);
         }
-        else if(width_counter < HEATER_PWM_PERIOD_WIDTH)
+        else if(pwm_counter < HEATER_PWM_PERIOD_WIDTH)
         {
             GPIOPinWrite(HEATER_LED_PORT, 1 << HEATER_LED_PIN, 0 << HEATER_LED_PIN);
         }
 
-        width_counter += HEATER_PWM_STEP_WIDTH;
+        pwm_counter += HEATER_PWM_STEP_WIDTH;
 
-        if(width_counter == HEATER_PWM_PERIOD_WIDTH)
+        if(pwm_counter == HEATER_PWM_PERIOD_WIDTH)
         {
-            width_counter = 0;
+            pwm_counter = 0;
         }
     }
     else
     {
-        width_counter = 0;
+        pwm_counter = 0;
         GPIOPinWrite(HEATER_LED_PORT, 1 << HEATER_LED_PIN, 0 << HEATER_LED_PIN);
     }
 

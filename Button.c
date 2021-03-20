@@ -15,7 +15,7 @@
 #include "uWave.h"
 #include "Debug.h"
 
-#define BUTTON_TASK_RATE_MS     5
+#define BUTTON_TASK_RATE_MS     5UL
 
 #define BUTTON_ASSERTION        1
 
@@ -103,7 +103,7 @@ void Button_Task(void* param)
         {
             case BUTTON_SAMPLING_RELEASED:
                 if(Button_CurrState == BUTTON_ASSERTION &&
-                        Button_PrevState[Button_Itr] != BUTTON_ASSERTION)
+                        (Button_PrevState[Button_Itr] != BUTTON_ASSERTION))
                 {
                     Button_SetCurrSamplingState(Button_Itr,BUTTON_SAMPLING_PRE_PRESSED);
                 }
@@ -120,7 +120,7 @@ void Button_Task(void* param)
                 break;
             case BUTTON_SAMPLING_PRESSED:
                 if(Button_CurrState != BUTTON_ASSERTION &&
-                        Button_PrevState[Button_Itr] == BUTTON_ASSERTION)
+                        (Button_PrevState[Button_Itr] == BUTTON_ASSERTION))
                 {
                     Button_SetCurrSamplingState(Button_Itr,BUTTON_SAMPLING_PRE_RELEASED);
                 }
@@ -149,7 +149,7 @@ void Button_Task(void* param)
         }
 
         if(Button_GetCurrSamplingState(Button_Itr) == BUTTON_SAMPLING_RELEASED &&
-                Button_GetPrevSamplingState(Button_Itr) == BUTTON_SAMPLING_PRE_RELEASED)
+                *Button_GetPrevSamplingState(Button_Itr) == BUTTON_SAMPLING_PRE_RELEASED))
         {
             UWAVE_SetPressedButton(Button_Itr);
         }

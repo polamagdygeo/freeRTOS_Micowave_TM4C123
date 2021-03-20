@@ -12,9 +12,9 @@
 #include "port.h"
 #include "Debug.h"
 
-static StaticTask_t Startup_TCB;
-static StackType_t Startup_Stack_Buffer[128] = {0};
-TaskHandle_t Startup_Task_Handle;
+static StaticTask_t startup_task_tcb;
+static StackType_t startup_task_stack_buffer[128] = {0};
+TaskHandle_t startup_task_handle;
 
 
 void Startup_Task(void *param)
@@ -31,7 +31,7 @@ void Startup_Task(void *param)
 
     while(1)
     {
-        vTaskSuspend(Startup_Task_Handle);
+        vTaskSuspend(startup_task_handle);
     }
 }
 
@@ -59,7 +59,7 @@ int main(void)
     Debug_Init();
     IntMasterEnable();
 
-    Startup_Task_Handle = xTaskCreateStatic(Startup_Task, "Start", 128, 0, 5, Startup_Stack_Buffer, &Startup_TCB);
+    startup_task_handle = xTaskCreateStatic(Startup_Task, "Start", 128, 0, 5, startup_task_stack_buffer, &startup_task_tcb);
 
     vTaskStartScheduler();
 

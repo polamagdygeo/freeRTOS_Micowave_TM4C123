@@ -17,6 +17,6 @@ void Heater_Init(void);
 void Heater_SetState(tHeater_State state);
 tHeater_State Heater_GetState(void);
 void Heater_Start(void);
-void Heater_ISR(void);
+void Heater_SwPwmIsr(void);
 
 #endif /* HEATER_H_ */
