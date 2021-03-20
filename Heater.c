@@ -15,13 +15,13 @@
 #include "Debug.h"
 
 #define HEATER_PWM_SIGNAL_FREQ_HZ   50
-#define HEATER_PWM_STEP_WIDTH       10
+#define HEATER_PWM_STEP_WIDTH       5
 #define HEATER_PWM_PERIOD_WIDTH     100
-#define HEATER_DUTY_CYCLE           40
-#define HEATER_ON_STEPS_NO          (HEATER_DUTY_CYCLE/HEATER_PWM_STEP_WIDTH)
-#define HEATER_ISR_RATE_MS          ((1000/50)/10)
-
-TaskHandle_t HEATER_Task_Handle;
+#define HEATER_PWM_RESOLUTION       (HEATER_PWM_PERIOD_WIDTH / HEATER_PWM_STEP_WIDTH)
+#define HEATER_DUTY_CYCLE           40.0
+#define HEATER_PWM_PERIOD_MS        (1000 / HEATER_PWM_SIGNAL_FREQ_HZ))
+#define HEATER_ON_STEPS_NO          ((HEATER_DUTY_CYCLE / 100) * HEATER_PWM_RESOLUTION)
+#define HEATER_ISR_RATE_MS          (HEATER_PWM_PERIOD_MS / (HEATER_PWM_RESOLUTION))
 
 static tHeater_State heater_state = HEATER_OFF;
 
@@ -44,7 +44,7 @@ void Heater_Init(void)
     TimerIntRegister(TIMER1_BASE, TIMER_B, Heater_SwPwmIsr);
     TimerIntEnable(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
 
-    /*Configure start timer*/
+    /*This timer enable will be synchronised with the SSD start function using a third timer*/
     TimerConfigure(TIMER2_BASE,
                      TIMER_CFG_SPLIT_PAIR |
                      TIMER_CFG_A_PERIODIC_UP |
@@ -72,9 +72,9 @@ void Heater_SetState(tHeater_State state)
 
 /*
 Requires hard real-time handling
-    WCET
-    P = 2ms
-    D = P
+    Period = 2ms
+    Deadline = WCET (Set by me)
+    So this Isr should be executed as soon as it's ready
 */
 void Heater_SwPwmIsr(void)
 {

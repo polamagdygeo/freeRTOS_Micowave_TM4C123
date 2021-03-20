@@ -19,18 +19,17 @@ TaskHandle_t startup_task_handle;
 
 void Startup_Task(void *param)
 {
-    /*Configure timer*/
-    TimerConfigure(TIMER0_BASE,TIMER_CFG_ONE_SHOT_UP);
-    TimerPrescaleSet(TIMER0_BASE,TIMER_BOTH, 16);
-    TimerClockSourceSet(TIMER0_BASE,TIMER_CLOCK_SYSTEM);
-    TimerLoadSet(TIMER0_BASE,TIMER_BOTH,5);
-    TimerSynchronize(TIMER0_BASE,TIMER_2A_SYNC | TIMER_2B_SYNC);
-    TimerEnable(TIMER2_BASE, TIMER_A);
-    TimerEnable(TIMER2_BASE, TIMER_B);
-    TimerEnable(TIMER0_BASE, TIMER_BOTH);
-
     while(1)
     {
+        /*Configure the synchronisation timer*/
+        TimerConfigure(TIMER0_BASE,TIMER_CFG_ONE_SHOT_UP);
+        TimerPrescaleSet(TIMER0_BASE,TIMER_BOTH, 16);
+        TimerClockSourceSet(TIMER0_BASE,TIMER_CLOCK_SYSTEM);
+        TimerLoadSet(TIMER0_BASE,TIMER_BOTH,5);
+        TimerSynchronize(TIMER0_BASE,TIMER_2A_SYNC | TIMER_2B_SYNC);
+        TimerEnable(TIMER2_BASE, TIMER_A);
+        TimerEnable(TIMER2_BASE, TIMER_B);
+        TimerEnable(TIMER0_BASE, TIMER_BOTH);
         vTaskSuspend(startup_task_handle);
     }
 }

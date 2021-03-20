@@ -52,7 +52,7 @@ void SSD_Init(void)
     TimerIntRegister(TIMER1_BASE, TIMER_A, SSD_ISR);
     TimerIntEnable(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
 
-    /*Configure start timer*/
+    /*This timer enable will be synchronised with the heater start function using a third timer*/
     TimerConfigure(TIMER2_BASE,
                      TIMER_CFG_SPLIT_PAIR |
                      TIMER_CFG_A_PERIODIC_UP |
@@ -114,10 +114,10 @@ void SSD_SetBlinkable(tSSD ssd,uint8_t isBlinkable)
 }
 
 /*
-Requires hard real-time handling
-    WCET 158 us 
-    P = 10ms
-    D = P
+Requires hard real-time handling 
+    Period = 10ms
+    Deadline = WCET (Set by me)
+    So this Isr should be executed as soon as it's ready
 */
 void SSD_ISR(void)
 {
