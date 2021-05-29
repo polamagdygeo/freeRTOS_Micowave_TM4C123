@@ -30,7 +30,7 @@ void Heater_Init(void)
     GPIODirModeSet(HEATER_LED_PORT, 1 << HEATER_LED_PIN, GPIO_DIR_MODE_OUT);
     GPIOPadConfigSet(HEATER_LED_PORT, 1 << HEATER_LED_PIN,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
 
-    /*Configure timer*/
+    /*Configure timer for sw pwm*/
     TimerConfigure(TIMER1_BASE,
                       TIMER_CFG_SPLIT_PAIR |
                       TIMER_CFG_A_PERIODIC |
@@ -44,7 +44,8 @@ void Heater_Init(void)
     TimerIntRegister(TIMER1_BASE, TIMER_B, Heater_SwPwmIsr);
     TimerIntEnable(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
 
-    /*This timer enable will be synchronised with the SSD start function using a third timer*/
+    /*This timer enable will be synchronised with the SSD start timer using 
+        a third timer to start heater and ssd with a phase shift*/
     TimerConfigure(TIMER2_BASE,
                      TIMER_CFG_SPLIT_PAIR |
                      TIMER_CFG_A_PERIODIC_UP |
@@ -53,7 +54,7 @@ void Heater_Init(void)
                      TIMER_CFG_B_ACT_NONE);
     TimerPrescaleSet(TIMER2_BASE,TIMER_B, 16);
     TimerClockSourceSet(TIMER2_BASE,TIMER_CLOCK_SYSTEM);
-    TimerLoadSet(TIMER2_BASE, TIMER_B,160*2);
+    TimerLoadSet(TIMER2_BASE, TIMER_B,160*2); /*160 ms phase shift equals ssd WCET*/
     TimerIntRegister(TIMER2_BASE, TIMER_B, Heater_Start);
     TimerIntEnable(TIMER2_BASE, TIMER_TIMB_TIMEOUT);
 }
@@ -71,10 +72,8 @@ void Heater_SetState(tHeater_State state)
 }
 
 /*
-Requires hard real-time handling
-    Period = 2ms
-    Deadline = WCET (Set by me)
-    So this Isr should be executed as soon as it's ready
+period = deadline = 2ms
+Requires to be jitter-free (set by me =)) this Isr should be executed as soon as it's ready
 */
 void Heater_SwPwmIsr(void)
 {

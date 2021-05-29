@@ -38,7 +38,7 @@ void SSD_Init(void)
     SSD_SetSymbol(SSD_ONCE,SSD_NUMBER_ZERO);
     SSD_SetSymbol(SSD_TENTH,SSD_NUMBER_ZERO);
 
-    /*Configure timer*/
+    /*Configure timer for ssd update isr*/
     TimerConfigure(TIMER1_BASE,
                    TIMER_CFG_SPLIT_PAIR |
                    TIMER_CFG_A_PERIODIC |
@@ -61,7 +61,7 @@ void SSD_Init(void)
                      TIMER_CFG_B_ACT_NONE);
     TimerPrescaleSet(TIMER2_BASE,TIMER_A, 16);
     TimerClockSourceSet(TIMER2_BASE,TIMER_CLOCK_SYSTEM);
-    TimerLoadSet(TIMER2_BASE, TIMER_A,160);
+    TimerLoadSet(TIMER2_BASE, TIMER_A,160); /*160 is random offset*/
     TimerIntRegister(TIMER2_BASE, TIMER_A, SSD_Start);
     TimerIntEnable(TIMER2_BASE, TIMER_TIMA_TIMEOUT);
 }
@@ -114,10 +114,8 @@ void SSD_SetBlinkable(tSSD ssd,uint8_t isBlinkable)
 }
 
 /*
-Requires hard real-time handling 
-    Period = 10ms
-    Deadline = WCET (Set by me)
-    So this Isr should be executed as soon as it's ready
+period = deadline = 10ms
+Requires to be jitter-free (set by me =)) this Isr should be executed as soon as it's ready
 */
 void SSD_ISR(void)
 {
@@ -141,10 +139,6 @@ void SSD_ISR(void)
         if(ssd_blinking_counter[ssd_itr] >= 2*BLINKING_RATE_MS)
         {
             ssd_blinking_counter[ssd_itr] = 0;
-        }
-        else
-        {
-            ssd_blinking_counter[ssd_itr] = ssd_blinking_counter[ssd_itr];
         }
     }
     else
